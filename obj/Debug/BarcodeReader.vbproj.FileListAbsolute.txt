@@ -1,0 +1,143 @@
+I:\工作备份\资料备份\个人自定义\个人\MES\中\intermec\BarcodeReader_ce_CF3.5\bin\Debug\BarcodeReader.exe
+I:\工作备份\资料备份\个人自定义\个人\MES\中\intermec\BarcodeReader_ce_CF3.5\bin\Debug\BarcodeReader.pdb
+I:\工作备份\资料备份\个人自定义\个人\MES\中\intermec\BarcodeReader_ce_CF3.5\bin\Debug\BarcodeReader.xml
+I:\工作备份\资料备份\个人自定义\个人\MES\中\intermec\BarcodeReader_ce_CF3.5\bin\Debug\Intermec.DataCollection2.CF3.5.dll
+I:\工作备份\资料备份\个人自定义\个人\MES\中\intermec\BarcodeReader_ce_CF3.5\bin\Debug\Intermec.DataCollection2.CF3.5.xml
+I:\工作备份\资料备份\个人自定义\个人\MES\中\intermec\BarcodeReader_ce_CF3.5\obj\Debug\ResolveAssemblyReference.cache
+I:\工作备份\资料备份\个人自定义\个人\MES\中\intermec\BarcodeReader_ce_CF3.5\obj\Debug\BarcodeReader.Form1.resources
+I:\工作备份\资料备份\个人自定义\个人\MES\中\intermec\BarcodeReader_ce_CF3.5\obj\Debug\BarcodeReader.Resources.resources
+I:\工作备份\资料备份\个人自定义\个人\MES\中\intermec\BarcodeReader_ce_CF3.5\obj\Debug\BarcodeReader.vbproj.GenerateResource.Cache
+I:\工作备份\资料备份\个人自定义\个人\MES\中\intermec\BarcodeReader_ce_CF3.5\obj\Debug\BarcodeReader.exe
+I:\工作备份\资料备份\个人自定义\个人\MES\中\intermec\BarcodeReader_ce_CF3.5\obj\Debug\BarcodeReader.xml
+I:\工作备份\资料备份\个人自定义\个人\MES\中\intermec\BarcodeReader_ce_CF3.5\obj\Debug\BarcodeReader.pdb
+I:\工作备份\资料备份\个人自定义\个人\MES\中\intermec\WMS 20151010\bin\Debug\BarcodeReader.exe
+I:\工作备份\资料备份\个人自定义\个人\MES\中\intermec\WMS 20151010\bin\Debug\BarcodeReader.pdb
+I:\工作备份\资料备份\个人自定义\个人\MES\中\intermec\WMS 20151010\bin\Debug\BarcodeReader.xml
+I:\工作备份\资料备份\个人自定义\个人\MES\中\intermec\WMS 20151010\bin\Debug\Intermec.DataCollection2.CF3.5.dll
+I:\工作备份\资料备份\个人自定义\个人\MES\中\intermec\WMS 20151010\bin\Debug\Intermec.DataCollection2.CF3.5.xml
+I:\工作备份\资料备份\个人自定义\个人\MES\中\intermec\WMS 20151010\bin\Debug\System.Data.SqlServerCe.xml
+I:\工作备份\资料备份\个人自定义\个人\MES\中\intermec\WMS 20151010\bin\Debug\System.Data.SqlClient.xml
+I:\工作备份\资料备份\个人自定义\个人\MES\中\intermec\WMS 20151010\obj\Debug\ResolveAssemblyReference.cache
+I:\工作备份\资料备份\个人自定义\个人\MES\中\intermec\WMS 20151010\obj\Debug\BarcodeReader.Form1.resources
+I:\工作备份\资料备份\个人自定义\个人\MES\中\intermec\WMS 20151010\obj\Debug\BarcodeReader.Resources.resources
+I:\工作备份\资料备份\个人自定义\个人\MES\中\intermec\WMS 20151010\obj\Debug\BarcodeReader.vbproj.GenerateResource.Cache
+I:\工作备份\资料备份\个人自定义\个人\MES\中\intermec\WMS 20151010\obj\Debug\BarcodeReader.exe
+I:\工作备份\资料备份\个人自定义\个人\MES\中\intermec\WMS 20151010\obj\Debug\BarcodeReader.xml
+I:\工作备份\资料备份\个人自定义\个人\MES\中\intermec\WMS 20151010\obj\Debug\BarcodeReader.pdb
+E:\项目资料\兴源\手持开发\源程序 wms 20151010\WMS 20151010\bin\Debug\BarcodeReader.exe
+E:\项目资料\兴源\手持开发\源程序 wms 20151010\WMS 20151010\bin\Debug\BarcodeReader.pdb
+E:\项目资料\兴源\手持开发\源程序 wms 20151010\WMS 20151010\bin\Debug\BarcodeReader.xml
+E:\项目资料\兴源\手持开发\源程序 wms 20151010\WMS 20151010\bin\Debug\Intermec.DataCollection2.CF3.5.dll
+E:\项目资料\兴源\手持开发\源程序 wms 20151010\WMS 20151010\bin\Debug\System.Data.SqlServerCe.dll
+E:\项目资料\兴源\手持开发\源程序 wms 20151010\WMS 20151010\bin\Debug\Intermec.DataCollection2.CF3.5.xml
+E:\项目资料\兴源\手持开发\源程序 wms 20151010\WMS 20151010\obj\Debug\ResolveAssemblyReference.cache
+E:\项目资料\兴源\手持开发\源程序 wms 20151010\WMS 20151010\obj\Debug\BarcodeReader.Form1.resources
+E:\项目资料\兴源\手持开发\源程序 wms 20151010\WMS 20151010\obj\Debug\BarcodeReader.Resources.resources
+E:\项目资料\兴源\手持开发\源程序 wms 20151010\WMS 20151010\obj\Debug\BarcodeReader.vbproj.GenerateResource.Cache
+E:\项目资料\兴源\手持开发\源程序 wms 20151010\WMS 20151010\obj\Debug\BarcodeReader.exe
+E:\项目资料\兴源\手持开发\源程序 wms 20151010\WMS 20151010\obj\Debug\BarcodeReader.xml
+E:\项目资料\兴源\手持开发\源程序 wms 20151010\WMS 20151010\obj\Debug\BarcodeReader.pdb
+E:\项目资料\兴源\手持开发\intermec wms 源程序\WMS 20151010\bin\Debug\BarcodeReader.exe
+E:\项目资料\兴源\手持开发\intermec wms 源程序\WMS 20151010\bin\Debug\BarcodeReader.pdb
+E:\项目资料\兴源\手持开发\intermec wms 源程序\WMS 20151010\bin\Debug\BarcodeReader.xml
+E:\项目资料\兴源\手持开发\intermec wms 源程序\WMS 20151010\bin\Debug\Intermec.DataCollection2.CF3.5.dll
+E:\项目资料\兴源\手持开发\intermec wms 源程序\WMS 20151010\bin\Debug\System.Data.SqlServerCe.dll
+E:\项目资料\兴源\手持开发\intermec wms 源程序\WMS 20151010\bin\Debug\Intermec.DataCollection2.CF3.5.xml
+E:\项目资料\兴源\手持开发\intermec wms 源程序\WMS 20151010\obj\Debug\ResolveAssemblyReference.cache
+E:\项目资料\兴源\手持开发\intermec wms 源程序\WMS 20151010\obj\Debug\BarcodeReader.Form1.resources
+E:\项目资料\兴源\手持开发\intermec wms 源程序\WMS 20151010\obj\Debug\BarcodeReader.Resources.resources
+E:\项目资料\兴源\手持开发\intermec wms 源程序\WMS 20151010\obj\Debug\BarcodeReader.vbproj.GenerateResource.Cache
+E:\项目资料\兴源\手持开发\intermec wms 源程序\WMS 20151010\obj\Debug\BarcodeReader.exe
+E:\项目资料\兴源\手持开发\intermec wms 源程序\WMS 20151010\obj\Debug\BarcodeReader.xml
+E:\项目资料\兴源\手持开发\intermec wms 源程序\WMS 20151010\obj\Debug\BarcodeReader.pdb
+E:\项目资料\兴源\手持开发\intermec wms 最新程序\WMS 20151010\bin\Debug\BarcodeReader.exe
+E:\项目资料\兴源\手持开发\intermec wms 最新程序\WMS 20151010\bin\Debug\BarcodeReader.pdb
+E:\项目资料\兴源\手持开发\intermec wms 最新程序\WMS 20151010\bin\Debug\BarcodeReader.xml
+E:\项目资料\兴源\手持开发\intermec wms 最新程序\WMS 20151010\bin\Debug\Intermec.DataCollection2.CF3.5.dll
+E:\项目资料\兴源\手持开发\intermec wms 最新程序\WMS 20151010\bin\Debug\System.Data.SqlServerCe.dll
+E:\项目资料\兴源\手持开发\intermec wms 最新程序\WMS 20151010\bin\Debug\Intermec.DataCollection2.CF3.5.xml
+E:\项目资料\兴源\手持开发\intermec wms 最新程序\WMS 20151010\obj\Debug\ResolveAssemblyReference.cache
+E:\项目资料\兴源\手持开发\intermec wms 最新程序\WMS 20151010\obj\Debug\BarcodeReader.Form1.resources
+E:\项目资料\兴源\手持开发\intermec wms 最新程序\WMS 20151010\obj\Debug\BarcodeReader.Resources.resources
+E:\项目资料\兴源\手持开发\intermec wms 最新程序\WMS 20151010\obj\Debug\BarcodeReader.vbproj.GenerateResource.Cache
+E:\项目资料\兴源\手持开发\intermec wms 最新程序\WMS 20151010\obj\Debug\BarcodeReader.exe
+E:\项目资料\兴源\手持开发\intermec wms 最新程序\WMS 20151010\obj\Debug\BarcodeReader.xml
+E:\项目资料\兴源\手持开发\intermec wms 最新程序\WMS 20151010\obj\Debug\BarcodeReader.pdb
+E:\项目资料\兴源\手持开发\intermec wms 最新程序 20151103\WMS 20151010\obj\Debug\ResolveAssemblyReference.cache
+E:\项目资料\兴源\手持开发\intermec wms 最新程序 20151103\WMS 20151010\obj\Debug\BarcodeReader.Form1.resources
+E:\项目资料\兴源\手持开发\intermec wms 最新程序 20151103\WMS 20151010\obj\Debug\BarcodeReader.Resources.resources
+E:\项目资料\兴源\手持开发\intermec wms 最新程序 20151103\WMS 20151010\obj\Debug\BarcodeReader.vbproj.GenerateResource.Cache
+E:\项目资料\兴源\手持开发\intermec wms 最新程序 20151103\WMS 20151010\obj\Debug\BarcodeReader.exe
+E:\项目资料\兴源\手持开发\intermec wms 最新程序 20151103\WMS 20151010\obj\Debug\BarcodeReader.xml
+E:\项目资料\兴源\手持开发\intermec wms 最新程序 20151103\WMS 20151010\obj\Debug\BarcodeReader.pdb
+E:\项目资料\兴源\手持开发\intermec wms 最新程序 20151103\WMS 20151010\bin\Debug\BarcodeReader.exe
+E:\项目资料\兴源\手持开发\intermec wms 最新程序 20151103\WMS 20151010\bin\Debug\BarcodeReader.pdb
+E:\项目资料\兴源\手持开发\intermec wms 最新程序 20151103\WMS 20151010\bin\Debug\BarcodeReader.xml
+E:\项目资料\兴源\手持开发\intermec wms 最新程序 20151103\WMS 20151010\bin\Debug\Intermec.DataCollection2.CF3.5.dll
+E:\项目资料\兴源\手持开发\intermec wms 最新程序 20151103\WMS 20151010\bin\Debug\System.Data.SqlServerCe.dll
+E:\项目资料\兴源\手持开发\intermec wms 最新程序 20151103\WMS 20151010\bin\Debug\Intermec.DataCollection2.CF3.5.xml
+E:\项目资料\兴源\手持改版\intermec wms 最新程序\WMS 20151010\bin\Debug\BarcodeReader.exe
+E:\项目资料\兴源\手持改版\intermec wms 最新程序\WMS 20151010\bin\Debug\BarcodeReader.pdb
+E:\项目资料\兴源\手持改版\intermec wms 最新程序\WMS 20151010\bin\Debug\BarcodeReader.xml
+E:\项目资料\兴源\手持改版\intermec wms 最新程序\WMS 20151010\bin\Debug\Intermec.DataCollection2.CF3.5.dll
+E:\项目资料\兴源\手持改版\intermec wms 最新程序\WMS 20151010\bin\Debug\System.Data.SqlServerCe.dll
+E:\项目资料\兴源\手持改版\intermec wms 最新程序\WMS 20151010\bin\Debug\Intermec.DataCollection2.CF3.5.xml
+E:\项目资料\兴源\手持改版\intermec wms 最新程序\WMS 20151010\obj\Debug\ResolveAssemblyReference.cache
+E:\项目资料\兴源\手持改版\intermec wms 最新程序\WMS 20151010\obj\Debug\BarcodeReader.Form1.resources
+E:\项目资料\兴源\手持改版\intermec wms 最新程序\WMS 20151010\obj\Debug\BarcodeReader.Resources.resources
+E:\项目资料\兴源\手持改版\intermec wms 最新程序\WMS 20151010\obj\Debug\BarcodeReader.vbproj.GenerateResource.Cache
+E:\项目资料\兴源\手持改版\intermec wms 最新程序\WMS 20151010\obj\Debug\BarcodeReader.exe
+E:\项目资料\兴源\手持改版\intermec wms 最新程序\WMS 20151010\obj\Debug\BarcodeReader.xml
+E:\项目资料\兴源\手持改版\intermec wms 最新程序\WMS 20151010\obj\Debug\BarcodeReader.pdb
+E:\项目资料\兴源\手持改版\intermec wms 最新程序(增加车辆信息)20160724\WMS 20151010\bin\Debug\BarcodeReader.exe
+E:\项目资料\兴源\手持改版\intermec wms 最新程序(增加车辆信息)20160724\WMS 20151010\bin\Debug\BarcodeReader.pdb
+E:\项目资料\兴源\手持改版\intermec wms 最新程序(增加车辆信息)20160724\WMS 20151010\bin\Debug\BarcodeReader.xml
+E:\项目资料\兴源\手持改版\intermec wms 最新程序(增加车辆信息)20160724\WMS 20151010\bin\Debug\Intermec.DataCollection2.CF3.5.dll
+E:\项目资料\兴源\手持改版\intermec wms 最新程序(增加车辆信息)20160724\WMS 20151010\bin\Debug\System.Data.SqlServerCe.dll
+E:\项目资料\兴源\手持改版\intermec wms 最新程序(增加车辆信息)20160724\WMS 20151010\bin\Debug\Intermec.DataCollection2.CF3.5.xml
+E:\项目资料\兴源\手持改版\intermec wms 最新程序(增加车辆信息)20160724\WMS 20151010\obj\Debug\ResolveAssemblyReference.cache
+E:\项目资料\兴源\手持改版\intermec wms 最新程序(增加车辆信息)20160724\WMS 20151010\obj\Debug\BarcodeReader.Form1.resources
+E:\项目资料\兴源\手持改版\intermec wms 最新程序(增加车辆信息)20160724\WMS 20151010\obj\Debug\BarcodeReader.Resources.resources
+E:\项目资料\兴源\手持改版\intermec wms 最新程序(增加车辆信息)20160724\WMS 20151010\obj\Debug\BarcodeReader.vbproj.GenerateResource.Cache
+E:\项目资料\兴源\手持改版\intermec wms 最新程序(增加车辆信息)20160724\WMS 20151010\obj\Debug\BarcodeReader.exe
+E:\项目资料\兴源\手持改版\intermec wms 最新程序(增加车辆信息)20160724\WMS 20151010\obj\Debug\BarcodeReader.xml
+E:\项目资料\兴源\手持改版\intermec wms 最新程序(增加车辆信息)20160724\WMS 20151010\obj\Debug\BarcodeReader.pdb
+E:\项目资料\兴源\手持改版\intermec wms 最新程序(入库修改)20160725\WMS 20151010\bin\Debug\BarcodeReader.exe
+E:\项目资料\兴源\手持改版\intermec wms 最新程序(入库修改)20160725\WMS 20151010\bin\Debug\BarcodeReader.pdb
+E:\项目资料\兴源\手持改版\intermec wms 最新程序(入库修改)20160725\WMS 20151010\bin\Debug\BarcodeReader.xml
+E:\项目资料\兴源\手持改版\intermec wms 最新程序(入库修改)20160725\WMS 20151010\bin\Debug\Intermec.DataCollection2.CF3.5.dll
+E:\项目资料\兴源\手持改版\intermec wms 最新程序(入库修改)20160725\WMS 20151010\bin\Debug\System.Data.SqlServerCe.dll
+E:\项目资料\兴源\手持改版\intermec wms 最新程序(入库修改)20160725\WMS 20151010\bin\Debug\Intermec.DataCollection2.CF3.5.xml
+E:\项目资料\兴源\手持改版\intermec wms 最新程序(入库修改)20160725\WMS 20151010\obj\Debug\ResolveAssemblyReference.cache
+E:\项目资料\兴源\手持改版\intermec wms 最新程序(入库修改)20160725\WMS 20151010\obj\Debug\BarcodeReader.Form1.resources
+E:\项目资料\兴源\手持改版\intermec wms 最新程序(入库修改)20160725\WMS 20151010\obj\Debug\BarcodeReader.Resources.resources
+E:\项目资料\兴源\手持改版\intermec wms 最新程序(入库修改)20160725\WMS 20151010\obj\Debug\BarcodeReader.vbproj.GenerateResource.Cache
+E:\项目资料\兴源\手持改版\intermec wms 最新程序(入库修改)20160725\WMS 20151010\obj\Debug\BarcodeReader.exe
+E:\项目资料\兴源\手持改版\intermec wms 最新程序(入库修改)20160725\WMS 20151010\obj\Debug\BarcodeReader.xml
+E:\项目资料\兴源\手持改版\intermec wms 最新程序(入库修改)20160725\WMS 20151010\obj\Debug\BarcodeReader.pdb
+E:\项目资料\兴源\手持改版\intermec wms 最新程序(入库修改+MES)20160725\WMS 20151010\bin\Debug\BarcodeReader.exe
+E:\项目资料\兴源\手持改版\intermec wms 最新程序(入库修改+MES)20160725\WMS 20151010\bin\Debug\BarcodeReader.pdb
+E:\项目资料\兴源\手持改版\intermec wms 最新程序(入库修改+MES)20160725\WMS 20151010\bin\Debug\BarcodeReader.xml
+E:\项目资料\兴源\手持改版\intermec wms 最新程序(入库修改+MES)20160725\WMS 20151010\bin\Debug\Intermec.DataCollection2.CF3.5.dll
+E:\项目资料\兴源\手持改版\intermec wms 最新程序(入库修改+MES)20160725\WMS 20151010\bin\Debug\System.Data.SqlServerCe.dll
+E:\项目资料\兴源\手持改版\intermec wms 最新程序(入库修改+MES)20160725\WMS 20151010\bin\Debug\Intermec.DataCollection2.CF3.5.xml
+E:\项目资料\兴源\手持改版\intermec wms 最新程序(入库修改+MES)20160725\WMS 20151010\obj\Debug\ResolveAssemblyReference.cache
+E:\项目资料\兴源\手持改版\intermec wms 最新程序(入库修改+MES)20160725\WMS 20151010\obj\Debug\BarcodeReader.Form1.resources
+E:\项目资料\兴源\手持改版\intermec wms 最新程序(入库修改+MES)20160725\WMS 20151010\obj\Debug\BarcodeReader.Resources.resources
+E:\项目资料\兴源\手持改版\intermec wms 最新程序(入库修改+MES)20160725\WMS 20151010\obj\Debug\BarcodeReader.vbproj.GenerateResource.Cache
+E:\项目资料\兴源\手持改版\intermec wms 最新程序(入库修改+MES)20160725\WMS 20151010\obj\Debug\BarcodeReader.exe
+E:\项目资料\兴源\手持改版\intermec wms 最新程序(入库修改+MES)20160725\WMS 20151010\obj\Debug\BarcodeReader.xml
+E:\项目资料\兴源\手持改版\intermec wms 最新程序(入库修改+MES)20160725\WMS 20151010\obj\Debug\BarcodeReader.pdb
+D:\项目资料\兴源\手持改版\intermec wms 最新程序\WMS 20151010\bin\Debug\BarcodeReader.exe
+D:\项目资料\兴源\手持改版\intermec wms 最新程序\WMS 20151010\bin\Debug\BarcodeReader.pdb
+D:\项目资料\兴源\手持改版\intermec wms 最新程序\WMS 20151010\bin\Debug\BarcodeReader.xml
+D:\项目资料\兴源\手持改版\intermec wms 最新程序\WMS 20151010\bin\Debug\Intermec.DataCollection2.CF3.5.dll
+D:\项目资料\兴源\手持改版\intermec wms 最新程序\WMS 20151010\bin\Debug\System.Data.SqlServerCe.dll
+D:\项目资料\兴源\手持改版\intermec wms 最新程序\WMS 20151010\bin\Debug\Intermec.DataCollection2.CF3.5.xml
+D:\项目资料\兴源\手持改版\intermec wms 最新程序\WMS 20151010\obj\Debug\ResolveAssemblyReference.cache
+D:\项目资料\兴源\手持改版\intermec wms 最新程序\WMS 20151010\obj\Debug\BarcodeReader.Form1.resources
+D:\项目资料\兴源\手持改版\intermec wms 最新程序\WMS 20151010\obj\Debug\BarcodeReader.Resources.resources
+D:\项目资料\兴源\手持改版\intermec wms 最新程序\WMS 20151010\obj\Debug\BarcodeReader.vbproj.GenerateResource.Cache
+D:\项目资料\兴源\手持改版\intermec wms 最新程序\WMS 20151010\obj\Debug\BarcodeReader.exe
+D:\项目资料\兴源\手持改版\intermec wms 最新程序\WMS 20151010\obj\Debug\BarcodeReader.xml
+D:\项目资料\兴源\手持改版\intermec wms 最新程序\WMS 20151010\obj\Debug\BarcodeReader.pdb

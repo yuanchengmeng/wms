@@ -1,0 +1,9 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<Config>
+	<DatabaseSetting>
+		<DataSource>169.254.2.2</DataSource>
+		<InitialCatalog>wms</InitialCatalog>
+		<UserID>sa</UserID>
+		<Password>kingdee</Password>
+	</DatabaseSetting>
+</Config>
