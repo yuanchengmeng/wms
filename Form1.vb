@@ -2975,5 +2975,6 @@ Public Class Form1
         StrErr = GetRst(StrSQL, Arr, SQLK3)
         FBillID = Arr(1, 1)
         QtInType = 3
+
     End Sub
 End Class
