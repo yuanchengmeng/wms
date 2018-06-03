@@ -2937,8 +2937,8 @@ Public Class Form1
     '20180602新增其它入库
     Private Sub Button68_Click(ByVal sender As System.Object, ByVal e As System.EventArgs) Handles Button68.Click
         ShowPanel(24)
-        Label93.Text = "外购入库"
-        Label82.Text = "外购入库"
+        Label93.Text = "外购入库>"
+        Label82.Text = "外购入库>"
         Dim StrSQL As String
         Dim StrErr As String
         StrSQL = "select FBillID from ICBillNo where FBillName LIKE '外购入库%' "
@@ -2970,8 +2970,8 @@ Public Class Form1
     '20180602新增其它入库
     Private Sub Button67_Click_1(ByVal sender As System.Object, ByVal e As System.EventArgs) Handles Button67.Click
         ShowPanel(24)
-        Label93.Text = "其它入库"
-        Label82.Text = "其它入库"
+        Label93.Text = "其它入库>"
+        Label82.Text = "其它入库>"
         Dim StrSQL As String
         Dim StrErr As String
         StrSQL = "select FBillID from ICBillNo where FBillName LIKE '其他入库%' "

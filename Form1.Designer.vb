@@ -2149,9 +2149,9 @@ Partial Public Class Form1
         Me.Label80.BackColor = System.Drawing.SystemColors.Control
         Me.Label80.Font = New System.Drawing.Font("Tahoma", 9.0!, System.Drawing.FontStyle.Bold)
         Me.Label80.ForeColor = System.Drawing.Color.Blue
-        Me.Label80.Location = New System.Drawing.Point(147, 2)
+        Me.Label80.Location = New System.Drawing.Point(149, 2)
         Me.Label80.Name = "Label80"
-        Me.Label80.Size = New System.Drawing.Size(90, 15)
+        Me.Label80.Size = New System.Drawing.Size(88, 15)
         Me.Label80.Text = "＞ 扫 码 入 库"
         '
         'Label81
@@ -2159,7 +2159,7 @@ Partial Public Class Form1
         Me.Label81.BackColor = System.Drawing.SystemColors.Control
         Me.Label81.Font = New System.Drawing.Font("Tahoma", 9.0!, System.Drawing.FontStyle.Bold)
         Me.Label81.ForeColor = System.Drawing.Color.Black
-        Me.Label81.Location = New System.Drawing.Point(70, 2)
+        Me.Label81.Location = New System.Drawing.Point(69, 2)
         Me.Label81.Name = "Label81"
         Me.Label81.Size = New System.Drawing.Size(78, 15)
         Me.Label81.Text = "  选 择 笼 框"
@@ -2242,9 +2242,9 @@ Partial Public Class Form1
         Me.Label86.BackColor = System.Drawing.SystemColors.Control
         Me.Label86.Font = New System.Drawing.Font("Tahoma", 9.0!, System.Drawing.FontStyle.Bold)
         Me.Label86.ForeColor = System.Drawing.Color.Black
-        Me.Label86.Location = New System.Drawing.Point(146, 4)
+        Me.Label86.Location = New System.Drawing.Point(149, 2)
         Me.Label86.Name = "Label86"
-        Me.Label86.Size = New System.Drawing.Size(90, 15)
+        Me.Label86.Size = New System.Drawing.Size(88, 15)
         Me.Label86.Text = "＞ 扫 码 入 库"
         '
         'Label87
@@ -2252,7 +2252,7 @@ Partial Public Class Form1
         Me.Label87.BackColor = System.Drawing.SystemColors.Control
         Me.Label87.Font = New System.Drawing.Font("Tahoma", 9.0!, System.Drawing.FontStyle.Bold)
         Me.Label87.ForeColor = System.Drawing.Color.Blue
-        Me.Label87.Location = New System.Drawing.Point(68, 4)
+        Me.Label87.Location = New System.Drawing.Point(69, 2)
         Me.Label87.Name = "Label87"
         Me.Label87.Size = New System.Drawing.Size(78, 15)
         Me.Label87.Text = "  选 择 笼 框"
@@ -2306,7 +2306,7 @@ Partial Public Class Form1
         Me.Label93.BackColor = System.Drawing.SystemColors.Control
         Me.Label93.Font = New System.Drawing.Font("Tahoma", 9.0!, System.Drawing.FontStyle.Bold)
         Me.Label93.ForeColor = System.Drawing.Color.Black
-        Me.Label93.Location = New System.Drawing.Point(1, 4)
+        Me.Label93.Location = New System.Drawing.Point(3, 2)
         Me.Label93.Name = "Label93"
         Me.Label93.Size = New System.Drawing.Size(64, 15)
         Me.Label93.Text = "外购入库:"
