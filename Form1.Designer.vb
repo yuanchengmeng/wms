@@ -1921,7 +1921,7 @@ Partial Public Class Form1
         Me.Button61.Name = "Button61"
         Me.Button61.Size = New System.Drawing.Size(100, 23)
         Me.Button61.TabIndex = 93
-        Me.Button61.Text = "主页"
+        Me.Button61.Text = "返回"
         '
         'Button62
         '
@@ -1937,7 +1937,7 @@ Partial Public Class Form1
         Me.Button63.Name = "Button63"
         Me.Button63.Size = New System.Drawing.Size(100, 23)
         Me.Button63.TabIndex = 17
-        Me.Button63.Text = "入库"
+        Me.Button63.Text = "扫码入库"
         '
         'Panel20
         '
