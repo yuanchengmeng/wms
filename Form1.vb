@@ -671,11 +671,44 @@ Public Class Form1
 
         StrErr5 = ExeSQLS(SQL1, SQL)
         If StrErr5 <> "" Then MsgBox(StrErr5) : Exit Function
-        'AddOperLog(TextBox7.Text.Trim, "入库", BoxCode)
-        SetLog("扫码完成")
         StrShow = "扫码成功！！"
     End Function
-    
+
+    Function GetQtInBar(ByRef StrShow As String)
+
+        Dim SQLStr() As String
+        ReDim SQLStr(1)
+        Dim StrErr4 As String
+        SQLStr(1) = "UPDATE KTMSSQL.dbo.sync_bcwl SET kq_nm =" & FaultLoc & " WHERE barcode = '" & TextBox28.Text.Trim & "'"
+        StrErr4 = ExeSQLS(SQLStr, SQLMES)
+        If StrErr4 <> "" Then GetQtInBar = StrErr4 : Exit Function
+
+        Dim StrErr5 As String
+        Dim SQL1() As String
+        ReDim SQL1(1)
+
+        SQL1(1) = "insert into hand_store (StoreState,InClass,ProductID,inman,incode,intime,indate,oldrk_time,oldrk_class,oldrk_man,barcode,boxcode,flag,FaultLoc,instore_type,k3_time) values " & _
+                        "('在库','" & NowClass & "'," & FItemID & ",'" & NowUser & "'," & FInterID & ",convert(datetime,convert(varchar(20),getdate(),120)),convert(varchar(10),getdate(),120),convert(datetime,convert(varchar(20),getdate(),120)),'" & NowClass & "','" & NowUser & "','" & TextBox28.Text.Trim & "','" & BoxCode & "',1," & FaultLoc & "," & QtInType & ",convert(datetime,convert(varchar(20),getdate(),120)))"
+
+        StrErr5 = ExeSQLS(SQL1, SQL)
+        If StrErr5 <> "" Then MsgBox(StrErr5) : Exit Function
+        StrShow = "扫码成功！！"
+    End Function
+
+    '2018-6-2增加如果入库条码是【入库取消】的话，直接修改入库标志即可
+    Function updateQtInBar(ByRef StrShow As String)
+
+        Dim StrErr5 As String
+        Dim SQL1() As String
+        ReDim SQL1(1)
+
+        SQL1(1) = "update hand_store set incode=" & FInterID & ",k3_time=convert(datetime,convert(varchar(20),getdate(),120)),oldrk_time=intime,oldrk_class=InClass,oldrk_man=inman,StoreState='在库',InClass='" & NowClass & "',inman='" & NowUser & "',intime=convert(datetime,convert(varchar(20),getdate(),120)),indate=convert(varchar(10),getdate(),120),boxcode='" & BoxCode & "',flag=1,instore_type=" & QtInType & " where barcode='" & TextBox7.Text.Trim & "'"
+
+        StrErr5 = ExeSQLS(SQL1, SQL)
+        If StrErr5 <> "" Then MsgBox(StrErr5) : Exit Function
+        StrShow = "扫码成功！！"
+    End Function
+
     '2018-4-16增加如果入库条码是【入库取消】的话，直接修改入库标志即可
     Function updateInBar(ByRef StrShow As String)
         Dim LogStr As String = ""
@@ -703,7 +736,6 @@ Public Class Form1
 
         StrErr5 = ExeSQLS(SQL1, SQL)
         If StrErr5 <> "" Then MsgBox(StrErr5) : Exit Function
-        SetLog("扫码完成")
         StrShow = "扫码成功！！"
     End Function
 
@@ -984,6 +1016,10 @@ Public Class Form1
             Case 23
                 TextBox28.Text = Str
                 QtInStore()
+            Case 24
+                TextBox29.Text = Str
+                BoxCode = Str
+                QtInMessage()
         End Select
     End Sub
 
@@ -1239,6 +1275,20 @@ Public Class Form1
         Dim StrErr As String
         Dim Arr(,)
         StrErr = GetRst("select barcode from hand_store where StoreState='在库' and boxcode='" & TextBox13.Text & "'", Arr, SQL)
+        If StrErr <> "" Then
+            SetLog(StrErr)
+            MsgBox("连接数据库失败！！")
+            Exit Sub
+        End If
+        BoxNum = UBound(Arr, 2)
+        ShowBoxLabel("当前容量： " & BoxNum, Color.Green)
+    End Sub
+
+    Sub QtInMessage()
+        If TextBox29.Text.Length <> 5 Then ShowBoxLabel("请扫描5位条码！", Color.Red) : Exit Sub
+        Dim StrErr As String
+        Dim Arr(,)
+        StrErr = GetRst("select barcode from hand_store where StoreState='在库' and boxcode='" & TextBox29.Text & "'", Arr, SQL)
         If StrErr <> "" Then
             SetLog(StrErr)
             MsgBox("连接数据库失败！！")
@@ -1990,7 +2040,7 @@ Public Class Form1
     End Sub
     '20180602新增其它入库
     Sub QtInStore()
-        If TextBox28.Text = "" Then ShowCancelOutLabel("请扫描11位条码!!", Color.Red) : Exit Sub
+        If TextBox28.Text = "" Then ShowQtInLabel("请扫描11位条码!!", Color.Red) : Exit Sub
         If TextBox28.Text.Length <> 10 And TextBox28.Text.Length <> 11 Then ShowQtInLabel("请扫描10或者11位条码！！", Color.Red) : Exit Sub
         If TextBox28.Text.Length = 10 Then
             Dim StrErr0 As String
@@ -2018,18 +2068,37 @@ Public Class Form1
         End If
         If StrErr1 <> "" Then ShowQtInLabel(StrErr1, Color.Red) : Exit Sub
 
-        Dim StrShow As String = ""
-        StrErr1 = GetRst("select top 1 Barcode from hand_store where StoreState='取消入库' and Barcode='" & TextBox28.Text & "'", Arr1, SQL)
-        If StrErr1 <> "" Then ShowInLabel(StrErr1, Color.Red) : Exit Sub
-        If UBound(Arr1, 2) > 0 Then
-            StrErr1 = updateInBar(StrShow)
-        Else
-            StrErr1 = GetInBar(StrShow)
+        If Val(BoxCode) < 99979 Or Val(BoxCode) > 99999 Then
+            Dim Arr6(,)
+            Dim StrErr6 As String
+            StrErr6 = GetRst("select top 1 barcode from hand_store where StoreState='在库' and boxcode='" & BoxCode & "'", Arr6, SQL)
+            If StrErr6 <> "" Then ShowQtInLabel(StrErr1, Color.Red) : Exit Sub
+
+            If UBound(Arr6, 2) > 0 Then
+                Dim Arr2(,)
+                Dim StrErr2 As String
+                StrErr2 = GetRst("select top 1 barcode from hand_store where StoreState='在库' and  ProductID = " & FItemID & " and boxcode='" & BoxCode & "'", Arr2, SQL)
+
+                If StrErr2 <> "" Then ShowQtInLabel(StrErr1, Color.Red) : Exit Sub
+                If UBound(Arr2, 2) <= 0 Then ShowQtInLabel("同一笼框条码,规格必须一致！！", Color.Red) : Exit Sub
+
+            End If
         End If
-        If StrErr1 <> "" Then ShowQtInLabel(StrErr1, Color.Red) : Exit Sub
 
         '生成其他入库单
         CreateQtInBill()
+
+        '插入仓储系统
+        Dim StrShow As String = ""
+        StrErr1 = GetRst("select top 1 Barcode from hand_store where StoreState='取消入库' and Barcode='" & TextBox28.Text & "'", Arr1, SQL)
+        If StrErr1 <> "" Then ShowQtInLabel(StrErr1, Color.Red) : Exit Sub
+        If UBound(Arr1, 2) > 0 Then
+            StrErr1 = updateQtInBar(StrShow)
+        Else
+            StrErr1 = GetQtInBar(StrShow)
+        End If
+        If StrErr1 <> "" Then ShowQtInLabel(StrErr1, Color.Red) : Exit Sub
+
         StrShow = "规格：" & vbCrLf & Product & vbCrLf & vbCrLf & "条码：" & TextBox28.Text & vbCrLf & vbCrLf & StrShow
         ShowQtInLabel(StrShow, Color.Green)
     End Sub
@@ -2038,8 +2107,8 @@ Public Class Form1
         Dim StrErr1 As String
         Dim Arr6(,)
         Dim StrErr6 As String
-        StrErr6 = GetRst("select FInterID from ICStockBill where FCheckerID is null and FTranType=" & FBillID & " and FBillerID=" & k3User & " and FROB=1 and FDate >=convert(datetime,convert(varchar(10),getdate(),120)) and FDate < convert(datetime,convert(varchar(11),dateadd(day,1,getdate()),120))", Arr6, SQLK3)
-        If StrErr6 <> "" Then ShowCancelOutLabel(StrErr6, Color.Red) : Exit Sub
+        StrErr6 = GetRst("select FInterID from ICStockBill where FCheckerID is null and FTranType=" & FBillID & " and FBillerID=16427 and FROB=1 and FDate >=convert(datetime,convert(varchar(10),getdate(),120)) and FDate < convert(datetime,convert(varchar(11),dateadd(day,1,getdate()),120))", Arr6, SQLK3)
+        If StrErr6 <> "" Then ShowQtInLabel(StrErr6, Color.Red) : Exit Sub
         If UBound(Arr6, 2) <= 0 Then
             StrErr1 = GetBillNo()
             If StrErr1 <> "" Then ShowQtInLabel(StrErr1, Color.Red) : Exit Sub
@@ -2060,7 +2129,7 @@ Public Class Form1
         If UBound(Arr5, 2) > 0 Then
             Dim SQL2() As String
             ReDim SQL2(1)
-            SQL2(1) = "update ICStockBillEntry set FQty=" & (Arr5(1, 1) - 1) & ",FAuxQty=" & (Arr5(1, 1) - 1) & ",FConsignPrice= FPrice ,FConsignAmount=" & (Arr5(1, 1) - 1) & " * FPrice  where FInterID = " & FInterID & " and FItemID=" & FItemID
+            SQL2(1) = "update ICStockBillEntry set FQty=" & (Arr5(1, 1) + 1) & ",FAuxQty=" & (Arr5(1, 1) + 1) & ",FConsignPrice= FPrice ,FConsignAmount=" & (Arr5(1, 1) + 1) & " * FPrice  where FInterID = " & FInterID & " and FItemID=" & FItemID
             StrErr5 = ExeSQLS(SQL2, SQLK3)
             If StrErr5 <> "" Then ShowQtInLabel(StrErr5, Color.Red) : Exit Sub
         Else
@@ -2979,5 +3048,13 @@ Public Class Form1
         StrErr = GetRst(StrSQL, Arr, SQLK3)
         FBillID = Arr(1, 1)
         QtInType = 3
+    End Sub
+
+    Private Sub Button71_Click(ByVal sender As System.Object, ByVal e As System.EventArgs) Handles Button71.Click
+        QtInStore()
+    End Sub
+
+    Private Sub Button75_Click(ByVal sender As System.Object, ByVal e As System.EventArgs) Handles Button75.Click
+        QtInMessage()
     End Sub
 End Class

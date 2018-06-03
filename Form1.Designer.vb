@@ -2209,7 +2209,7 @@ Partial Public Class Form1
         Me.Label84.Location = New System.Drawing.Point(10, 44)
         Me.Label84.Name = "Label84"
         Me.Label84.Size = New System.Drawing.Size(64, 17)
-        Me.Label84.Text = "取消条码:"
+        Me.Label84.Text = "轮胎条码:"
         '
         'Button72
         '

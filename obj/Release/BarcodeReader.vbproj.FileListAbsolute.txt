@@ -96,3 +96,17 @@ D:\项目资料\兴源\手持改版\intermec wms 最新程序\WMS 20151010\obj\R
 D:\项目资料\兴源\手持改版\intermec wms 最新程序\WMS 20151010\obj\Release\BarcodeReader.exe
 D:\项目资料\兴源\手持改版\intermec wms 最新程序\WMS 20151010\obj\Release\BarcodeReader.xml
 D:\项目资料\兴源\手持改版\intermec wms 最新程序\WMS 20151010\obj\Release\BarcodeReader.pdb
+E:\xhy\wms\bin\Release\BarcodeReader.exe
+E:\xhy\wms\bin\Release\BarcodeReader.pdb
+E:\xhy\wms\bin\Release\BarcodeReader.xml
+E:\xhy\wms\bin\Release\Intermec.DataCollection2.CF3.5.dll
+E:\xhy\wms\bin\Release\System.Data.SqlClient.dll
+E:\xhy\wms\bin\Release\System.Data.SqlServerCe.dll
+E:\xhy\wms\bin\Release\Intermec.DataCollection2.CF3.5.xml
+E:\xhy\wms\obj\Release\ResolveAssemblyReference.cache
+E:\xhy\wms\obj\Release\BarcodeReader.Form1.resources
+E:\xhy\wms\obj\Release\BarcodeReader.Resources.resources
+E:\xhy\wms\obj\Release\BarcodeReader.vbproj.GenerateResource.Cache
+E:\xhy\wms\obj\Release\BarcodeReader.exe
+E:\xhy\wms\obj\Release\BarcodeReader.xml
+E:\xhy\wms\obj\Release\BarcodeReader.pdb
