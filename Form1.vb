@@ -3004,7 +3004,7 @@ Public Class Form1
         QtInType = 1
     End Sub
     '20180602新增其它入库
-    Private Sub Button68_Click(ByVal sender As System.Object, ByVal e As System.EventArgs) Handles Button68.Click
+    Private Sub Button68_Click(ByVal sender As System.Object, ByVal e As System.EventArgs)
         ShowPanel(24)
         Label93.Text = "外购入库>"
         Label82.Text = "外购入库>"

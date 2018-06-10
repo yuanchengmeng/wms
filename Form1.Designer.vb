@@ -230,7 +230,6 @@ Partial Public Class Form1
         Me.Button66 = New System.Windows.Forms.Button
         Me.Panel22 = New System.Windows.Forms.Panel
         Me.Button67 = New System.Windows.Forms.Button
-        Me.Button68 = New System.Windows.Forms.Button
         Me.Button70 = New System.Windows.Forms.Button
         Me.Button73 = New System.Windows.Forms.Button
         Me.Panel23 = New System.Windows.Forms.Panel
@@ -2087,7 +2086,6 @@ Partial Public Class Form1
         '
         Me.Panel22.BackColor = System.Drawing.Color.White
         Me.Panel22.Controls.Add(Me.Button67)
-        Me.Panel22.Controls.Add(Me.Button68)
         Me.Panel22.Controls.Add(Me.Button70)
         Me.Panel22.Controls.Add(Me.Button73)
         Me.Panel22.Location = New System.Drawing.Point(3, 277)
@@ -2097,19 +2095,11 @@ Partial Public Class Form1
         '
         'Button67
         '
-        Me.Button67.Location = New System.Drawing.Point(69, 148)
+        Me.Button67.Location = New System.Drawing.Point(68, 115)
         Me.Button67.Name = "Button67"
         Me.Button67.Size = New System.Drawing.Size(100, 23)
         Me.Button67.TabIndex = 95
         Me.Button67.Text = "其他入库"
-        '
-        'Button68
-        '
-        Me.Button68.Location = New System.Drawing.Point(68, 94)
-        Me.Button68.Name = "Button68"
-        Me.Button68.Size = New System.Drawing.Size(100, 23)
-        Me.Button68.TabIndex = 95
-        Me.Button68.Text = "外购入库"
         '
         'Button70
         '
@@ -2125,7 +2115,7 @@ Partial Public Class Form1
         Me.Button73.Name = "Button73"
         Me.Button73.Size = New System.Drawing.Size(100, 23)
         Me.Button73.TabIndex = 34
-        Me.Button73.Text = "正常入库"
+        Me.Button73.Text = "生产入库"
         '
         'Panel23
         '
@@ -2592,7 +2582,6 @@ Partial Public Class Form1
     Friend WithEvents Label73 As System.Windows.Forms.Label
     Friend WithEvents Label79 As System.Windows.Forms.Label
     Friend WithEvents Panel22 As System.Windows.Forms.Panel
-    Friend WithEvents Button68 As System.Windows.Forms.Button
     Friend WithEvents Button70 As System.Windows.Forms.Button
     Friend WithEvents Button73 As System.Windows.Forms.Button
     Friend WithEvents Button67 As System.Windows.Forms.Button
