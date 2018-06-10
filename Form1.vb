@@ -2466,7 +2466,11 @@ Public Class Form1
 
         Dim StrErr1 As String
         Dim Arr1(,)
-        StrErr1 = GetRst("select ProductID from hand_store where Barcode='" & TextBox23.Text.Trim & "'", Arr1, SQL)
+        '2018-06-10 修改轮胎信息只显示【在库】和【已出库】
+        'StrErr1 = GetRst("select ProductID from hand_store where Barcode='" & TextBox23.Text.Trim & "'", Arr1, SQL)
+        StrErr1 = GetRst("select ProductID from hand_store where StoreState='在库' and Barcode='" & TextBox23.Text.Trim & _
+                "' UNION select ProductID from hand_store where StoreState='已出库' and Barcode='" & TextBox23.Text.Trim & "'", Arr1, SQL)
+
         If StrErr1 <> "" Then ShowBarcodeMessage(StrErr1, Color.Red) : Exit Sub
         If UBound(Arr1, 2) <= 0 Then ShowBarcodeMessage("没有该轮胎信息！！", Color.Red) : Exit Sub
 
