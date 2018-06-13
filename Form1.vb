@@ -3061,4 +3061,8 @@ Public Class Form1
     Private Sub Button75_Click(ByVal sender As System.Object, ByVal e As System.EventArgs) Handles Button75.Click
         QtInMessage()
     End Sub
+
+    Private Sub Button70_Click(ByVal sender As System.Object, ByVal e As System.EventArgs) Handles Button70.Click
+        ShowPanel(1)
+    End Sub
 End Class
