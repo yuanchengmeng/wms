@@ -2362,7 +2362,7 @@ Public Class Form1
         If TextBox22.Text.Length = 10 Or TextBox22.Text.Length = 11 Then
         	'2018-4-16增加取消入库的时间frk_time,flag=1为了不上传K3
             'SQL1(1) = "delete from hand_store where id=(select top 1 id from hand_store where Barcode='" & TextBox22.Text.Trim & "' and StoreState = '在库' order by InTime desc)"
-            SQL1(1) = "update hand_store set flag=1,StoreState = '取消入库',qxrk_time=convert(datetime,convert(varchar(20),getdate(),120)),qxrk_class='" & NowClass & "',qxrk_man='" & NowUser & "' where id=(select top 1 id from hand_store where Barcode='" & TextBox22.Text.Trim & "' and StoreState = '在库' order by InTime desc)"
+            SQL1(1) = "update hand_store set incode = null, inno = null, flag=1,StoreState = '取消入库',qxrk_time=convert(datetime,convert(varchar(20),getdate(),120)),qxrk_class='" & NowClass & "',qxrk_man='" & NowUser & "' where id=(select top 1 id from hand_store where Barcode='" & TextBox22.Text.Trim & "' and StoreState = '在库' order by InTime desc)"
             StrErr3 = ExeSQLS(SQL1, SQL)
             If StrErr3 <> "" Then ShowCancelLabel(StrErr3, Color.Red) : Exit Sub
             ShowCancelLabel("取消入库成功!!", Color.Green)
@@ -2370,7 +2370,7 @@ Public Class Form1
         End If
 				'2018-4-16增加取消入库的时间frk_time,flag=1为了不上传K3
         'SQL1(1) = "delete from hand_store where StoreState = '在库' and boxcode = '" & TextBox22.Text.Trim & "'"
-        SQL1(1) = "update hand_store set flag=1,StoreState = '取消入库',qxrk_time=convert(datetime,convert(varchar(20),getdate(),120)),qxrk_class='" & NowClass & "',qxrk_man='" & NowUser & "' where StoreState = '在库' and boxcode = '" & TextBox22.Text.Trim & "'"
+        SQL1(1) = "update hand_store set incode = null, inno = null, flag=1,StoreState = '取消入库',qxrk_time=convert(datetime,convert(varchar(20),getdate(),120)),qxrk_class='" & NowClass & "',qxrk_man='" & NowUser & "' where StoreState = '在库' and boxcode = '" & TextBox22.Text.Trim & "'"
         StrErr3 = ExeSQLS(SQL1, SQL)
         If StrErr3 <> "" Then ShowCancelLabel(StrErr3, Color.Red) : Exit Sub
         ShowCancelLabel("取消入库成功!!", Color.Green)
