@@ -1020,7 +1020,245 @@ Public Class Form1
                 TextBox29.Text = Str
                 BoxCode = Str
                 QtInMessage()
+            Case 26
+                TextBox30.Text = Str
+                ReturnOutStore()
         End Select
+    End Sub
+
+    Sub ReturnOutStore()
+        If TextBox30.Text.Length <> 10 And TextBox30.Text.Length <> 11 Then MsgBox("请扫描10位或11位条码！！") : Exit Sub
+
+        Dim StrErr As String = ""
+        Dim StrShow As String = ""
+        If TextBox30.Text.Length = 10 Or TextBox30.Text.Length = 11 Then
+            StrErr = GetReturnOutBar(StrShow)
+        End If
+
+        If StrErr <> "" Then MsgBox(StrErr) : Exit Sub
+        GetRdataByProductId(FItemID)
+    End Sub
+
+    Sub GetRdataByProductId(ByVal FInID As Long)  '''''''''获取单据信息
+
+        Dim StrErr As String
+        Dim Arr(,)
+        Dim Arr2(,)
+
+        Dim StrErr2 As String
+        StrErr2 = GetRst("select FInterID,FCustID from SEOutStock where FBillNo ='" & ComboBox2.Text & "'", Arr2, SQLK3)
+        If StrErr2 <> "" Then MsgBox("数据库连接失败！！") : Exit Sub
+        If UBound(Arr2, 2) < 1 Then MsgBox("没有该订单信息！！") : Exit Sub
+        FBillNo = ComboBox18.Text
+        OrderID = Arr2(1, 1)
+        FCustID = Arr2(2, 1)
+        StrErr = Me.GetRst("select a.FDetailID,b.Fname,a.FAuxQty,0,0 ,b.FItemID,a.FUnitID,a.FPrice,a.FEntryID,a.FInterID from SEOutStockEntry a left join t_icitem b on a.FItemID=b.FItemID where a.FInterID =" & OrderID & " and a.FItemID=" & FInID, ArrO, SQLK3)
+
+        If StrErr <> "" Then MsgBox("获取订单信息错误" & vbCrLf & StrErr) : Exit Sub
+        If UBound(ArrO, 2) = 0 Then MsgBox("无订单信息") : Exit Sub
+
+        StrErr = Me.GetRst("select count(*) from hand_store where storestate = '在库' and instore_type =4 and OrderID = " & OrderID & " and ProductID=" & FInID, Arr, SQL)
+
+        If StrErr <> "" Then MsgBox("获取发货信息错误" & vbCrLf & StrErr) : Exit Sub
+        Dim Have As Boolean
+        Dim NoneCount As Long = 0
+        Dim AllCount As Long
+        Dim OutCount As Long
+
+        For p = 1 To UBound(ArrO, 2)
+            If ArrO(6, p) = FInID Then
+                Have = True
+                ArrO(4, p) = Arr(1, 1)
+            End If
+        Next
+
+        For t = 1 To UBound(ArrO, 2)
+            AllCount = AllCount + ArrO(3, t)
+            OutCount = OutCount + ArrO(4, t)
+        Next
+
+
+        Dim ds As New DataSet
+        Dim dt As New DataTable
+        dt.Columns.Add("规格型号", Type.GetType("System.String"))
+        dt.Columns.Add("应扫", Type.GetType("System.Int32"))
+        dt.Columns.Add("实扫", Type.GetType("System.Int32"))
+        For t = 1 To UBound(ArrO, 2)
+            Dim dw = dt.NewRow
+            dw.Item(0) = ArrO(2, t)
+            dw.Item(1) = ArrO(3, t) - 0
+            dw.Item(2) = ArrO(4, t)
+            dt.Rows.Add(dw)
+
+        Next
+        ds.Tables.Add(dt)
+        DataGrid2.DataSource = ds.Tables(0)
+
+        '''''''''''''修改列宽
+
+        DataGrid5.TableStyles.Clear()
+        DataGrid5.TableStyles.Add(New DataGridTableStyle)
+        DataGrid5.TableStyles.Item(0).MappingName = dt.TableName
+        DataGrid5.TableStyles(0).GridColumnStyles.Item(0).Width = 140
+        DataGrid5.TableStyles(0).GridColumnStyles.Item(1).Width = 35
+        DataGrid5.TableStyles(0).GridColumnStyles.Item(2).Width = 35
+
+    End Sub
+
+    Function GetReturnOutBar(ByRef StrShow As String)
+ 
+        Dim LogStr As String = ""
+        GetReturnOutBar = ""
+        Dim StrErr2 As String
+        Dim Arr1(,)
+        Dim StrErr1 As String
+        StrErr1 = GetRst("select top 1 barcode,ProductID,FaultLoc from hand_store where StoreState='已出库' and  barcode ='" & TextBox30.Text & "' ", Arr1, SQL)
+        If StrErr1 <> "" Then GetReturnOutBar = StrErr1 : Exit Function
+        If UBound(Arr1, 2) <= 0 Then GetReturnOutBar = "条码" & TextBox9.Text & "未出库" : Exit Function
+
+        FItemID = Arr1(2, 1)
+        FaultLoc = Arr1(3, 1)
+        '----------------------------------------end
+
+        '''''''检查订单数量
+        Dim flag As Long
+        Dim FPrice As Decimal
+        For p = 1 To UBound(ArrO, 2)
+
+            If ArrO(6, p) = FItemID Then
+                FUnitID = ArrO(7, p)
+                DetailID = ArrO(1, p)
+                flag = flag + 1
+                FPrice = ArrO(8, p)
+                FAllCount = ArrO(3, p)
+                FAllEntryID = ArrO(9, p)
+                FAllFInterID = ArrO(10, p)
+                ArrO(5, p) = ArrO(5, p) + 1
+                If ArrO(5, p) + ArrO(4, p) > ArrO(3, p) Then
+                    GetReturnOutBar = "规格数量超出预定量,无法出库！"
+                    Exit Function
+                End If
+            End If
+        Next
+
+        If flag = 0 Then GetReturnOutBar = "本订单没有此规格轮胎！" : Exit Function
+        Dim Arr5(,)
+        Dim StrErr5 As String
+        StrErr5 = GetRst("select a.FBillNo, a.FInterID,a.FTranType,b.FEntryID from SEOutStock a left join SEOutStockEntry b on a.FInterID=b.FInterID where a.FBillNo = '" & FBillNo & "'", Arr5, SQLK3)
+        If StrErr5 <> "" Then GetReturnOutBar = StrErr5 : Exit Function
+        If UBound(Arr5, 2) < 0 Then GetReturnOutBar = "订单无此单号！！" : Exit Function
+        GetReturnOutBill() '生成出库单
+
+        Dim Arr4(,)
+        Dim StrErr4 As String
+        StrErr4 = GetRst("select count(*) from ICStockBillEntry where FInterID = " & FInterID, Arr4, SQLK3)
+        If StrErr4 <> "" Then GetReturnOutBar = StrErr4 : Exit Function
+
+        Dim Arr3(,)
+        Dim StrErr3 As String
+        Dim OutNo As Long
+        StrErr3 = GetRst("select FQty,FEntryID from ICStockBillEntry where FInterID = " & FInterID & " and FItemID=" & FItemID, Arr3, SQLK3)
+        If StrErr3 <> "" Then GetReturnOutBar = StrErr3 : Exit Function
+        If UBound(Arr3, 2) > 0 Then
+            Dim SQL2() As String
+            ReDim SQL2(1)
+            OutNo = Arr3(2, 1)
+            SQL2(1) = "update ICStockBillEntry set FOrderEntryID = " & FAllEntryID & ",FOrderBillNo= '" & FBillNo & "',FOrderInterID=" & FAllFInterID & ", FAuxQtyMust= " & FAllCount & ",FQty=" & (Arr3(1, 1) - 1) & ",FAuxQty=" & (Arr3(1, 1) - 1) & ",FConsignPrice= FPrice,FConsignAmount=" & (Arr3(1, 1) + 1) & " * FPrice  where FInterID = " & FInterID & " and FItemID=" & FItemID
+            StrErr2 = ExeSQLS(SQL2, SQLK3)
+            If StrErr2 <> "" Then MsgBox(StrErr2) : Exit Function
+        Else
+            Dim SQL2() As String
+            ReDim SQL2(1)
+            OutNo = Arr4(1, 1) + 1
+            SQL2(1) = "insert into ICStockBillEntry (FBrNo,FInterID,FEntryID,FItemID,FQty,FAuxQty,FBatchNo,FSourceBillNo,FContractBillNo,FICMOBillNo,FMTONo,FClientOrderNo,FItemSize,FItemSuite,FPositionNo,FSEOutBillNo,FConfirmMemEntry,FReturnNoticeBillNO,FSourceEntryID,FSourceInterId,FSourceTranType,FNote,FUnitID,FDCSPID,FSnListID,FDCStockID,FChkPassItem,FPrice,FAuxPrice,FAmount,FConsignPrice,FConsignAmount,FAuxQtyMust,FOrderBillNo,FOrderEntryID,FOrderInterID,FROB) values ('0'," & FInterID & "," & (Arr4(1, 1) + 1) & "," & FItemID & ",-1,-1,'','" & Arr5(1, 1) & "','','','','','','','','','',''," & Arr5(4, 1) & "," & Arr5(2, 1) & "," & Arr5(3, 1) & ",''," & FUnitID & ",0,0," & FaultLoc & ",1058 ,Convert(decimal(18,10)," & FPrice & " * " & FExchangeRate & "),0,0,Convert(decimal(18,10)," & FPrice & " * " & FExchangeRate & "),Convert(decimal(18,10)," & FPrice & " * " & FExchangeRate & ")," & FAllCount & ",'" & FBillNo & "'," & FAllEntryID & "," & FAllFInterID & ",-1)"
+            StrErr2 = ExeSQLS(SQL2, SQLK3)
+            If StrErr2 <> "" Then MsgBox(StrErr2) : Exit Function
+        End If
+
+        Dim SQL1() As String
+        ReDim SQL1(1)
+        SQL1(1) = "update hand_store set StoreState='在库',instore_type=4,oldrk_time=intime,oldrk_class=InClass,oldrk_man=inman,OrderID='" & OrderID & "',InClass='" & NowClass & "',inman='" & NowUser & "',intime=convert(datetime,convert(varchar(20),getdate(),120)),indate=convert(varchar(10),getdate(),120) where id=(select top 1 id from hand_store where Barcode='" & TextBox30.Text.Trim & "' and StoreState = '已出库' order by InTime desc)"
+ 
+        StrErr1 = ExeSQLS(SQL1, SQL)
+        If StrErr1 <> "" Then MsgBox(StrErr1) : Exit Function
+
+        StrShow = "扫码成功"
+    End Function
+
+
+    Sub GetReturnOutBill() '生成取消出库单
+
+        '2016-11-23 修改 汇率放在最上边
+        Dim StrErr6 As String
+        Dim Arr6(,)
+        StrErr6 = GetRst("select FDeptID,FEmpID,FExchangeRate,FCurrencyID from SEOutStock where FBillNo='" & FBillNo & "'", Arr6, SQLK3)
+        If UBound(Arr6, 2) < 0 Then MsgBox("该订单没有相关数据！！") : Exit Sub
+        FExchangeRate = Arr6(3, 1) '获取汇率
+
+        Dim StrErr7 As String
+        Dim Arr7(,)
+        StrErr7 = GetRst("select a.FInterID,a.FBillNo,a.FHeadSelfB0154 from ICStockBill a left join ICStockBillEntry b on a.FInterID=b.FInterID where b.FSourceBillNo='" & FBillNo & "'", Arr7, SQLK3)
+        If UBound(Arr7, 2) > 0 Then
+            Dim StrErr5 As String
+            Dim Arr5(,)
+            StrErr5 = GetRst("select a.FInterID,a.FBillNo,a.FHeadSelfB0154 from ICStockBill a  where a.FBillNo='" & Arr7(1, 1) & "'", Arr5, SQLK3)
+            If UBound(Arr5, 2) > 0 Then
+                FInterID = Arr5(1, 1)
+                BillNo = Arr5(2, 1)
+                ShowPanel(26)
+                Exit Sub
+            End If
+        End If
+
+        '2016-11-23 修改 汇率放在最上边
+
+        Dim StrErr1 As String
+        StrErr1 = GetBillNo()
+        If StrErr1 <> "" Then MsgBox(StrErr1) : Exit Sub
+        'Label61.Text = "出库单号：" & BillNo
+
+        Dim StrErr3 As String
+        StrErr3 = GetFInterID(SQLK3)
+        If StrErr3 <> "" Then MsgBox(StrErr3) : Exit Sub
+        '2016-11-16 修改 start
+        StrErr6 = GetRst("select FDeptID,FEmpID,FExchangeRate,FCurrencyID from SEOutStock where FBillNo='" & FBillNo & "'", Arr6, SQLK3)
+        If UBound(Arr6, 2) < 0 Then MsgBox("该订单没有相关数据！！") : Exit Sub
+        '2016-11-16 修改 end
+        Dim Str As String
+        Dim SQL2() As String
+        ReDim SQL2(1)
+        SQL2(1) = "insert into ICStockBill (FBrNo,FTranType,FDate,FBillNo,FExplanation,FFetchAdd,FPOSName,FConfirmMem,FYearPeriod,FInterID,FDCStockID,FFManagerID,FSManagerID,FBillerID,FVchInterID,FUpStockWhenSave,FManageType,FDeptID,FEmpID,FSupplyID,FSaleStyle,FRelateBrID,FBrID,FSettleDate,FOrderAffirm,FConsignee,FReceiver,FHeadSelfB0154,FCurrencyID ) values " & _
+                  "('0'," & FBillID & ",convert(datetime,convert(varchar(20),getdate(),120)),'" & BillNo & "','','','','',''," & FInterID & "," & FaultLoc & "," & k3User & "," & k3User & ",16427,0,0,0," & Arr6(1, 1) & "," & Arr6(2, 1) & "," & FCustID & ",101,0,0,convert(datetime,convert(varchar(20),getdate(),120)),0,0,'',1," & Arr6(4, 1) & ")"
+
+        Str = ExeSQLS(SQL2, SQLK3)
+        If Str <> "" Then MsgBox(Str) : Exit Sub
+
+    End Sub
+
+    Sub GetNoOutBill()  '''''''''生成出库单
+        Dim StrSQL As String
+        Dim StrErr As String
+        StrSQL = "select FDCStockID,FDeptID,FEmpID,FSupplyID,FHeadSelfB0154,FCurrencyID from ICStockBill where FInterID=" & OldFInterID
+        Dim Arr(,)
+        StrErr = GetRst(StrSQL, Arr, SQLK3)
+        If UBound(Arr, 2) <= 0 Then ShowCancelOutLabel("无法识别原始出库单！！", Color.Red) : Exit Sub
+
+        Dim StrErr3 As String
+        StrErr3 = GetFInterID(SQLK3)
+        If StrErr3 <> "" Then ShowCancelOutLabel(StrErr3, Color.Red) : Exit Sub
+
+        Dim Str As String
+        Dim SQL1() As String
+        ReDim SQL1(1)
+        'SQL1(1) = "insert into ICStockBill (FBrNo,FTranType,FDate,FBillNo,FExplanation,FFetchAdd,FPOSName,FConfirmMem,FYearPeriod,FInterID,FDCStockID,FFManagerID,FSManagerID,FBillerID,FVchInterID,FUpStockWhenSave,FManageType,FROB,FDeptID) values " & _
+        '                "('0'," & FBillID & ",convert(datetime,convert(varchar(20),getdate(),120)),'" & BillNo & "','','','','',''," & FInterID & "," & ck & "," & k3User & "," & k3User & ",16427 ,0,1,0,-1,2913)"
+
+        SQL1(1) = "insert into ICStockBill (FBrNo,FTranType,FDate,FBillNo,FExplanation,FFetchAdd,FPOSName,FConfirmMem,FYearPeriod,FInterID,FDCStockID,FFManagerID,FSManagerID,FBillerID,FVchInterID,FUpStockWhenSave,FManageType,FDeptID,FEmpID,FSupplyID,FSaleStyle,FRelateBrID,FBrID,FSettleDate,FOrderAffirm,FConsignee,FReceiver,FHeadSelfB0154,FCurrencyID,FROB ) values " & _
+                 "('0'," & FBillID & ",convert(datetime,convert(varchar(20),getdate(),120)),'" & BillNo & "','','','','',''," & FInterID & "," & Arr(1, 1) & ",'" & k3User & "','" & k3User & "',16427,0,0,0," & Arr(2, 1) & "," & Arr(3, 1) & "," & Arr(4, 1) & ",101,0,0,convert(datetime,convert(varchar(20),getdate(),120)),0,0,'',1," & Arr(6, 1) & ",-1)"
+
+        Str = ExeSQLS(SQL1, SQLK3)
+        If Str <> "" Then MsgBox(Str) : Exit Sub
+
     End Sub
 
     Function GetMesFItemID(ByVal Barcode As String)
@@ -1633,6 +1871,7 @@ Public Class Form1
         ReDim SQL2(1)
         SQL2(1) = "insert into ICStockBill (FBrNo,FTranType,FDate,FBillNo,FExplanation,FFetchAdd,FPOSName,FConfirmMem,FYearPeriod,FInterID,FDCStockID,FFManagerID,FSManagerID,FBillerID,FVchInterID,FUpStockWhenSave,FManageType,FDeptID,FEmpID,FSupplyID,FSaleStyle,FRelateBrID,FBrID,FSettleDate,FOrderAffirm,FConsignee,FReceiver,FHeadSelfB0154,FCurrencyID ) values " & _
                   "('0'," & FBillID & ",convert(datetime,convert(varchar(20),getdate(),120)),'" & BillNo & "','','','','',''," & FInterID & "," & FaultLoc & "," & k3User & "," & k3User & ",16427,0,0,0," & Arr6(1, 1) & "," & Arr6(2, 1) & "," & FCustID & ",101,0,0,convert(datetime,convert(varchar(20),getdate(),120)),0,0,'',1," & Arr6(4, 1) & ")"
+       
         Str = ExeSQLS(SQL2, SQLK3)
         If Str <> "" Then MsgBox(Str) : Exit Sub
 
@@ -1768,7 +2007,36 @@ Public Class Form1
     End Sub
 
     Private Sub Button29_Click(ByVal sender As System.Object, ByVal e As System.EventArgs) Handles Button29.Click
-        ShowPanel(11)
+        'ShowPanel(11) 数据库设置功能屏蔽掉
+        If NowUser = "" Then MsgBox("请先登录") : Exit Sub
+        ShowPanel(25)
+        Dim StrSQL As String
+        Dim StrErr As String
+        StrSQL = "select FBillID from ICBillNo where FBillName LIKE '退货通知单据%' "
+        Dim Arr(,)
+        StrErr = GetRst(StrSQL, Arr, SQLK3)
+        FBillID = Arr(1, 1)
+        GetReturnOrder()
+    End Sub
+
+    Sub GetReturnOrder()
+        Dim t As Long
+        Dim StrSQL As String
+        Dim StrErr As String
+
+        StrSQL = "select * from SEOutStock t WHERE t.FBillNo like 'SEIN%';"
+        ComboBox2.Items.Clear()
+
+        StrErr = GetRst(StrSQL, ArrP, SQLK3)
+        If StrErr <> "" Then
+            MsgBox("获取订单号失败" & vbCrLf & StrErr)
+            Exit Sub
+        End If
+
+        For t = 1 To UBound(ArrP, 2)
+            If ArrP(1, t).ToString <> "" Then ComboBox2.Items.Add(ArrP(1, t).ToString)
+        Next
+
     End Sub
 
     Private Sub Button30_Click(ByVal sender As System.Object, ByVal e As System.EventArgs) Handles Button30.Click
@@ -2215,93 +2483,6 @@ Public Class Form1
         ShowCancelOutLabel("取消出库成功!!", Color.Green)
     End Sub
 
-    Sub CreateNoOutBill(ByVal FItemID As Long) '生成取消出库单
-
-        Dim StrSQL As String
-        Dim StrErr As String
-        StrSQL = "select FSourceBillNo,FSourceEntryID,FSourceInterId,FSourceTranType,FUnitID,FPrice,FAuxPrice,FAmount,FConsignAmount,FDCStockID from ICStockBillEntry where FInterID = " & FInterID & " and FItemID=" & FItemID
-        Dim Arr(,)
-        StrErr = GetRst(StrSQL, Arr, SQLK3)
-        If UBound(Arr, 2) <= 0 Then ShowCancelOutLabel("无法识别原始出库单！！", Color.Red) : Exit Sub
-
-        Dim StrSQL1 As String
-        Dim StrErr1 As String
-        StrSQL1 = "select FHeadSelfB0154 from ICStockBill where FInterID=" & OldFInterID
-        Dim Arr1(,)
-        StrErr1 = GetRst(StrSQL1, Arr1, SQLK3)
-        If UBound(Arr1, 2) <= 0 Then ShowCancelOutLabel("无法识别原始出库单！！", Color.Red) : Exit Sub
-
-
-        Dim Arr6(,)
-        Dim StrErr6 As String
-        StrErr6 = GetRst("select FInterID from ICStockBill where FCheckerID is null and FTranType=21 and FBillerID=" & k3User & " and FROB=-1 and FDate >=convert(datetime,convert(varchar(10),getdate(),120)) and FDate < convert(datetime,convert(varchar(11),dateadd(day,1,getdate()),120))", Arr6, SQLK3)
-        If StrErr6 <> "" Then ShowCancelOutLabel(StrErr6, Color.Red) : Exit Sub
-        If UBound(Arr6, 2) <= 0 Then
-
-            ' Dim StrErr1 As String
-            StrErr1 = GetBillNo()
-            If StrErr1 <> "" Then ShowCancelOutLabel(StrErr1, Color.Red) : Exit Sub
-            GetNoOutBill() '生成取消出库单
-        Else
-            FInterID = Arr6(1, 1)
-        End If
-
-
-        Dim Arr4(,)
-        Dim StrErr4 As String
-        StrErr4 = GetRst("select count(*) from ICStockBillEntry where FInterID = " & FInterID, Arr4, SQLK3)
-        If StrErr4 <> "" Then ShowCancelOutLabel(StrErr4, Color.Red) : Exit Sub
-
-        Dim Arr5(,)
-        Dim StrErr5 As String
-        StrErr5 = GetRst("select FQty from ICStockBillEntry where FInterID = " & FInterID & " and FItemID=" & FItemID, Arr5, SQLK3)
-        If StrErr5 <> "" Then ShowCancelOutLabel(StrErr5, Color.Red) : Exit Sub
-        If UBound(Arr5, 2) > 0 Then
-            Dim SQL2() As String
-            ReDim SQL2(1)
-            'SQL2(1) = "update ICStockBillEntry set FQty=" & (Arr5(1, 1) - 1) & ",FAuxQty=" & (Arr5(1, 1) - 1) & " where FInterID = " & FInterID & " and FItemID=" & FItemID
-            SQL2(1) = "update ICStockBillEntry set FQty=" & (Arr5(1, 1) - 1) & ",FAuxQty=" & (Arr5(1, 1) - 1) & ",FConsignPrice= FPrice ,FConsignAmount=" & (Arr5(1, 1) - 1) & " * FPrice  where FInterID = " & FInterID & " and FItemID=" & FItemID
-
-            StrErr5 = ExeSQLS(SQL2, SQLK3)
-            If StrErr5 <> "" Then ShowCancelOutLabel(StrErr5, Color.Red) : Exit Sub
-        Else
-            Dim SQL2() As String
-            ReDim SQL2(1)
-            'SQL2(1) = "insert into ICStockBillEntry (FBrNo,FInterID,FEntryID,FItemID,FQty,FAuxQty,FBatchNo,FContractBillNo,FICMOBillNo,FOrderBillNo,FMTONo,FClientOrderNo,FItemSize,FItemSuite,FPositionNo,FSEOutBillNo,FConfirmMemEntry,FReturnNoticeBillNO,FNote,FUnitID,FDCSPID,FSnListID,FChkPassItem,FDCStockID) values ('0'," & FInterID & "," & (Arr4(1, 1) + 1) & "," & FItemID & "," & -1 & "," & -1 & ",'','','','','','','','','','','','','',254,0,0,1058," & ck & ")"
-            'SQL2(1) = "insert into ICStockBillEntry (FBrNo,FInterID,FEntryID,FItemID,FQty,FAuxQty,FBatchNo,FSourceBillNo,FContractBillNo,FICMOBillNo,FOrderBillNo,FMTONo,FClientOrderNo,FItemSize,FItemSuite,FPositionNo,FSEOutBillNo,FConfirmMemEntry,FReturnNoticeBillNO,FSourceEntryID,FSourceInterId,FSourceTranType,FNote,FUnitID,FDCSPID,FSnListID,FDCStockID,FChkPassItem,FPrice,FAuxPrice,FAmount,FConsignPrice,FConsignAmount) values ('0'," & FInterID & "," & (Arr4(1, 1) + 1) & "," & FItemID & ",1,1,'','" & Arr(1, 1) & "','','','','','','','','','','',''," & Arr(2, 1) & "," & Arr(3, 1) & "," & Arr(4, 1) & ",''," & Arr(5, 1) & ",0,0," & Arr(10, 1) & ",1058 ," & Arr(6, 1) & ",0," & Arr(8, 1) & "," & Arr(6, 1) & "," & Arr(9, 1) & ")"
-            SQL2(1) = "insert into ICStockBillEntry (FBrNo,FInterID,FEntryID,FItemID,FQty,FAuxQty,FBatchNo,FSourceBillNo,FContractBillNo,FICMOBillNo,FMTONo,FClientOrderNo,FItemSize,FItemSuite,FPositionNo,FSEOutBillNo,FConfirmMemEntry,FReturnNoticeBillNO,FSourceEntryID,FSourceInterId,FSourceTranType,FNote,FUnitID,FDCSPID,FSnListID,FDCStockID,FChkPassItem,FPrice,FAuxPrice,FAmount,FConsignPrice,FConsignAmount) values ('0'," & FInterID & "," & (Arr4(1, 1) + 1) & "," & FItemID & ",1,1,'','" & Arr(1, 1) & "','','','','','','','','','',''," & Arr(2, 1) & "," & Arr(3, 1) & "," & Arr(4, 1) & ",''," & Arr(5, 1) & ",0,0," & Arr(10, 1) & ",1058 ," & Arr(6, 1) & ",0,0," & Arr(6, 1) & "," & Arr(9, 1) & ")"
-
-            StrErr5 = ExeSQLS(SQL2, SQLK3)
-            If StrErr5 <> "" Then ShowCancelOutLabel(StrErr5, Color.Red) : Exit Sub
-        End If
-
-    End Sub
-
-    Sub GetNoOutBill()  '''''''''生成出库单
-        Dim StrSQL As String
-        Dim StrErr As String
-        StrSQL = "select FDCStockID,FDeptID,FEmpID,FSupplyID,FHeadSelfB0154,FCurrencyID from ICStockBill where FInterID=" & OldFInterID
-        Dim Arr(,)
-        StrErr = GetRst(StrSQL, Arr, SQLK3)
-        If UBound(Arr, 2) <= 0 Then ShowCancelOutLabel("无法识别原始出库单！！", Color.Red) : Exit Sub
-
-        Dim StrErr3 As String
-        StrErr3 = GetFInterID(SQLK3)
-        If StrErr3 <> "" Then ShowCancelOutLabel(StrErr3, Color.Red) : Exit Sub
-
-        Dim Str As String
-        Dim SQL1() As String
-        ReDim SQL1(1)
-        'SQL1(1) = "insert into ICStockBill (FBrNo,FTranType,FDate,FBillNo,FExplanation,FFetchAdd,FPOSName,FConfirmMem,FYearPeriod,FInterID,FDCStockID,FFManagerID,FSManagerID,FBillerID,FVchInterID,FUpStockWhenSave,FManageType,FROB,FDeptID) values " & _
-        '                "('0'," & FBillID & ",convert(datetime,convert(varchar(20),getdate(),120)),'" & BillNo & "','','','','',''," & FInterID & "," & ck & "," & k3User & "," & k3User & ",16427 ,0,1,0,-1,2913)"
-
-        SQL1(1) = "insert into ICStockBill (FBrNo,FTranType,FDate,FBillNo,FExplanation,FFetchAdd,FPOSName,FConfirmMem,FYearPeriod,FInterID,FDCStockID,FFManagerID,FSManagerID,FBillerID,FVchInterID,FUpStockWhenSave,FManageType,FDeptID,FEmpID,FSupplyID,FSaleStyle,FRelateBrID,FBrID,FSettleDate,FOrderAffirm,FConsignee,FReceiver,FHeadSelfB0154,FCurrencyID,FROB ) values " & _
-                 "('0'," & FBillID & ",convert(datetime,convert(varchar(20),getdate(),120)),'" & BillNo & "','','','','',''," & FInterID & "," & Arr(1, 1) & ",'" & k3User & "','" & k3User & "',16427,0,0,0," & Arr(2, 1) & "," & Arr(3, 1) & "," & Arr(4, 1) & ",101,0,0,convert(datetime,convert(varchar(20),getdate(),120)),0,0,'',1," & Arr(6, 1) & ",-1)"
-
-        Str = ExeSQLS(SQL1, SQLK3)
-        If Str <> "" Then MsgBox(Str) : Exit Sub
-
-    End Sub
 
     Sub ModifyNoOutBill(ByVal barcode As String, ByVal FInID As Long, ByVal FItID As Long) '修改出库单
         Dim StrErr1 As String
@@ -3064,5 +3245,106 @@ Public Class Form1
 
     Private Sub Button70_Click(ByVal sender As System.Object, ByVal e As System.EventArgs) Handles Button70.Click
         ShowPanel(1)
+    End Sub
+
+    Private Sub Button78_Click(ByVal sender As System.Object, ByVal e As System.EventArgs) Handles Button78.Click
+        ReturnOutStore()
+    End Sub
+
+    Private Sub ComboBox2_SelectedIndexChanged(ByVal sender As Object, ByVal e As System.EventArgs) Handles ComboBox2.SelectedIndexChanged
+        GetRdata()
+        TextBox30.Text = ""
+        DataGrid5.DataSource = Nothing
+    End Sub
+
+    Sub GetRdata()  '''''''''获取单据信息
+
+        Dim StrErr As String
+        Dim Arr(,)
+        Dim Arr2(,)
+
+        Dim StrErr2 As String
+        StrErr2 = GetRst("select FInterID,FCustID from SEOutStock where FBillNo ='" & ComboBox2.Text & "'", Arr2, SQLK3)
+        If StrErr2 <> "" Then MsgBox("数据库连接失败！！") : Exit Sub
+        If UBound(Arr2, 2) < 1 Then MsgBox("没有该订单信息！！") : Exit Sub
+        FBillNo = ComboBox18.Text
+        OrderID = Arr2(1, 1)
+        FCustID = Arr2(2, 1)
+        StrErr = Me.GetRst("select a.FDetailID,b.Fname,a.FAuxQty,0,0 ,b.FItemID,a.FUnitID,a.FPrice,a.FEntryID,a.FInterID from SEOutStockEntry a left join t_icitem b on a.FItemID=b.FItemID where a.FInterID =" & OrderID, ArrO, SQLK3)
+
+        If StrErr <> "" Then MsgBox("获取订单信息错误" & vbCrLf & StrErr) : Exit Sub
+        If UBound(ArrO, 2) = 0 Then MsgBox("无订单信息") : Exit Sub
+
+        '2016-07-20 修改熟读
+        StrErr = Me.GetRst("select ProductID,COUNT(*) from hand_store where storestate = '在库' and instore_type=4 and OrderID = " & OrderID & " GROUP BY ProductID", Arr, SQL)
+
+        If StrErr <> "" Then MsgBox("获取发货信息错误" & vbCrLf & StrErr) : Exit Sub
+        'Dim Have As Boolean
+        Dim NoneCount As Long = 0
+        Dim AllCount As Long
+        Dim OutCount As Long
+
+        For t = 1 To UBound(Arr, 2)
+            For p = 1 To UBound(ArrO, 2)
+                If Arr(1, t) = ArrO(6, p) Then
+                    'Have = True
+                    ArrO(4, p) = Arr(2, t)
+                End If
+            Next
+        Next
+
+
+        For t = 1 To UBound(ArrO, 2)
+            AllCount = AllCount + ArrO(3, t)
+            OutCount = OutCount + ArrO(4, t)
+        Next
+
+
+        Dim ds As New DataSet
+        Dim dt As New DataTable
+        dt.Columns.Add("规格型号", Type.GetType("System.String"))
+        dt.Columns.Add("应扫", Type.GetType("System.Int32"))
+        dt.Columns.Add("实扫", Type.GetType("System.Int32"))
+        For t = 1 To UBound(ArrO, 2)
+            Dim dw = dt.NewRow
+            dw.Item(0) = ArrO(2, t)
+            dw.Item(1) = ArrO(3, t) - 0
+            dw.Item(2) = ArrO(4, t)
+            dt.Rows.Add(dw)
+
+        Next
+        ds.Tables.Add(dt)
+        DataGrid1.DataSource = ds.Tables(0)
+        'DataGrid2.DataSource = ds.Tables(0)
+
+        '''''''''''''修改列宽
+
+        DataGrid4.TableStyles.Clear()
+        DataGrid4.TableStyles.Add(New DataGridTableStyle)
+        DataGrid4.TableStyles.Item(0).MappingName = dt.TableName
+        DataGrid4.TableStyles(0).GridColumnStyles.Item(0).Width = 140
+        DataGrid4.TableStyles(0).GridColumnStyles.Item(1).Width = 35
+        DataGrid4.TableStyles(0).GridColumnStyles.Item(2).Width = 35
+
+    End Sub
+
+    Private Sub Button77_Click(ByVal sender As System.Object, ByVal e As System.EventArgs) Handles Button77.Click
+        TextBox5.Visible = False
+        ShowPanel(1)
+    End Sub
+
+    Private Sub Button68_Click_1(ByVal sender As System.Object, ByVal e As System.EventArgs) Handles Button68.Click
+        If ComboBox2.Text = "" Then MsgBox("请选择订单！！") : Exit Sub
+        ShowPanel(26)
+    End Sub
+
+    Private Sub Button80_Click(ByVal sender As System.Object, ByVal e As System.EventArgs) Handles Button80.Click
+        ShowPanel(25)
+        GetRdata()
+    End Sub
+
+    Private Sub Button79_Click(ByVal sender As System.Object, ByVal e As System.EventArgs) Handles Button79.Click
+        TextBox5.Visible = False
+        ShowPanel(19)
     End Sub
 End Class
