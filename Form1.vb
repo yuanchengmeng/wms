@@ -1096,7 +1096,7 @@ Public Class Form1
 
         Next
         ds.Tables.Add(dt)
-        DataGrid2.DataSource = ds.Tables(0)
+        DataGrid5.DataSource = ds.Tables(0)
 
         '''''''''''''修改列宽
 
@@ -1118,7 +1118,7 @@ Public Class Form1
         Dim StrErr1 As String
         StrErr1 = GetRst("select top 1 barcode,ProductID,FaultLoc from hand_store where StoreState='已出库' and  barcode ='" & TextBox30.Text & "' ", Arr1, SQL)
         If StrErr1 <> "" Then GetReturnOutBar = StrErr1 : Exit Function
-        If UBound(Arr1, 2) <= 0 Then GetReturnOutBar = "条码" & TextBox9.Text & "未出库" : Exit Function
+        If UBound(Arr1, 2) <= 0 Then GetReturnOutBar = "条码" & TextBox30.Text & "未出库" : Exit Function
 
         FItemID = Arr1(2, 1)
         FaultLoc = Arr1(3, 1)
@@ -1174,7 +1174,7 @@ Public Class Form1
             Dim SQL2() As String
             ReDim SQL2(1)
             OutNo = Arr4(1, 1) + 1
-            SQL2(1) = "insert into ICStockBillEntry (FBrNo,FInterID,FEntryID,FItemID,FQty,FAuxQty,FBatchNo,FSourceBillNo,FContractBillNo,FICMOBillNo,FMTONo,FClientOrderNo,FItemSize,FItemSuite,FPositionNo,FSEOutBillNo,FConfirmMemEntry,FReturnNoticeBillNO,FSourceEntryID,FSourceInterId,FSourceTranType,FNote,FUnitID,FDCSPID,FSnListID,FDCStockID,FChkPassItem,FPrice,FAuxPrice,FAmount,FConsignPrice,FConsignAmount,FAuxQtyMust,FOrderBillNo,FOrderEntryID,FOrderInterID,FROB) values ('0'," & FInterID & "," & (Arr4(1, 1) + 1) & "," & FItemID & ",-1,-1,'','" & Arr5(1, 1) & "','','','','','','','','','',''," & Arr5(4, 1) & "," & Arr5(2, 1) & "," & Arr5(3, 1) & ",''," & FUnitID & ",0,0," & FaultLoc & ",1058 ,Convert(decimal(18,10)," & FPrice & " * " & FExchangeRate & "),0,0,Convert(decimal(18,10)," & FPrice & " * " & FExchangeRate & "),Convert(decimal(18,10)," & FPrice & " * " & FExchangeRate & ")," & FAllCount & ",'" & FBillNo & "'," & FAllEntryID & "," & FAllFInterID & ",-1)"
+            SQL2(1) = "insert into ICStockBillEntry (FBrNo,FInterID,FEntryID,FItemID,FQty,FAuxQty,FBatchNo,FSourceBillNo,FContractBillNo,FICMOBillNo,FMTONo,FClientOrderNo,FItemSize,FItemSuite,FPositionNo,FSEOutBillNo,FConfirmMemEntry,FReturnNoticeBillNO,FSourceEntryID,FSourceInterId,FSourceTranType,FNote,FUnitID,FDCSPID,FSnListID,FDCStockID,FChkPassItem,FPrice,FAuxPrice,FAmount,FConsignPrice,FConsignAmount,FAuxQtyMust,FOrderBillNo,FOrderEntryID,FOrderInterID) values ('0'," & FInterID & "," & (Arr4(1, 1) + 1) & "," & FItemID & ",-1,-1,'','" & Arr5(1, 1) & "','','','','','','','','','',''," & Arr5(4, 1) & "," & Arr5(2, 1) & "," & Arr5(3, 1) & ",''," & FUnitID & ",0,0," & FaultLoc & ",1058 ,Convert(decimal(18,10)," & FPrice & " * " & FExchangeRate & "),0,0,Convert(decimal(18,10)," & FPrice & " * " & FExchangeRate & "),Convert(decimal(18,10)," & FPrice & " * " & FExchangeRate & ")," & FAllCount & ",'" & FBillNo & "'," & FAllEntryID & "," & FAllFInterID & ")"
             StrErr2 = ExeSQLS(SQL2, SQLK3)
             If StrErr2 <> "" Then MsgBox(StrErr2) : Exit Function
         End If
@@ -1231,8 +1231,8 @@ Public Class Form1
         Dim Str As String
         Dim SQL2() As String
         ReDim SQL2(1)
-        SQL2(1) = "insert into ICStockBill (FBrNo,FTranType,FDate,FBillNo,FExplanation,FFetchAdd,FPOSName,FConfirmMem,FYearPeriod,FInterID,FDCStockID,FFManagerID,FSManagerID,FBillerID,FVchInterID,FUpStockWhenSave,FManageType,FDeptID,FEmpID,FSupplyID,FSaleStyle,FRelateBrID,FBrID,FSettleDate,FOrderAffirm,FConsignee,FReceiver,FHeadSelfB0154,FCurrencyID ) values " & _
-                  "('0'," & FBillID & ",convert(datetime,convert(varchar(20),getdate(),120)),'" & BillNo & "','','','','',''," & FInterID & "," & FaultLoc & "," & k3User & "," & k3User & ",16427,0,0,0," & Arr6(1, 1) & "," & Arr6(2, 1) & "," & FCustID & ",101,0,0,convert(datetime,convert(varchar(20),getdate(),120)),0,0,'',1," & Arr6(4, 1) & ")"
+        SQL2(1) = "insert into ICStockBill (FBrNo,FTranType,FDate,FBillNo,FExplanation,FFetchAdd,FPOSName,FConfirmMem,FYearPeriod,FInterID,FDCStockID,FFManagerID,FSManagerID,FBillerID,FVchInterID,FUpStockWhenSave,FManageType,FDeptID,FEmpID,FSupplyID,FSaleStyle,FRelateBrID,FBrID,FSettleDate,FOrderAffirm,FConsignee,FReceiver,FHeadSelfB0154,FCurrencyID,FROB) values " & _
+                  "('0'," & FBillID & ",convert(datetime,convert(varchar(20),getdate(),120)),'" & BillNo & "','','','','',''," & FInterID & "," & FaultLoc & "," & k3User & "," & k3User & ",16427,0,0,0," & Arr6(1, 1) & "," & Arr6(2, 1) & "," & FCustID & ",101,0,0,convert(datetime,convert(varchar(20),getdate(),120)),0,0,'',1," & Arr6(4, 1) & ",-1)"
 
         Str = ExeSQLS(SQL2, SQLK3)
         If Str <> "" Then MsgBox(Str) : Exit Sub
@@ -2028,7 +2028,7 @@ Public Class Form1
         Dim StrSQL As String
         Dim StrErr As String
 
-        StrSQL = "select * from SEOutStock t WHERE t.FBillNo like 'SEIN%';"
+        StrSQL = "select t.FBillNo,t.FInterID from SEOutStock t WHERE t.FBillNo like 'SEIN%'"
         ComboBox2.Items.Clear()
 
         StrErr = GetRst(StrSQL, ArrP, SQLK3)
@@ -3318,7 +3318,7 @@ Public Class Form1
 
         Next
         ds.Tables.Add(dt)
-        DataGrid1.DataSource = ds.Tables(0)
+        DataGrid4.DataSource = ds.Tables(0)
         'DataGrid2.DataSource = ds.Tables(0)
 
         '''''''''''''修改列宽
