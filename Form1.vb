@@ -155,6 +155,8 @@ Public Class Form1
         Panel22.Visible = False
         Panel23.Visible = False
         Panel24.Visible = False
+        Panel25.Visible = False
+        Panel26.Visible = False
         Select Case ID
             Case 1 : PP = Panel1
             Case 2 : PP = Panel2
@@ -180,6 +182,8 @@ Public Class Form1
             Case 22 : PP = Panel22
             Case 23 : PP = Panel23
             Case 24 : PP = Panel24
+            Case 25 : PP = Panel25
+            Case 26 : PP = Panel26
             Case Else : PP = Panel1
         End Select
         PP.Left = 0

@@ -141,3 +141,16 @@ D:\项目资料\兴源\手持改版\intermec wms 最新程序\WMS 20151010\obj\D
 D:\项目资料\兴源\手持改版\intermec wms 最新程序\WMS 20151010\obj\Debug\BarcodeReader.exe
 D:\项目资料\兴源\手持改版\intermec wms 最新程序\WMS 20151010\obj\Debug\BarcodeReader.xml
 D:\项目资料\兴源\手持改版\intermec wms 最新程序\WMS 20151010\obj\Debug\BarcodeReader.pdb
+E:\xhy\wms\bin\Debug\BarcodeReader.exe
+E:\xhy\wms\bin\Debug\BarcodeReader.pdb
+E:\xhy\wms\bin\Debug\BarcodeReader.xml
+E:\xhy\wms\bin\Debug\Intermec.DataCollection2.CF3.5.dll
+E:\xhy\wms\bin\Debug\System.Data.SqlServerCe.dll
+E:\xhy\wms\bin\Debug\Intermec.DataCollection2.CF3.5.xml
+E:\xhy\wms\obj\Debug\ResolveAssemblyReference.cache
+E:\xhy\wms\obj\Debug\BarcodeReader.Form1.resources
+E:\xhy\wms\obj\Debug\BarcodeReader.Resources.resources
+E:\xhy\wms\obj\Debug\BarcodeReader.vbproj.GenerateResource.Cache
+E:\xhy\wms\obj\Debug\BarcodeReader.exe
+E:\xhy\wms\obj\Debug\BarcodeReader.xml
+E:\xhy\wms\obj\Debug\BarcodeReader.pdb
