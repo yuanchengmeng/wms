@@ -2343,7 +2343,7 @@ Partial Public Class Form1
         Me.Panel25.Controls.Add(Me.Label96)
         Me.Panel25.Controls.Add(Me.Label97)
         Me.Panel25.Controls.Add(Me.Button77)
-        Me.Panel25.Location = New System.Drawing.Point(9, 2169)
+        Me.Panel25.Location = New System.Drawing.Point(259, 2170)
         Me.Panel25.Name = "Panel25"
         Me.Panel25.Size = New System.Drawing.Size(240, 260)
         '
@@ -2435,7 +2435,7 @@ Partial Public Class Form1
         Me.Panel26.Controls.Add(Me.Label100)
         Me.Panel26.Controls.Add(Me.Label101)
         Me.Panel26.Controls.Add(Me.Button80)
-        Me.Panel26.Location = New System.Drawing.Point(260, 2169)
+        Me.Panel26.Location = New System.Drawing.Point(514, 2170)
         Me.Panel26.Name = "Panel26"
         Me.Panel26.Size = New System.Drawing.Size(240, 260)
         Me.Panel26.Visible = False
