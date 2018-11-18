@@ -76,6 +76,10 @@ Public Class Form1
     '20180602新增其它入库
     Dim QtInType As Long '入库类型：1.正常入库 2.外购入库 3.其它入库
 
+    Dim StockID As Long '库区id
+    Dim stockArr(,)  '全部库区
+    Dim ReasonID As Long '取消原因id
+    Dim ReasonArr(,)  '全部取消入库原因
 
     Private Sub Form1_Load(ByVal sender As System.Object, ByVal e As System.EventArgs) Handles MyBase.Load
 
@@ -760,7 +764,12 @@ Public Class Form1
         'If StrErr1 <> "" Then GetOutBar = StrErr1 : Exit Function
 
         FItemID = Arr1(2, 1)
-        FaultLoc = Arr1(3, 1)
+        If StockID <= 0 Then
+            FaultLoc = Arr1(3, 1)
+        Else
+            FaultLoc = StockID
+        End If
+
         '----------------------------------------end
 
         '''''''检查订单数量
@@ -822,7 +831,7 @@ Public Class Form1
 
         Dim SQL1() As String
         ReDim SQL1(1)
-        SQL1(1) = "update hand_store set vehicleID=" & vehicleID & ", OrderID=" & OrderID & ",DetailID=" & DetailID & ",outcode=" & FInterID & ",outno=" & OutNo & ", OutTime=convert(datetime,convert(varchar(20),getdate(),120)), OutMan='" & NowUser & "', OutClass='" & NowClass & "', OutDate=convert(varchar(10),getdate(),120),StoreState = '已出库' where id =(select top 1 id from hand_store where StoreState = '在库' and barcode = '" & TextBox9.Text & "') "
+        SQL1(1) = "update hand_store set OutStockID=" & FaultLoc & ",vehicleID=" & vehicleID & ", OrderID=" & OrderID & ",DetailID=" & DetailID & ",outcode=" & FInterID & ",outno=" & OutNo & ", OutTime=convert(datetime,convert(varchar(20),getdate(),120)), OutMan='" & NowUser & "', OutClass='" & NowClass & "', OutDate=convert(varchar(10),getdate(),120),StoreState = '已出库' where id =(select top 1 id from hand_store where StoreState = '在库' and barcode = '" & TextBox9.Text & "') "
         StrErr1 = ExeSQLS(SQL1, SQL)
         If StrErr1 <> "" Then MsgBox(StrErr1) : Exit Function
 
@@ -1121,7 +1130,11 @@ Public Class Form1
         If UBound(Arr1, 2) <= 0 Then GetReturnOutBar = "条码" & TextBox30.Text & "未出库" : Exit Function
 
         FItemID = Arr1(2, 1)
-        FaultLoc = Arr1(3, 1)
+        If StockID <= 0 Then
+            FaultLoc = Arr1(3, 1)
+        Else
+            FaultLoc = StockID
+        End If
         '----------------------------------------end
 
         '''''''检查订单数量
@@ -1285,10 +1298,17 @@ Public Class Form1
 
         FItemID = Arr2(1, 1)
         Product = Arr2(2, 1)
-        FaultLoc = Arr2(3, 1)
+
+        If StockID <= 0 Then
+            FaultLoc = Arr2(3, 1)
+        Else
+            FaultLoc = StockID
+        End If
+
     End Function
 
-    Sub InStore() 
+    Sub InStore()
+        If ComboBox4.Text = "" Then MsgBox("请选择库区！！") : Exit Sub
         If TextBox7.Text = "" Then ShowInLabel("请扫描条码", Color.Red) : Exit Sub
         ''''''格式判断
         If TextBox7.Text.Length <> 10 And TextBox7.Text.Length <> 11 Then ShowInLabel("请扫描10位或11位条码！", Color.Red) : Exit Sub
@@ -1325,11 +1345,11 @@ Public Class Form1
         '2018-4-16增加--如果条码的当前状态为【取消入库】的话，则直接修改条码状态即可；入库不是的话新增一条记录
         StrErr2 = GetRst("select top 1 Barcode from hand_store where StoreState='取消入库' and Barcode='" & TextBox7.Text & "'", Arr2, SQL)
         If StrErr2 <> "" Then ShowInLabel(StrErr2, Color.Red) : Exit Sub
-        If UBound(Arr2, 2) > 0 Then 
-        	 StrErr = updateInBar(StrShow)
+        If UBound(Arr2, 2) > 0 Then
+            StrErr = updateInBar(StrShow)
         Else
-        	 StrErr = GetInBar(StrShow)
-        End If	
+            StrErr = GetInBar(StrShow)
+        End If
         If StrErr <> "" Then ShowInLabel(StrErr, Color.Red) : Exit Sub
 
         StrShow = "规格：" & vbCrLf & Product & vbCrLf & vbCrLf & "条码：" & TextBox7.Text & vbCrLf & vbCrLf & StrShow
@@ -1446,6 +1466,7 @@ Public Class Form1
     End Sub
 
     Sub OutStore()
+        If ComboBox3.Text = "" Then MsgBox("请选择库区！！") : Exit Sub
         If ComboBox1.Text = "" Then MsgBox("请选择车牌号！！") : Exit Sub
 
         Dim Arr7(,)
@@ -1509,7 +1530,12 @@ Public Class Form1
         If Arr2(1, 1) = 0 Then GetFItemID = "不识别K3规格,请确认K3规格！！" : Exit Function
         FItemID = Arr2(1, 1)
         Product = Arr2(2, 1)
-        FaultLoc = Arr2(3, 1)
+ 
+        If StockID <= 0 Then
+            FaultLoc = Arr2(3, 1)
+        Else
+            FaultLoc = StockID
+        End If
     End Function
 
     Sub BoxMessage()
@@ -1662,6 +1688,7 @@ Public Class Form1
     Private Sub Button28_Click(ByVal sender As System.Object, ByVal e As System.EventArgs) Handles Button28.Click
         If ComboBox18.Text = "" Then MsgBox("请选择出库订单！！") : Exit Sub
         GetVehicleNo()
+        GetStockList("out")
         ShowPanel(2)
     End Sub
 
@@ -1685,9 +1712,51 @@ Public Class Form1
 
     End Sub
 
+    '获取库位
+    Sub GetStockList(ByVal stockType As String)
+        Dim t As Long
+        Dim StrSQL As String
+        Dim StrErr As String
+
+        StrSQL = "select t.FName, t.FItemID from  t_stock t where t.FParentID =430 order by t.FNumber"
+        StrErr = GetRst(StrSQL, stockArr, SQLK3)
+        If StrErr <> "" Then
+            MsgBox("网络连接失败！！")
+            Exit Sub
+        End If
+
+        StockID = 0
+        Select Case stockType
+            Case "in"
+                ComboBox4.Items.Clear()
+                ComboBox4.Items.Add("") '默认为空
+                For t = 1 To UBound(stockArr, 2)
+                    If stockArr(1, t).ToString <> "" Then ComboBox4.Items.Add(stockArr(1, t).ToString)
+                Next
+            Case "out"
+                ComboBox3.Items.Clear()
+                ComboBox3.Items.Add("")
+                For t = 1 To UBound(stockArr, 2)
+                    If stockArr(1, t).ToString <> "" Then ComboBox3.Items.Add(stockArr(1, t).ToString)
+                Next
+            Case "elseIn"  '其它入库
+                ComboBox6.Items.Clear()
+                ComboBox6.Items.Add("")
+                For t = 1 To UBound(stockArr, 2)
+                    If stockArr(1, t).ToString <> "" Then ComboBox6.Items.Add(stockArr(1, t).ToString)
+                Next
+            Case "returnOut" '销售退货
+                ComboBox7.Items.Clear()
+                ComboBox7.Items.Add("")
+                For t = 1 To UBound(stockArr, 2)
+                    If stockArr(1, t).ToString <> "" Then ComboBox7.Items.Add(stockArr(1, t).ToString)
+                Next
+
+        End Select
+    End Sub
+
     Private Sub Button27_Click(ByVal sender As System.Object, ByVal e As System.EventArgs) Handles Button27.Click
-        TextBox5.Visible = False
-        ShowPanel(1)
+        ShowPanel(11)
     End Sub
 
     Sub GetOdata()  '''''''''获取单据信息
@@ -1901,6 +1970,8 @@ Public Class Form1
         Dim Arr(,)
         StrErr = GetRst("select count(*) from hand_store where StoreState='在库' and boxcode='" & TextBox13.Text & "'", Arr, SQL)
         Label22.Text = Arr(1, 1)
+
+        GetStockList("in")
         ShowPanel(5)
     End Sub
 
@@ -2043,15 +2114,12 @@ Public Class Form1
 
     End Sub
 
-    Private Sub Button30_Click(ByVal sender As System.Object, ByVal e As System.EventArgs) Handles Button30.Click
-        TextBox17.Text = SQLServerK3
-        TextBox16.Text = SQLDatabaseK3
-        TextBox15.Text = SQLUserK3
-        TextBox14.Text = SQLPasswordK3
-        ShowPanel(12)
+    Private Sub Button30_Click(ByVal sender As System.Object, ByVal e As System.EventArgs)
+        If NowUser = "" Then MsgBox("请先登录") : Exit Sub
+        ShowPanel(11)
     End Sub
 
-    Private Sub Button32_Click(ByVal sender As System.Object, ByVal e As System.EventArgs) Handles Button32.Click
+    Private Sub Button32_Click(ByVal sender As System.Object, ByVal e As System.EventArgs)
         TextBox1.Text = SQLServer
         TextBox2.Text = SQLDatabase
         TextBox3.Text = SQLUser
@@ -2251,7 +2319,7 @@ Public Class Form1
     End Sub
 
     Private Sub Button42_Click(ByVal sender As System.Object, ByVal e As System.EventArgs) Handles Button42.Click
-        ShowPanel(10)
+        ShowPanel(22)
     End Sub
 
     Private Sub Button40_Click(ByVal sender As System.Object, ByVal e As System.EventArgs) Handles Button40.Click
@@ -2276,7 +2344,30 @@ Public Class Form1
         ReDim SQLStr1(1)
         SQLStr1(1) = "DELETE FROM ICStockBillEntry  WHERE FQty=0 and FAmount=0"
         StrErr1 = ExeSQLS(SQLStr1, SQLK3)
+
+        GetReasonList()
         ShowPanel(14)
+    End Sub
+
+    '获取取消入库原因
+    Sub GetReasonList()
+        Dim t As Long
+        Dim StrSQL As String
+        Dim StrErr As String
+
+        StrSQL = "select t.dic_name, t.id  from sys_dic t where t.parent_id =1"
+        StrErr = GetRst(StrSQL, ReasonArr, SQL)
+        If StrErr <> "" Then
+            MsgBox("网络连接失败！！")
+            Exit Sub
+        End If
+
+        ReasonID = 0
+        ComboBox8.Items.Clear()
+        ComboBox8.Items.Add("") '默认为空
+        For t = 1 To UBound(stockArr, 2)
+            If ReasonArr(1, t).ToString <> "" Then ComboBox8.Items.Add(ReasonArr(1, t).ToString)
+        Next
     End Sub
 
     Sub ShowCancelLabel(ByVal Str As String, ByVal CC As Color)
@@ -2312,6 +2403,7 @@ Public Class Form1
     End Sub
     '20180602新增其它入库
     Sub QtInStore()
+        If ComboBox6.Text = "" Then MsgBox("请选择库区！！") : Exit Sub
         If TextBox28.Text = "" Then ShowQtInLabel("请扫描11位条码!!", Color.Red) : Exit Sub
         If TextBox28.Text.Length <> 10 And TextBox28.Text.Length <> 11 Then ShowQtInLabel("请扫描10或者11位条码！！", Color.Red) : Exit Sub
         If TextBox28.Text.Length = 10 Then
@@ -2507,6 +2599,7 @@ Public Class Form1
     End Sub
 
     Sub CancelBarcode()
+        If ComboBox8.Text = "" Then MsgBox("请选择取消原因！！") : Exit Sub
         If TextBox22.Text = "" Then ShowCancelLabel("请扫描5位或11位条码!!", Color.Red) : Exit Sub
         If TextBox22.Text.Length <> 10 And TextBox22.Text.Length <> 11 And TextBox22.Text.Length <> 5 Then ShowCancelLabel("请扫描5位、10位或11位条码！！", Color.Red) : Exit Sub
 
@@ -2541,21 +2634,23 @@ Public Class Form1
             End If
         Next
 
+        If ReasonID <= 0 Then ReasonID = 3
+
         Dim SQL1() As String
         Dim StrErr3 As String
         ReDim SQL1(1)
         If TextBox22.Text.Length = 10 Or TextBox22.Text.Length = 11 Then
-        	'2018-4-16增加取消入库的时间frk_time,flag=1为了不上传K3
+            '2018-4-16增加取消入库的时间frk_time,flag=1为了不上传K3
             'SQL1(1) = "delete from hand_store where id=(select top 1 id from hand_store where Barcode='" & TextBox22.Text.Trim & "' and StoreState = '在库' order by InTime desc)"
-            SQL1(1) = "update hand_store set incode = null, inno = null, flag=1,StoreState = '取消入库',qxrk_time=convert(datetime,convert(varchar(20),getdate(),120)),qxrk_class='" & NowClass & "',qxrk_man='" & NowUser & "' where id=(select top 1 id from hand_store where Barcode='" & TextBox22.Text.Trim & "' and StoreState = '在库' order by InTime desc)"
+            SQL1(1) = "update hand_store set incode = null, inno = null, flag=1,StoreState = '取消入库',qxrk_time=convert(datetime,convert(varchar(20),getdate(),120)),qxrk_class='" & NowClass & "',qxrk_man='" & NowUser & "',qxrk_reason=" & ReasonID & " where id=(select top 1 id from hand_store where Barcode='" & TextBox22.Text.Trim & "' and StoreState = '在库' order by InTime desc)"
             StrErr3 = ExeSQLS(SQL1, SQL)
             If StrErr3 <> "" Then ShowCancelLabel(StrErr3, Color.Red) : Exit Sub
             ShowCancelLabel("取消入库成功!!", Color.Green)
             Exit Sub
         End If
-				'2018-4-16增加取消入库的时间frk_time,flag=1为了不上传K3
+        '2018-4-16增加取消入库的时间frk_time,flag=1为了不上传K3
         'SQL1(1) = "delete from hand_store where StoreState = '在库' and boxcode = '" & TextBox22.Text.Trim & "'"
-        SQL1(1) = "update hand_store set incode = null, inno = null, flag=1,StoreState = '取消入库',qxrk_time=convert(datetime,convert(varchar(20),getdate(),120)),qxrk_class='" & NowClass & "',qxrk_man='" & NowUser & "' where StoreState = '在库' and boxcode = '" & TextBox22.Text.Trim & "'"
+        SQL1(1) = "update hand_store set incode = null, inno = null, flag=1,StoreState = '取消入库',qxrk_time=convert(datetime,convert(varchar(20),getdate(),120)),qxrk_class='" & NowClass & "',qxrk_man='" & NowUser & "',qxrk_reason=" & ReasonID & " where StoreState = '在库' and boxcode = '" & TextBox22.Text.Trim & "'"
         StrErr3 = ExeSQLS(SQL1, SQL)
         If StrErr3 <> "" Then ShowCancelLabel(StrErr3, Color.Red) : Exit Sub
         ShowCancelLabel("取消入库成功!!", Color.Green)
@@ -2682,7 +2777,7 @@ Public Class Form1
         ShowPanel(10)
     End Sub
 
-    Private Sub Button44_Click(ByVal sender As System.Object, ByVal e As System.EventArgs) Handles Button44.Click
+    Private Sub Button44_Click(ByVal sender As System.Object, ByVal e As System.EventArgs)
         ShowPanel(16)
     End Sub
 
@@ -2890,7 +2985,7 @@ Public Class Form1
         FaultLoc = Arr2(3, 1)
     End Function
 
-    Private Sub Button47_Click(ByVal sender As System.Object, ByVal e As System.EventArgs) Handles Button47.Click
+    Private Sub Button47_Click(ByVal sender As System.Object, ByVal e As System.EventArgs)
         Dim StrErr As String
         Dim SQLStr() As String
         ReDim SQLStr(1)
@@ -3096,7 +3191,7 @@ Public Class Form1
     End Sub
 
     Private Sub Button66_Click(ByVal sender As System.Object, ByVal e As System.EventArgs) Handles Button66.Click
-        ShowPanel(10)
+        ShowPanel(11)
     End Sub
 
     Private Sub Button65_Click(ByVal sender As System.Object, ByVal e As System.EventArgs) Handles Button65.Click
@@ -3213,7 +3308,7 @@ Public Class Form1
     Private Sub Button74_Click(ByVal sender As System.Object, ByVal e As System.EventArgs) Handles Button74.Click
         If TextBox29.Text = "" Then ShowBoxLabel("请扫描5位条码!", Color.Red) : Exit Sub
         If TextBox29.Text.Length <> 5 Then ShowBoxLabel("请扫描5位条码！", Color.Red) : Exit Sub
-
+        GetStockList("elseIn")
         BoxCode = TextBox29.Text.Trim
         ShowPanel(23)
     End Sub
@@ -3334,11 +3429,12 @@ Public Class Form1
 
     Private Sub Button77_Click(ByVal sender As System.Object, ByVal e As System.EventArgs) Handles Button77.Click
         TextBox5.Visible = False
-        ShowPanel(1)
+        ShowPanel(25)
     End Sub
 
     Private Sub Button68_Click_1(ByVal sender As System.Object, ByVal e As System.EventArgs) Handles Button68.Click
         If ComboBox2.Text = "" Then MsgBox("请选择订单！！") : Exit Sub
+        GetStockList("returnOut")
         ShowPanel(26)
     End Sub
 
@@ -3350,5 +3446,70 @@ Public Class Form1
     Private Sub Button79_Click(ByVal sender As System.Object, ByVal e As System.EventArgs) Handles Button79.Click
         TextBox5.Visible = False
         ShowPanel(19)
+    End Sub
+
+    Private Sub ComboBox3_SelectedIndexChanged(ByVal sender As Object, ByVal e As System.EventArgs) Handles ComboBox3.SelectedIndexChanged
+        Dim Have As Boolean = False
+
+        For t = 1 To UBound(stockArr, 2)
+            If stockArr(1, t) = ComboBox2.Text Then
+                Have = True
+                StockID = stockArr(2, t)
+            End If
+        Next
+
+        If Have = False Then MsgBox("请选择出库库区！！") : Exit Sub
+    End Sub
+
+    Private Sub ComboBox4_SelectedIndexChanged(ByVal sender As Object, ByVal e As System.EventArgs) Handles ComboBox4.SelectedIndexChanged
+        Dim Have As Boolean = False
+
+        For t = 1 To UBound(stockArr, 2)
+            If stockArr(1, t) = ComboBox4.Text Then
+                Have = True
+                StockID = stockArr(2, t)
+            End If
+        Next
+
+        If Have = False Then MsgBox("请选择入库库区！！") : Exit Sub
+    End Sub
+
+    Private Sub ComboBox6_SelectedIndexChanged(ByVal sender As Object, ByVal e As System.EventArgs) Handles ComboBox6.SelectedIndexChanged
+        Dim Have As Boolean = False
+
+        For t = 1 To UBound(stockArr, 2)
+            If stockArr(1, t) = ComboBox6.Text Then
+                Have = True
+                StockID = stockArr(2, t)
+            End If
+        Next
+
+        If Have = False Then MsgBox("请选择入库库区！！") : Exit Sub
+    End Sub
+
+    Private Sub ComboBox7_SelectedIndexChanged(ByVal sender As Object, ByVal e As System.EventArgs) Handles ComboBox7.SelectedIndexChanged
+        Dim Have As Boolean = False
+
+        For t = 1 To UBound(stockArr, 2)
+            If stockArr(1, t) = ComboBox7.Text Then
+                Have = True
+                StockID = stockArr(2, t)
+            End If
+        Next
+
+        If Have = False Then MsgBox("请选择退库库区！！") : Exit Sub
+    End Sub
+
+    Private Sub ComboBox8_SelectedIndexChanged(ByVal sender As Object, ByVal e As System.EventArgs) Handles ComboBox8.SelectedIndexChanged
+        Dim Have As Boolean = False
+
+        For t = 1 To UBound(ReasonArr, 2)
+            If ReasonArr(1, t) = ComboBox8.Text Then
+                Have = True
+                ReasonID = ReasonArr(2, t)
+            End If
+        Next
+
+        If Have = False Then MsgBox("请选择取消原因！！") : Exit Sub
     End Sub
 End Class
