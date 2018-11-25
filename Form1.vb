@@ -740,7 +740,7 @@ Public Class Form1
         Dim SQL1() As String
         ReDim SQL1(1)
 
-        SQL1(1) = "update hand_store set oldrk_time=intime,oldrk_class=InClass,oldrk_man=inman,StoreState='在库',InClass='" & NowClass & "',inman='" & NowUser & "',intime=convert(datetime,convert(varchar(20),getdate(),120)),indate=convert(varchar(10),getdate(),120),boxcode='" & BoxCode & "',flag=0,instore_type=" & QtInType & " where barcode='" & TextBox7.Text.Trim & "'"
+        SQL1(1) = "update hand_store set FaultLoc=" & FaultLoc & ",oldrk_time=intime,oldrk_class=InClass,oldrk_man=inman,StoreState='在库',InClass='" & NowClass & "',inman='" & NowUser & "',intime=convert(datetime,convert(varchar(20),getdate(),120)),indate=convert(varchar(10),getdate(),120),boxcode='" & BoxCode & "',flag=0,instore_type=" & QtInType & " where barcode='" & TextBox7.Text.Trim & "'"
 
         StrErr5 = ExeSQLS(SQL1, SQL)
         If StrErr5 <> "" Then MsgBox(StrErr5) : Exit Function
@@ -2365,7 +2365,7 @@ Public Class Form1
         ReasonID = 0
         ComboBox8.Items.Clear()
         ComboBox8.Items.Add("") '默认为空
-        For t = 1 To UBound(stockArr, 2)
+        For t = 1 To UBound(ReasonArr, 2)
             If ReasonArr(1, t).ToString <> "" Then ComboBox8.Items.Add(ReasonArr(1, t).ToString)
         Next
     End Sub
