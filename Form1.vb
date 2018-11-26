@@ -700,7 +700,7 @@ Public Class Form1
 
         StrErr5 = ExeSQLS(SQL1, SQL)
         If StrErr5 <> "" Then MsgBox(StrErr5) : Exit Function
-        StrShow = "扫码成功！！"
+        StrShow = "扫码成功,已上传金蝶！！"
     End Function
 
     '2018-6-2增加如果入库条码是【入库取消】的话，直接修改入库标志即可
@@ -714,7 +714,7 @@ Public Class Form1
 
         StrErr5 = ExeSQLS(SQL1, SQL)
         If StrErr5 <> "" Then MsgBox(StrErr5) : Exit Function
-        StrShow = "扫码成功！！"
+        StrShow = "扫码成功,已上传金蝶！！"
     End Function
 
     '2018-4-16增加如果入库条码是【入库取消】的话，直接修改入库标志即可
@@ -1216,15 +1216,9 @@ Public Class Form1
         Dim Arr7(,)
         StrErr7 = GetRst("select a.FInterID,a.FBillNo,a.FHeadSelfB0154 from ICStockBill a left join ICStockBillEntry b on a.FInterID=b.FInterID where b.FSourceBillNo='" & FBillNo & "'", Arr7, SQLK3)
         If UBound(Arr7, 2) > 0 Then
-            Dim StrErr5 As String
-            Dim Arr5(,)
-            StrErr5 = GetRst("select a.FInterID,a.FBillNo,a.FHeadSelfB0154 from ICStockBill a  where a.FBillNo='" & Arr7(1, 1) & "'", Arr5, SQLK3)
-            If UBound(Arr5, 2) > 0 Then
-                FInterID = Arr5(1, 1)
-                BillNo = Arr5(2, 1)
-                ShowPanel(26)
-                Exit Sub
-            End If
+            FInterID = Arr7(1, 1)
+            BillNo = Arr7(2, 1)
+            Exit Sub
         End If
 
         '2016-11-23 修改 汇率放在最上边
@@ -2119,13 +2113,13 @@ Public Class Form1
         ShowPanel(11)
     End Sub
 
-    Private Sub Button32_Click(ByVal sender As System.Object, ByVal e As System.EventArgs)
-        TextBox1.Text = SQLServer
-        TextBox2.Text = SQLDatabase
-        TextBox3.Text = SQLUser
-        TextBox4.Text = SQLPassword
-        ShowPanel(3)
-    End Sub
+    'Private Sub Button32_Click(ByVal sender As System.Object, ByVal e As System.EventArgs)
+    '    TextBox1.Text = SQLServer
+    '    TextBox2.Text = SQLDatabase
+    '    TextBox3.Text = SQLUser
+    '    TextBox4.Text = SQLPassword
+    '    ShowPanel(3)
+    'End Sub
 
     Private Sub TextBox18_TextChanged(ByVal sender As Object, ByVal e As System.EventArgs) Handles TextBox18.TextChanged
         TextBox19.ForeColor = Color.Red
@@ -3429,7 +3423,7 @@ Public Class Form1
 
     Private Sub Button77_Click(ByVal sender As System.Object, ByVal e As System.EventArgs) Handles Button77.Click
         TextBox5.Visible = False
-        ShowPanel(25)
+        ShowPanel(22)
     End Sub
 
     Private Sub Button68_Click_1(ByVal sender As System.Object, ByVal e As System.EventArgs) Handles Button68.Click
@@ -3511,5 +3505,22 @@ Public Class Form1
         Next
 
         If Have = False Then MsgBox("请选择取消原因！！") : Exit Sub
+    End Sub 
+
+    Private Sub Button32_Click(ByVal sender As Object, ByVal e As System.EventArgs) Handles Button32.Click
+        Dim Arr(,)
+        Dim StrErr As String
+        Dim StrSql As String
+        StrSql = "select 1,count(*) from hand_store where InClass='" & NowClass & "' and InDate=convert(varchar(10),getdate(),120) and instore_type = 3 UNION select 2,count(*) from hand_store where InMan='" & NowUser & "' and InDate=convert(varchar(10),getdate(),120) and instore_type = 3 UNION select 3,count(*) from hand_store where boxcode='" & BoxCode & "'"
+        StrErr = GetRst(StrSql, Arr, SQL)
+        If StrErr <> "" Then ShowInLabel(StrErr, Color.Red) : Exit Sub
+
+        Label109.Text = Arr(2, 2)
+        Label108.Text = Arr(2, 1)
+        Label106.Text = Arr(2, 3)
+
+        Label110.Visible = True
+        Label111.Visible = True
+        Label107.Visible = True
     End Sub
 End Class
