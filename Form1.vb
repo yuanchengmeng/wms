@@ -1712,7 +1712,7 @@ Public Class Form1
         Dim StrSQL As String
         Dim StrErr As String
 
-        StrSQL = "select t.FName, t.FItemID from  t_stock t where t.FParentID =430 order by t.FNumber"
+        StrSQL = "select t.FName, t.FItemID from t_stock t where t.FItemID in (431,14633,21340,21069) order by t.FItemID desc"
         StrErr = GetRst(StrSQL, stockArr, SQLK3)
         If StrErr <> "" Then
             MsgBox("网络连接失败！！")
