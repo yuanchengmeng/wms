@@ -1746,6 +1746,12 @@ Public Class Form1
                     If stockArr(1, t).ToString <> "" Then ComboBox7.Items.Add(stockArr(1, t).ToString)
                 Next
 
+            Case "changeBox" '笼框转移
+                ComboBox9.Items.Clear()
+                ComboBox9.Items.Add("")
+                For t = 1 To UBound(stockArr, 2)
+                    If stockArr(1, t).ToString <> "" Then ComboBox9.Items.Add(stockArr(1, t).ToString)
+                Next
         End Select
     End Sub
 
@@ -2199,6 +2205,7 @@ Public Class Form1
         TextBox20.Text = ""
         Label3.Text = ""
         Label3.BackColor = Color.White
+        GetStockList("changeBox")
         ShowPanel(13)
     End Sub
 
@@ -2268,6 +2275,7 @@ Public Class Form1
     End Sub
 
     Sub ChageBox()
+        If ComboBox9.Text = "" Then MsgBox("请选择库区！！") : Exit Sub
         If TextBox20.Text = "" Then ShowOutBoxLabel("请输入5位或11位条码！！", Color.Red) : Exit Sub
         If TextBox20.Text.Length <> 5 And TextBox20.Text.Length <> 10 And TextBox20.Text.Length <> 11 Then ShowOutBoxLabel("请扫描5位或11位条码！", Color.Red) : Exit Sub
         Dim Arr1(,)
@@ -2295,12 +2303,12 @@ Public Class Form1
         Dim StrErr3 As String
         ReDim SQL1(1)
         If TextBox20.Text.Length = 5 Then
-        	'2018-4-16增加改变笼框的时间changebox_time
-            SQL1(1) = "update hand_store set changebox_time=convert(datetime,convert(varchar(20),getdate(),120)),changebox_class='" & NowClass & "',changebox_man='" & NowUser & "', nochange_boxcode=boxcode,boxcode='" & TextBox21.Text.Trim & "' where StoreState = '在库' and boxcode = '" & TextBox20.Text.Trim & "'"
+            '2018-4-16增加改变笼框的时间changebox_time
+            SQL1(1) = "update hand_store set FaultLoc=" & StockID & ",changebox_time=convert(datetime,convert(varchar(20),getdate(),120)),changebox_class='" & NowClass & "',changebox_man='" & NowUser & "', nochange_boxcode=boxcode,boxcode='" & TextBox21.Text.Trim & "' where StoreState = '在库' and boxcode = '" & TextBox20.Text.Trim & "'"
         End If
         If TextBox20.Text.Length = 10 Or TextBox20.Text.Length = 11 Then
-        	'2018-4-16增加改变笼框的时间changebox_time
-            SQL1(1) = "update hand_store set changebox_time=convert(datetime,convert(varchar(20),getdate(),120)),changebox_class='" & NowClass & "', changebox_man='" & NowUser & "', nochange_boxcode=boxcode, boxcode='" & TextBox21.Text.Trim & "' where StoreState = '在库' and barcode = '" & TextBox20.Text.Trim & "'"
+            '2018-4-16增加改变笼框的时间changebox_time
+            SQL1(1) = "update hand_store set FaultLoc=" & StockID & ",changebox_time=convert(datetime,convert(varchar(20),getdate(),120)),changebox_class='" & NowClass & "', changebox_man='" & NowUser & "', nochange_boxcode=boxcode, boxcode='" & TextBox21.Text.Trim & "' where StoreState = '在库' and barcode = '" & TextBox20.Text.Trim & "'"
         End If
         StrErr3 = ExeSQLS(SQL1, SQL)
         If StrErr3 <> "" Then ShowOutBoxLabel(StrErr3, Color.Red) : Exit Sub

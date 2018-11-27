@@ -237,6 +237,13 @@ Partial Public Class Form1
         Me.Button70 = New System.Windows.Forms.Button
         Me.Button73 = New System.Windows.Forms.Button
         Me.Panel23 = New System.Windows.Forms.Panel
+        Me.Button32 = New System.Windows.Forms.Button
+        Me.Label106 = New System.Windows.Forms.Label
+        Me.Label107 = New System.Windows.Forms.Label
+        Me.Label108 = New System.Windows.Forms.Label
+        Me.Label109 = New System.Windows.Forms.Label
+        Me.Label110 = New System.Windows.Forms.Label
+        Me.Label111 = New System.Windows.Forms.Label
         Me.ComboBox6 = New System.Windows.Forms.ComboBox
         Me.Label103 = New System.Windows.Forms.Label
         Me.Label80 = New System.Windows.Forms.Label
@@ -281,13 +288,8 @@ Partial Public Class Form1
         Me.Label100 = New System.Windows.Forms.Label
         Me.Label101 = New System.Windows.Forms.Label
         Me.Button80 = New System.Windows.Forms.Button
-        Me.Label106 = New System.Windows.Forms.Label
-        Me.Label107 = New System.Windows.Forms.Label
-        Me.Label108 = New System.Windows.Forms.Label
-        Me.Label109 = New System.Windows.Forms.Label
-        Me.Label110 = New System.Windows.Forms.Label
-        Me.Label111 = New System.Windows.Forms.Label
-        Me.Button32 = New System.Windows.Forms.Button
+        Me.ComboBox9 = New System.Windows.Forms.ComboBox
+        Me.Label112 = New System.Windows.Forms.Label
         Me.Panel6.SuspendLayout()
         Me.Panel5.SuspendLayout()
         Me.Panel4.SuspendLayout()
@@ -1451,21 +1453,21 @@ Partial Public Class Form1
         '
         'TextBox20
         '
-        Me.TextBox20.Location = New System.Drawing.Point(77, 46)
+        Me.TextBox20.Location = New System.Drawing.Point(77, 72)
         Me.TextBox20.Name = "TextBox20"
         Me.TextBox20.Size = New System.Drawing.Size(110, 21)
         Me.TextBox20.TabIndex = 73
         '
         'Button23
         '
-        Me.Button23.Location = New System.Drawing.Point(192, 44)
+        Me.Button23.Location = New System.Drawing.Point(192, 70)
         Me.Button23.Name = "Button23"
         Me.Button23.Size = New System.Drawing.Size(40, 23)
         Me.Button23.TabIndex = 72
         '
         'Label58
         '
-        Me.Label58.Location = New System.Drawing.Point(6, 50)
+        Me.Label58.Location = New System.Drawing.Point(6, 76)
         Me.Label58.Name = "Label58"
         Me.Label58.Size = New System.Drawing.Size(64, 17)
         Me.Label58.Text = "转出条码:"
@@ -1517,6 +1519,8 @@ Partial Public Class Form1
         'Panel13
         '
         Me.Panel13.BackColor = System.Drawing.Color.White
+        Me.Panel13.Controls.Add(Me.ComboBox9)
+        Me.Panel13.Controls.Add(Me.Label112)
         Me.Panel13.Controls.Add(Me.Label37)
         Me.Panel13.Controls.Add(Me.Label3)
         Me.Panel13.Controls.Add(Me.Button37)
@@ -1543,7 +1547,7 @@ Partial Public Class Form1
         '
         Me.Label3.Font = New System.Drawing.Font("Tahoma", 11.0!, System.Drawing.FontStyle.Regular)
         Me.Label3.ForeColor = System.Drawing.Color.Black
-        Me.Label3.Location = New System.Drawing.Point(16, 85)
+        Me.Label3.Location = New System.Drawing.Point(16, 115)
         Me.Label3.Name = "Label3"
         Me.Label3.Size = New System.Drawing.Size(210, 78)
         '
@@ -2109,21 +2113,21 @@ Partial Public Class Form1
         '
         'TextBox27
         '
-        Me.TextBox27.Location = New System.Drawing.Point(80, 47)
+        Me.TextBox27.Location = New System.Drawing.Point(80, 38)
         Me.TextBox27.Name = "TextBox27"
         Me.TextBox27.Size = New System.Drawing.Size(110, 21)
         Me.TextBox27.TabIndex = 73
         '
         'Button65
         '
-        Me.Button65.Location = New System.Drawing.Point(195, 45)
+        Me.Button65.Location = New System.Drawing.Point(195, 36)
         Me.Button65.Name = "Button65"
         Me.Button65.Size = New System.Drawing.Size(40, 23)
         Me.Button65.TabIndex = 72
         '
         'Label31
         '
-        Me.Label31.Location = New System.Drawing.Point(13, 51)
+        Me.Label31.Location = New System.Drawing.Point(13, 42)
         Me.Label31.Name = "Label31"
         Me.Label31.Size = New System.Drawing.Size(64, 17)
         Me.Label31.Text = "笼框条码:"
@@ -2215,6 +2219,60 @@ Partial Public Class Form1
         Me.Panel23.Name = "Panel23"
         Me.Panel23.Size = New System.Drawing.Size(240, 256)
         Me.Panel23.Visible = False
+        '
+        'Button32
+        '
+        Me.Button32.Location = New System.Drawing.Point(140, 198)
+        Me.Button32.Name = "Button32"
+        Me.Button32.Size = New System.Drawing.Size(83, 23)
+        Me.Button32.TabIndex = 155
+        Me.Button32.Text = "扫码统计"
+        '
+        'Label106
+        '
+        Me.Label106.Location = New System.Drawing.Point(88, 201)
+        Me.Label106.Name = "Label106"
+        Me.Label106.Size = New System.Drawing.Size(28, 17)
+        Me.Label106.Text = "0"
+        '
+        'Label107
+        '
+        Me.Label107.Location = New System.Drawing.Point(21, 202)
+        Me.Label107.Name = "Label107"
+        Me.Label107.Size = New System.Drawing.Size(60, 17)
+        Me.Label107.Text = "本笼数量"
+        '
+        'Label108
+        '
+        Me.Label108.Location = New System.Drawing.Point(200, 176)
+        Me.Label108.Name = "Label108"
+        Me.Label108.Size = New System.Drawing.Size(37, 15)
+        Me.Label108.Text = "0"
+        Me.Label108.Visible = False
+        '
+        'Label109
+        '
+        Me.Label109.Location = New System.Drawing.Point(88, 176)
+        Me.Label109.Name = "Label109"
+        Me.Label109.Size = New System.Drawing.Size(28, 17)
+        Me.Label109.Text = "0"
+        Me.Label109.Visible = False
+        '
+        'Label110
+        '
+        Me.Label110.Location = New System.Drawing.Point(138, 176)
+        Me.Label110.Name = "Label110"
+        Me.Label110.Size = New System.Drawing.Size(60, 17)
+        Me.Label110.Text = "本班数量"
+        Me.Label110.Visible = False
+        '
+        'Label111
+        '
+        Me.Label111.Location = New System.Drawing.Point(21, 176)
+        Me.Label111.Name = "Label111"
+        Me.Label111.Size = New System.Drawing.Size(60, 17)
+        Me.Label111.Text = "本人数量"
+        Me.Label111.Visible = False
         '
         'ComboBox6
         '
@@ -2607,59 +2665,21 @@ Partial Public Class Form1
         Me.Button80.TabIndex = 17
         Me.Button80.Text = "上一步"
         '
-        'Label106
+        'ComboBox9
         '
-        Me.Label106.Location = New System.Drawing.Point(88, 201)
-        Me.Label106.Name = "Label106"
-        Me.Label106.Size = New System.Drawing.Size(28, 17)
-        Me.Label106.Text = "0"
+        Me.ComboBox9.DropDownStyle = System.Windows.Forms.ComboBoxStyle.DropDown
+        Me.ComboBox9.Location = New System.Drawing.Point(78, 44)
+        Me.ComboBox9.Name = "ComboBox9"
+        Me.ComboBox9.Size = New System.Drawing.Size(115, 22)
+        Me.ComboBox9.TabIndex = 129
         '
-        'Label107
+        'Label112
         '
-        Me.Label107.Location = New System.Drawing.Point(21, 202)
-        Me.Label107.Name = "Label107"
-        Me.Label107.Size = New System.Drawing.Size(60, 17)
-        Me.Label107.Text = "本笼数量"
-        '
-        'Label108
-        '
-        Me.Label108.Location = New System.Drawing.Point(200, 176)
-        Me.Label108.Name = "Label108"
-        Me.Label108.Size = New System.Drawing.Size(37, 15)
-        Me.Label108.Text = "0"
-        Me.Label108.Visible = False
-        '
-        'Label109
-        '
-        Me.Label109.Location = New System.Drawing.Point(88, 176)
-        Me.Label109.Name = "Label109"
-        Me.Label109.Size = New System.Drawing.Size(28, 17)
-        Me.Label109.Text = "0"
-        Me.Label109.Visible = False
-        '
-        'Label110
-        '
-        Me.Label110.Location = New System.Drawing.Point(138, 176)
-        Me.Label110.Name = "Label110"
-        Me.Label110.Size = New System.Drawing.Size(60, 17)
-        Me.Label110.Text = "本班数量"
-        Me.Label110.Visible = False
-        '
-        'Label111
-        '
-        Me.Label111.Location = New System.Drawing.Point(21, 176)
-        Me.Label111.Name = "Label111"
-        Me.Label111.Size = New System.Drawing.Size(60, 17)
-        Me.Label111.Text = "本人数量"
-        Me.Label111.Visible = False
-        '
-        'Button32
-        '
-        Me.Button32.Location = New System.Drawing.Point(140, 198)
-        Me.Button32.Name = "Button32"
-        Me.Button32.Size = New System.Drawing.Size(83, 23)
-        Me.Button32.TabIndex = 155
-        Me.Button32.Text = "扫码统计"
+        Me.Label112.Location = New System.Drawing.Point(11, 47)
+        Me.Label112.Name = "Label112"
+        Me.Label112.Size = New System.Drawing.Size(59, 17)
+        Me.Label112.Text = "库区:"
+        Me.Label112.TextAlign = System.Drawing.ContentAlignment.TopCenter
         '
         'Form1
         '
@@ -2996,5 +3016,7 @@ Partial Public Class Form1
     Friend WithEvents Label110 As System.Windows.Forms.Label
     Friend WithEvents Label111 As System.Windows.Forms.Label
     Friend WithEvents Button32 As System.Windows.Forms.Button
+    Friend WithEvents ComboBox9 As System.Windows.Forms.ComboBox
+    Friend WithEvents Label112 As System.Windows.Forms.Label
 
 End Class
