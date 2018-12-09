@@ -161,6 +161,8 @@ Partial Public Class Form1
         Me.Button36 = New System.Windows.Forms.Button
         Me.Button35 = New System.Windows.Forms.Button
         Me.Panel13 = New System.Windows.Forms.Panel
+        Me.ComboBox9 = New System.Windows.Forms.ComboBox
+        Me.Label112 = New System.Windows.Forms.Label
         Me.Label37 = New System.Windows.Forms.Label
         Me.Label3 = New System.Windows.Forms.Label
         Me.Button37 = New System.Windows.Forms.Button
@@ -178,11 +180,9 @@ Partial Public Class Form1
         Me.Button42 = New System.Windows.Forms.Button
         Me.Panel15 = New System.Windows.Forms.Panel
         Me.Label66 = New System.Windows.Forms.Label
-        Me.Label67 = New System.Windows.Forms.Label
         Me.TextBox23 = New System.Windows.Forms.TextBox
         Me.Button45 = New System.Windows.Forms.Button
         Me.Label68 = New System.Windows.Forms.Label
-        Me.Label69 = New System.Windows.Forms.Label
         Me.Button46 = New System.Windows.Forms.Button
         Me.Panel16 = New System.Windows.Forms.Panel
         Me.Label74 = New System.Windows.Forms.Label
@@ -288,8 +288,19 @@ Partial Public Class Form1
         Me.Label100 = New System.Windows.Forms.Label
         Me.Label101 = New System.Windows.Forms.Label
         Me.Button80 = New System.Windows.Forms.Button
-        Me.ComboBox9 = New System.Windows.Forms.ComboBox
-        Me.Label112 = New System.Windows.Forms.Label
+        Me.Label69 = New System.Windows.Forms.Label
+        Me.Label114 = New System.Windows.Forms.Label
+        Me.Label115 = New System.Windows.Forms.Label
+        Me.Label116 = New System.Windows.Forms.Label
+        Me.Label117 = New System.Windows.Forms.Label
+        Me.Label119 = New System.Windows.Forms.Label
+        Me.Label121 = New System.Windows.Forms.Label
+        Me.Label122 = New System.Windows.Forms.Label
+        Me.Label123 = New System.Windows.Forms.Label
+        Me.Label124 = New System.Windows.Forms.Label
+        Me.Label126 = New System.Windows.Forms.Label
+        Me.Label127 = New System.Windows.Forms.Label
+        Me.Label129 = New System.Windows.Forms.Label
         Me.Panel6.SuspendLayout()
         Me.Panel5.SuspendLayout()
         Me.Panel4.SuspendLayout()
@@ -1534,6 +1545,22 @@ Partial Public Class Form1
         Me.Panel13.Size = New System.Drawing.Size(240, 256)
         Me.Panel13.Visible = False
         '
+        'ComboBox9
+        '
+        Me.ComboBox9.DropDownStyle = System.Windows.Forms.ComboBoxStyle.DropDown
+        Me.ComboBox9.Location = New System.Drawing.Point(78, 44)
+        Me.ComboBox9.Name = "ComboBox9"
+        Me.ComboBox9.Size = New System.Drawing.Size(115, 22)
+        Me.ComboBox9.TabIndex = 129
+        '
+        'Label112
+        '
+        Me.Label112.Location = New System.Drawing.Point(11, 47)
+        Me.Label112.Name = "Label112"
+        Me.Label112.Size = New System.Drawing.Size(59, 17)
+        Me.Label112.Text = "库区:"
+        Me.Label112.TextAlign = System.Drawing.ContentAlignment.TopCenter
+        '
         'Label37
         '
         Me.Label37.Font = New System.Drawing.Font("Tahoma", 11.0!, System.Drawing.FontStyle.Bold)
@@ -1665,14 +1692,25 @@ Partial Public Class Form1
         'Panel15
         '
         Me.Panel15.BackColor = System.Drawing.Color.White
+        Me.Panel15.Controls.Add(Me.Label129)
+        Me.Panel15.Controls.Add(Me.Label127)
+        Me.Panel15.Controls.Add(Me.Label126)
+        Me.Panel15.Controls.Add(Me.Label124)
+        Me.Panel15.Controls.Add(Me.Label123)
+        Me.Panel15.Controls.Add(Me.Label122)
+        Me.Panel15.Controls.Add(Me.Label121)
+        Me.Panel15.Controls.Add(Me.Label119)
+        Me.Panel15.Controls.Add(Me.Label117)
+        Me.Panel15.Controls.Add(Me.Label116)
+        Me.Panel15.Controls.Add(Me.Label115)
+        Me.Panel15.Controls.Add(Me.Label114)
+        Me.Panel15.Controls.Add(Me.Label69)
         Me.Panel15.Controls.Add(Me.Label66)
-        Me.Panel15.Controls.Add(Me.Label67)
         Me.Panel15.Controls.Add(Me.TextBox23)
         Me.Panel15.Controls.Add(Me.Button45)
         Me.Panel15.Controls.Add(Me.Label68)
-        Me.Panel15.Controls.Add(Me.Label69)
         Me.Panel15.Controls.Add(Me.Button46)
-        Me.Panel15.Location = New System.Drawing.Point(16, 1909)
+        Me.Panel15.Location = New System.Drawing.Point(12, 1909)
         Me.Panel15.Name = "Panel15"
         Me.Panel15.Size = New System.Drawing.Size(240, 256)
         Me.Panel15.Visible = False
@@ -1681,50 +1719,35 @@ Partial Public Class Form1
         '
         Me.Label66.Font = New System.Drawing.Font("Tahoma", 11.0!, System.Drawing.FontStyle.Bold)
         Me.Label66.ForeColor = System.Drawing.Color.Blue
-        Me.Label66.Location = New System.Drawing.Point(75, 13)
+        Me.Label66.Location = New System.Drawing.Point(75, 7)
         Me.Label66.Name = "Label66"
         Me.Label66.Size = New System.Drawing.Size(77, 17)
         Me.Label66.Text = "轮胎信息"
         '
-        'Label67
-        '
-        Me.Label67.Font = New System.Drawing.Font("Tahoma", 11.0!, System.Drawing.FontStyle.Regular)
-        Me.Label67.ForeColor = System.Drawing.Color.Black
-        Me.Label67.Location = New System.Drawing.Point(7, 75)
-        Me.Label67.Name = "Label67"
-        Me.Label67.Size = New System.Drawing.Size(225, 135)
-        '
         'TextBox23
         '
-        Me.TextBox23.Location = New System.Drawing.Point(71, 42)
+        Me.TextBox23.Location = New System.Drawing.Point(59, 31)
         Me.TextBox23.Name = "TextBox23"
         Me.TextBox23.Size = New System.Drawing.Size(110, 21)
         Me.TextBox23.TabIndex = 73
         '
         'Button45
         '
-        Me.Button45.Location = New System.Drawing.Point(195, 40)
+        Me.Button45.Location = New System.Drawing.Point(181, 29)
         Me.Button45.Name = "Button45"
         Me.Button45.Size = New System.Drawing.Size(40, 23)
         Me.Button45.TabIndex = 72
         '
         'Label68
         '
-        Me.Label68.Location = New System.Drawing.Point(19, 46)
+        Me.Label68.Location = New System.Drawing.Point(14, 34)
         Me.Label68.Name = "Label68"
         Me.Label68.Size = New System.Drawing.Size(45, 17)
         Me.Label68.Text = "条码:"
         '
-        'Label69
-        '
-        Me.Label69.Font = New System.Drawing.Font("Tahoma", 11.0!, System.Drawing.FontStyle.Regular)
-        Me.Label69.Location = New System.Drawing.Point(22, 94)
-        Me.Label69.Name = "Label69"
-        Me.Label69.Size = New System.Drawing.Size(210, 35)
-        '
         'Button46
         '
-        Me.Button46.Location = New System.Drawing.Point(75, 218)
+        Me.Button46.Location = New System.Drawing.Point(75, 229)
         Me.Button46.Name = "Button46"
         Me.Button46.Size = New System.Drawing.Size(83, 23)
         Me.Button46.TabIndex = 17
@@ -2665,21 +2688,101 @@ Partial Public Class Form1
         Me.Button80.TabIndex = 17
         Me.Button80.Text = "上一步"
         '
-        'ComboBox9
+        'Label69
         '
-        Me.ComboBox9.DropDownStyle = System.Windows.Forms.ComboBoxStyle.DropDown
-        Me.ComboBox9.Location = New System.Drawing.Point(78, 44)
-        Me.ComboBox9.Name = "ComboBox9"
-        Me.ComboBox9.Size = New System.Drawing.Size(115, 22)
-        Me.ComboBox9.TabIndex = 129
+        Me.Label69.Font = New System.Drawing.Font("Courier New", 9.0!, System.Drawing.FontStyle.Regular)
+        Me.Label69.Location = New System.Drawing.Point(4, 130)
+        Me.Label69.Name = "Label69"
+        Me.Label69.Size = New System.Drawing.Size(68, 15)
+        Me.Label69.Text = "入库员工:"
         '
-        'Label112
+        'Label114
         '
-        Me.Label112.Location = New System.Drawing.Point(11, 47)
-        Me.Label112.Name = "Label112"
-        Me.Label112.Size = New System.Drawing.Size(59, 17)
-        Me.Label112.Text = "库区:"
-        Me.Label112.TextAlign = System.Drawing.ContentAlignment.TopCenter
+        Me.Label114.Font = New System.Drawing.Font("Courier New", 9.0!, System.Drawing.FontStyle.Regular)
+        Me.Label114.Location = New System.Drawing.Point(4, 153)
+        Me.Label114.Name = "Label114"
+        Me.Label114.Size = New System.Drawing.Size(68, 15)
+        Me.Label114.Text = "入库时间:"
+        '
+        'Label115
+        '
+        Me.Label115.Location = New System.Drawing.Point(5, 56)
+        Me.Label115.Name = "Label115"
+        Me.Label115.Size = New System.Drawing.Size(230, 9)
+        Me.Label115.Text = "———————————————————----------"
+        '
+        'Label116
+        '
+        Me.Label116.Location = New System.Drawing.Point(5, 213)
+        Me.Label116.Name = "Label116"
+        Me.Label116.Size = New System.Drawing.Size(230, 10)
+        Me.Label116.Text = "———————————————————----"
+        '
+        'Label117
+        '
+        Me.Label117.Font = New System.Drawing.Font("Courier New", 9.0!, System.Drawing.FontStyle.Regular)
+        Me.Label117.Location = New System.Drawing.Point(5, 198)
+        Me.Label117.Name = "Label117"
+        Me.Label117.Size = New System.Drawing.Size(68, 15)
+        Me.Label117.Text = "出库时间:"
+        '
+        'Label119
+        '
+        Me.Label119.Font = New System.Drawing.Font("Courier New", 9.0!, System.Drawing.FontStyle.Regular)
+        Me.Label119.Location = New System.Drawing.Point(5, 176)
+        Me.Label119.Name = "Label119"
+        Me.Label119.Size = New System.Drawing.Size(68, 15)
+        Me.Label119.Text = "出库员工:"
+        '
+        'Label121
+        '
+        Me.Label121.Font = New System.Drawing.Font("Courier New", 9.0!, System.Drawing.FontStyle.Regular)
+        Me.Label121.Location = New System.Drawing.Point(5, 106)
+        Me.Label121.Name = "Label121"
+        Me.Label121.Size = New System.Drawing.Size(68, 15)
+        Me.Label121.Text = "轮胎状态:"
+        '
+        'Label122
+        '
+        Me.Label122.Font = New System.Drawing.Font("Courier New", 9.0!, System.Drawing.FontStyle.Regular)
+        Me.Label122.Location = New System.Drawing.Point(7, 69)
+        Me.Label122.Name = "Label122"
+        Me.Label122.Size = New System.Drawing.Size(225, 32)
+        '
+        'Label123
+        '
+        Me.Label123.Font = New System.Drawing.Font("Courier New", 9.0!, System.Drawing.FontStyle.Regular)
+        Me.Label123.Location = New System.Drawing.Point(70, 106)
+        Me.Label123.Name = "Label123"
+        Me.Label123.Size = New System.Drawing.Size(150, 15)
+        '
+        'Label124
+        '
+        Me.Label124.Font = New System.Drawing.Font("Courier New", 9.0!, System.Drawing.FontStyle.Regular)
+        Me.Label124.Location = New System.Drawing.Point(70, 153)
+        Me.Label124.Name = "Label124"
+        Me.Label124.Size = New System.Drawing.Size(150, 15)
+        '
+        'Label126
+        '
+        Me.Label126.Font = New System.Drawing.Font("Courier New", 9.0!, System.Drawing.FontStyle.Regular)
+        Me.Label126.Location = New System.Drawing.Point(70, 198)
+        Me.Label126.Name = "Label126"
+        Me.Label126.Size = New System.Drawing.Size(150, 15)
+        '
+        'Label127
+        '
+        Me.Label127.Font = New System.Drawing.Font("Courier New", 9.0!, System.Drawing.FontStyle.Regular)
+        Me.Label127.Location = New System.Drawing.Point(70, 130)
+        Me.Label127.Name = "Label127"
+        Me.Label127.Size = New System.Drawing.Size(150, 15)
+        '
+        'Label129
+        '
+        Me.Label129.Font = New System.Drawing.Font("Courier New", 9.0!, System.Drawing.FontStyle.Regular)
+        Me.Label129.Location = New System.Drawing.Point(70, 176)
+        Me.Label129.Name = "Label129"
+        Me.Label129.Size = New System.Drawing.Size(150, 15)
         '
         'Form1
         '
@@ -2892,11 +2995,9 @@ Partial Public Class Form1
     Friend WithEvents Button43 As System.Windows.Forms.Button
     Friend WithEvents Panel15 As System.Windows.Forms.Panel
     Friend WithEvents Label66 As System.Windows.Forms.Label
-    Friend WithEvents Label67 As System.Windows.Forms.Label
     Friend WithEvents TextBox23 As System.Windows.Forms.TextBox
     Friend WithEvents Button45 As System.Windows.Forms.Button
     Friend WithEvents Label68 As System.Windows.Forms.Label
-    Friend WithEvents Label69 As System.Windows.Forms.Label
     Friend WithEvents Button46 As System.Windows.Forms.Button
     Friend WithEvents Panel16 As System.Windows.Forms.Panel
     Friend WithEvents Label74 As System.Windows.Forms.Label
@@ -3018,5 +3119,18 @@ Partial Public Class Form1
     Friend WithEvents Button32 As System.Windows.Forms.Button
     Friend WithEvents ComboBox9 As System.Windows.Forms.ComboBox
     Friend WithEvents Label112 As System.Windows.Forms.Label
+    Friend WithEvents Label114 As System.Windows.Forms.Label
+    Friend WithEvents Label69 As System.Windows.Forms.Label
+    Friend WithEvents Label115 As System.Windows.Forms.Label
+    Friend WithEvents Label119 As System.Windows.Forms.Label
+    Friend WithEvents Label117 As System.Windows.Forms.Label
+    Friend WithEvents Label116 As System.Windows.Forms.Label
+    Friend WithEvents Label121 As System.Windows.Forms.Label
+    Friend WithEvents Label129 As System.Windows.Forms.Label
+    Friend WithEvents Label127 As System.Windows.Forms.Label
+    Friend WithEvents Label126 As System.Windows.Forms.Label
+    Friend WithEvents Label124 As System.Windows.Forms.Label
+    Friend WithEvents Label123 As System.Windows.Forms.Label
+    Friend WithEvents Label122 As System.Windows.Forms.Label
 
 End Class

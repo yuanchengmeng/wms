@@ -2740,35 +2740,39 @@ Public Class Form1
     End Sub
 
     Sub BarcodeMessage()
+
         Dim str1 As String
         str1 = ""
         ''''''格式判断
-        If TextBox23.Text = "" Then ShowBarcodeMessage("请扫描11位条码！！", Color.Red) : Exit Sub
-        If TextBox23.Text.Length <> 10 And TextBox23.Text.Length <> 11 Then ShowBarcodeMessage("请扫描11位条码！！", Color.Red) : Exit Sub
+        If TextBox23.Text = "" Then MsgBox("请扫描11位条码！！") : Exit Sub
+        If TextBox23.Text.Length <> 10 And TextBox23.Text.Length <> 11 Then MsgBox("请扫描11位条码！！") : Exit Sub
 
         Dim StrErr1 As String
         Dim Arr1(,)
-        '2018-06-10 修改轮胎信息只显示【在库】和【已出库】
-        'StrErr1 = GetRst("select ProductID from hand_store where Barcode='" & TextBox23.Text.Trim & "'", Arr1, SQL)
-        StrErr1 = GetRst("select ProductID from hand_store where StoreState='在库' and Barcode='" & TextBox23.Text.Trim & _
-                "' UNION select ProductID from hand_store where StoreState='已出库' and Barcode='" & TextBox23.Text.Trim & "'", Arr1, SQL)
+        '2018-06-10 修改轮胎信息只显示【在库】和【已出库】 
+        StrErr1 = GetRst("select ProductID,StoreState,CONVERT(varchar(100), InTime, 120),InMan,InClass,flag,CONVERT(varchar(100), OutTime, 120),OutMan,OutClass from hand_store where Barcode='" & TextBox23.Text.Trim & "'", Arr1, SQL)
 
-        If StrErr1 <> "" Then ShowBarcodeMessage(StrErr1, Color.Red) : Exit Sub
-        If UBound(Arr1, 2) <= 0 Then ShowBarcodeMessage("没有该轮胎信息！！", Color.Red) : Exit Sub
+        If StrErr1 <> "" Then MsgBox(StrErr1) : Exit Sub
+        If UBound(Arr1, 2) <= 0 Then MsgBox("没有该轮胎信息！！") : Exit Sub
 
 
         Dim StrErr2 As String
         Dim Arr2(,)
         StrErr2 = GetRst("select Fname from t_icitem where FItemID = " & Arr1(1, 1), Arr2, SQLK3)
-        If StrErr2 <> "" Then ShowBarcodeMessage(StrErr2, Color.Red) : Exit Sub
-        If UBound(Arr2, 2) = 0 Then ShowBarcodeMessage("不识别K3规格,请确认K3规格！！", Color.Red) : Exit Sub
-        ShowBarcodeMessage("轮胎规格：" & vbLf & Arr2(1, 1), Color.Green)
+        If StrErr2 <> "" Then MsgBox(StrErr2) : Exit Sub
+        If UBound(Arr2, 2) = 0 Then MsgBox("不识别K3规格,请确认K3规格！！") : Exit Sub
 
-    End Sub
+        Dim jindie = "未上传金蝶"
+        If Arr1(6, 1) = 1 Then jindie = "已上传金蝶"
 
-    Sub ShowBarcodeMessage(ByVal Str As String, ByVal CC As Color)
-        Label67.Text = Str
-        Label67.BackColor = CC
+        Label122.Text = Arr2(1, 1)
+        Label123.Text = Arr1(2, 1) & "--" & jindie
+        Label124.Text = Arr1(3, 1)
+        Label127.Text = Arr1(4, 1) & "--" & Arr1(5, 1)
+
+        Label126.Text = Arr1(7, 1)
+        Label129.Text = Arr1(8, 1) & "--" & Arr1(9, 1)
+
     End Sub
 
     Private Sub Button45_Click(ByVal sender As System.Object, ByVal e As System.EventArgs) Handles Button45.Click
