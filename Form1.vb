@@ -1849,7 +1849,6 @@ Public Class Form1
         If StrErr <> "" Then MsgBox("获取订单信息错误" & vbCrLf & StrErr) : Exit Sub
         If UBound(ArrO, 2) = 0 Then MsgBox("无订单信息") : Exit Sub
 
-        'StrErr = Me.GetRst("select Barcode,DetailID,ProductID from hand_store where storestate = '已出库' and OrderID = " & OrderID & " and ProductID=" & FInID, Arr, SQL)
         StrErr = Me.GetRst("select count(*) from hand_store where storestate = '已出库' and OrderID = " & OrderID & " and ProductID=" & FInID, Arr, SQL)
 
         If StrErr <> "" Then MsgBox("获取发货信息错误" & vbCrLf & StrErr) : Exit Sub
@@ -3025,13 +3024,10 @@ Public Class Form1
     End Sub
 
     Private Sub Button60_Click(ByVal sender As System.Object, ByVal e As System.EventArgs)
-        ShowICStockK3Label("正在生成.....", Color.Green)
-        'Dim Arr1(,)
-        'Dim StrErr1 As String
+        'ShowICStockK3Label("正在生成.....", Color.Green)
+        
         Dim Arr2(,)
         Dim StrErr2 As String
-        'StrErr1 = GetRst("SELECT count(*) from hand_store where InMan='" & NowUser & "' and InDate >=convert(varchar(10),DATEADD(day,-2,convert(varchar(10),getdate(),120)),120) and InDate<=convert(varchar(10),getdate(),120) and flag=0", Arr1, SQL)
-        'If StrErr1 <> "" Then ShowICStockK3Label(StrErr1, Color.Red) : Exit Sub
         Dim StrErr As String
         Dim SQLStr() As String
         ReDim SQLStr(2)
@@ -3039,35 +3035,19 @@ Public Class Form1
                     "InMan='" & NowUser & "' and  InDate >=convert(varchar(10),DATEADD(day,-2,convert(varchar(10),getdate(),120)),120) and InDate<=convert(varchar(10),getdate(),120)  and flag=0 group by ProductID,FaultLoc,flag,InMan,InDate"
 
         StrErr2 = GetRst("SELECT count(*) from hand_store where InMan='" & NowUser & "' and InDate >=convert(varchar(10),DATEADD(day,-2,convert(varchar(10),getdate(),120)),120) and InDate<=convert(varchar(10),getdate(),120) and flag=0", Arr2, SQL)
-        If StrErr2 <> "" Then ShowICStockK3Label(StrErr2, Color.Red) : Exit Sub
+        If StrErr2 <> "" Then MsgBox(StrErr2) : Exit Sub
         	'2016-4-16增加上传k3的时间
         SQLStr(2) = "update hand_store set flag=1,k3_time=convert(datetime,convert(varchar(20),getdate(),120)) where InMan='" & NowUser & "' and  InDate >=convert(varchar(10),DATEADD(day,-2,convert(varchar(10),getdate(),120)),120) and InDate<=convert(varchar(10),getdate(),120) and flag=0"
         StrErr = ExeSQLS(SQLStr, SQL)
-        If StrErr <> "" Then ShowICStockK3Label(StrErr, Color.Red) : Exit Sub
+        If StrErr <> "" Then MsgBox(StrErr) : Exit Sub
         If Arr2(1, 1) = 0 Then
-            ShowICStockK3Label("没有要生成单据的轮胎，请先入库之后进行此操作", Color.Red)
+            MsgBox("没有要生成单据的轮胎")
             Exit Sub
         End If
-        ShowICStockK3Label("生成成功，共" & Arr2(1, 1) & "条", Color.Green)
+        MsgBox("生成成功")
+        'MsgBox("生成成功，共" & Arr2(1, 1) & "条")
     End Sub
 
-    'Sub ShowICStockLabel(ByVal Str As String, ByVal CC As Color)
-
-    '    Label80.Text = Str
-    '    Label80.BackColor = CC
-    '    'If CC = Color.Red Then
-    '    '    MsgBox(Str)
-    '    'End If
-    'End Sub
-
-    Sub ShowICStockK3Label(ByVal Str As String, ByVal CC As Color)
-
-        Label78.Text = Str
-        Label78.BackColor = CC
-        'If CC = Color.Red Then
-        '    MsgBox(Str)
-        'End If
-    End Sub
 
     Private Sub Button62_Click(ByVal sender As System.Object, ByVal e As System.EventArgs) Handles Button62.Click
         ShowPanel(20)
@@ -3078,11 +3058,11 @@ Public Class Form1
 
         Dim StrErr2 As String
         StrErr2 = GetBillNo() '生成入库单据号
-        If StrErr2 <> "" Then ShowICStockK3Label(StrErr2, Color.Red) : Exit Function
+        If StrErr2 <> "" Then MsgBox(StrErr2) : Exit Function
 
         Dim StrErr3 As String
         StrErr3 = GetFInterID(SQLK3) '生成入库单内码
-        If StrErr3 <> "" Then ShowICStockK3Label(StrErr3, Color.Red) : Exit Function
+        If StrErr3 <> "" Then MsgBox(StrErr3) : Exit Function
 
         Dim Str As String
         Dim SQL1() As String
@@ -3090,18 +3070,18 @@ Public Class Form1
         SQL1(1) = "insert into ICStockBill (FBrNo,FTranType,FDate,FBillNo,FExplanation,FFetchAdd,FPOSName,FConfirmMem,FYearPeriod,FInterID,FDCStockID,FFManagerID,FSManagerID,FBillerID,FVchInterID,FUpStockWhenSave,FManageType,FDeptID) values " & _
                         "('0'," & FBillID & ",DATEADD(day," & flag & ",convert(varchar(20),getdate(),120)),'" & BillNo & "','','','','',''," & FInterID & "," & Arr1(2, 1) & "," & k3User & "," & k3User & ",16427 ,0,0,0,2913)"
         Str = ExeSQLS(SQL1, SQLK3)
-        If Str <> "" Then ShowICStockK3Label(Str, Color.Red) : Exit Function
+        If Str <> "" Then MsgBox(Str) : Exit Function
 
         Dim SQLStr() As String
         ReDim SQLStr(1)
         Dim StrErr4 As String
         SQLStr(1) = "UPDATE KTMSSQL.dbo.sync_bcwl SET rk_no ='" & BillNo & "',operatetype = 'update', rjh =(SELECT boxcode from wms.dbo.hand_store where wms.dbo.hand_store.Barcode=KTMSSQL.dbo.sync_bcwl.barcode and wms.dbo.hand_store.InMan = '" & NowUser & "' AND wms.dbo.hand_store.InDate = CONVERT (VARCHAR (10),DATEADD(DAY," & flag & ",CONVERT (VARCHAR(10), getdate(), 120)),120) AND wms.dbo.hand_store.flag = 0),crkbz = 1,rk_time='" & Arr1(4, 1) & "' WHERE barcode IN (SELECT barcode from wms.dbo.hand_store where InMan = '" & NowUser & "' AND InDate = CONVERT (VARCHAR (10),DATEADD(DAY," & flag & ",CONVERT (VARCHAR(10), getdate(), 120)),120)AND flag = 0)"
         StrErr4 = ExeSQLS(SQLStr, SQLMES)
-        If StrErr4 <> "" Then ShowICStockK3Label(StrErr4, Color.Red) : Exit Function
+        If StrErr4 <> "" Then MsgBox(StrErr4) : Exit Function
         '2016-4-16增加上传k3的时间 
         SQLStr(1) = "update hand_store set incode=" & FInterID & ",flag=1,k3_time=convert(datetime,convert(varchar(20),getdate(),120)) where InMan='" & NowUser & "' and  InDate =convert(varchar(10),DATEADD(day," & flag & ",convert(varchar(10),getdate(),120)),120) and flag=0"
         StrErr4 = ExeSQLS(SQLStr, SQL)
-        If StrErr4 <> "" Then ShowICStockK3Label(StrErr4, Color.Red) : Exit Function
+        If StrErr4 <> "" Then MsgBox(StrErr4) : Exit Function
 
         'AddOperLog(flag)
 
@@ -3114,11 +3094,7 @@ Public Class Form1
             SQL2(1) = "insert into ICStockBillEntry (FBrNo,FInterID,FEntryID,FItemID,FQty,FAuxQty,FBatchNo,FSourceBillNo,FContractBillNo,FICMOBillNo,FOrderBillNo,FMTONo,FClientOrderNo,FItemSize,FItemSuite,FPositionNo,FSEOutBillNo,FConfirmMemEntry,FReturnNoticeBillNO,FNote,FUnitID,FDCSPID,FSnListID,FDCStockID,FChkPassItem) values " & _
                        "('0'," & FInterID & "," & t & "," & Arr1(1, t) & "," & Arr1(3, t) & "," & Arr1(3, t) & ",'','','','','','','','','','','','','','',254,0,0," & Arr1(2, t) & ",1058)"
             StrErr3 = ExeSQLS(SQL2, SQLK3)
-            If StrErr3 <> "" Then ShowICStockK3Label(StrErr3, Color.Red) : Exit Function
-
-            'SQL1(1) = "update ICStocks set flag=1,BillNo='" & BillNo & "' where id=" & Arr1(4, t)
-            'Str = ExeSQLS(SQL1, SQL)
-            'If Str <> "" Then ShowICStockK3Label(Str, Color.Red) : Exit Function
+            If StrErr3 <> "" Then MsgBox(StrErr3) : Exit Function
             count = count + Arr1(3, t)
         Next
 
@@ -3131,10 +3107,11 @@ Public Class Form1
         StrSQL = "select FBillID from ICBillNo where FBillName LIKE '产品入库%' "
         Dim Arr(,)
         StrErr = GetRst(StrSQL, Arr, SQLK3)
-        If StrErr <> "" Then ShowICStockK3Label(StrErr, Color.Red) : Exit Sub
+        If StrErr <> "" Then MsgBox(StrErr) : Exit Sub
         FBillID = Arr(1, 1)
-
-        ShowICStockK3Label("正在生成.....", Color.Green)
+ 
+        Label67.Text = "正在生成....."
+        Label67.BackColor = Color.Green
 
         Dim Arr1(,)
         Dim StrErr1 As String
@@ -3144,17 +3121,15 @@ Public Class Form1
         Dim t As Long
         Dim count As Long = 0
         For t = -2 To 0 '天数
-            'StrErr1 = GetRst("select ProductID,FaultLoc,FQty,id from ICStocks where InMan='" & NowUser & "' and InDate =convert(varchar(10),DATEADD(day," & t & ",convert(varchar(10),getdate(),120)),120) and flag=0", Arr1, SQL)
-            '人库修改20160725 ---start
-            'date1 = Now
             StrErr1 = GetRst("select ProductID,FaultLoc,count(*),InDate from hand_store where InMan='" & NowUser & "' and InDate =convert(varchar(10),DATEADD(day," & t & ",convert(varchar(10),getdate(),120)),120) and flag=0 group by ProductID,FaultLoc,flag,InMan,InDate order by ProductID", Arr1, SQL)
-            If StrErr1 <> "" Then ShowICStockK3Label(NowUser & "DAY," & t & ",CONVERT" & StrErr1, Color.Red) : Exit Sub
+            If StrErr1 <> "" Then MsgBox(NowUser & "DAY," & t & ",CONVERT" & StrErr1) : Exit Sub
 
-          
+
             '人库修改20160725 ---end
             If UBound(Arr1, 2) > 0 Then
-                message1 = ToK3Storage(Arr1, FBillID, t)
-                message = message + message1
+                'message1 = ToK3Storage(Arr1, FBillID, t)
+                'message = message + message1
+                message = ToK3Storage(Arr1, FBillID, t)
             Else
                 count = count + 1
             End If
@@ -3162,10 +3137,46 @@ Public Class Form1
 
 
         If count = 3 Then
-            ShowICStockK3Label("没有要上传的单据，请先生成手持入库再进行此操作！！", Color.Red)
+            MsgBox("没有要上传的单据！！")
+            Label67.Text = "没有要上传的单据！！"
+            Label67.BackColor = Color.Red
             Exit Sub
         End If
-        ShowICStockK3Label("上传成功！！" & vbCrLf & message, Color.Green)
+        Label67.Text = message 
+
+        Dim Arr2(,)
+        Dim StrErr2 As String
+        StrErr2 = Me.GetRst("select b.Fname,a.FAuxQty from ICStockBillEntry a left join t_icitem b on a.FItemID=b.FItemID where a.FInterID =" & FInterID, Arr2, SQLK3)
+        If StrErr <> "" Then
+            Exit Sub
+        End If
+
+        If UBound(Arr2, 2) = 0 Then
+            Exit Sub
+        End If
+
+
+        Dim ds As New DataSet
+        Dim dt As New DataTable
+        dt.Columns.Add("规格型号", Type.GetType("System.String"))
+        dt.Columns.Add("数量", Type.GetType("System.Int32"))
+        For t = 1 To UBound(Arr2, 2)
+            Dim dw = dt.NewRow
+            dw.Item(0) = Arr2(1, t)
+            dw.Item(1) = Arr2(2, t) - 0
+            dt.Rows.Add(dw)
+
+        Next
+        ds.Tables.Add(dt)
+        DataGrid6.DataSource = ds.Tables(0)
+
+        '''''''''''''修改列宽
+
+        DataGrid6.TableStyles.Clear()
+        DataGrid6.TableStyles.Add(New DataGridTableStyle)
+        DataGrid6.TableStyles.Item(0).MappingName = dt.TableName
+        DataGrid6.TableStyles(0).GridColumnStyles.Item(0).Width = 175
+        DataGrid6.TableStyles(0).GridColumnStyles.Item(1).Width = 35
     End Sub
 
     Private Sub Button64_Click(ByVal sender As System.Object, ByVal e As System.EventArgs) Handles Button64.Click
@@ -3205,72 +3216,6 @@ Public Class Form1
         BoxCode = TextBox27.Text
         BoxMesMessage()
     End Sub
-
-    '出库日志
-    'Sub AddOperLog(ByVal barcode As String, ByVal opertype As String, ByVal operorder As Long, ByVal plateno As Long, ByVal operno As Long)
-    '    Dim StrErr As String
-    '    Dim SQL1() As String
-    '    ReDim SQL1(1)
-    '    SQL1(1) = "insert into oper_log (barcode,operator,oper_time,oper_type,oper_order,oper_class,plate_no,oper_no) values " & _
-    '                  "('" & barcode & "','" & NowUser & "',convert(varchar(20),getdate(),120),'" & opertype & "'," & operorder & ",'" & NowClass & "'," & plateno & "," & operno & ")"
-    '    StrErr = ExeSQLS(SQL1, SQL)
-    '    If StrErr <> "" Then MsgBox("网络连接失败！！") : Exit Sub
-    'End Sub
-
-    '入库日志
-    'Sub AddOperLog(ByVal barcode As String, ByVal opertype As String, ByVal boxno As String)
-    '    Dim StrErr As String
-    '    Dim SQL1() As String
-    '    ReDim SQL1(1)
-    '    SQL1(1) = "insert into oper_log (barcode,operator,oper_time,oper_type,oper_class,box_no) values " & _
-    '                  "('" & barcode & "','" & NowUser & "',convert(varchar(20),getdate(),120),'" & opertype & "','" & NowClass & "','" & boxno & "')"
-    '    StrErr = ExeSQLS(SQL1, SQL)
-    '    If StrErr <> "" Then MsgBox("网络连接失败！！") : Exit Sub
-    'End Sub
-
-    '入库取消日志
-    'Sub AddOperLog(ByVal barcode As String, ByVal opertype As String, ByVal operno As Long)
-    '    Dim StrErr As String
-    '    Dim SQL1() As String
-    '    ReDim SQL1(1)
-    '    SQL1(1) = "insert into oper_log (barcode,operator,oper_time,oper_type,oper_class,oper_no) values " & _
-    '                  "('" & barcode & "','" & NowUser & "',convert(varchar(20),getdate(),120),'" & opertype & "','" & NowClass & "'," & operno & ")"
-    '    StrErr = ExeSQLS(SQL1, SQL)
-    '    If StrErr <> "" Then MsgBox("网络连接失败！！") : Exit Sub
-    'End Sub
-
-    '返入库日志
-    'Sub AddOperLog(ByVal barcode As String, ByVal opertype As String, ByVal operno As Long, ByVal boxno As String)
-    '    Dim StrErr As String
-    '    Dim SQL1() As String
-    '    ReDim SQL1(1)
-    '    SQL1(1) = "insert into oper_log (barcode,operator,oper_time,oper_type,oper_class,oper_no,box_no) values " & _
-    '                  "('" & barcode & "','" & NowUser & "',convert(varchar(20),getdate(),120),'" & opertype & "','" & NowClass & "'," & operno & ",'" & boxno & "')"
-    '    StrErr = ExeSQLS(SQL1, SQL)
-    '    If StrErr <> "" Then MsgBox("网络连接失败！！") : Exit Sub
-    'End Sub
-
-    '入库取消日志
-    'Sub AddOperLog(ByVal barcode As String, ByVal opertype As String)
-    '    Dim StrErr As String
-    '    Dim SQL1() As String
-    '    ReDim SQL1(1)
-    '    SQL1(1) = "insert into oper_log (barcode,operator,oper_time,oper_type,oper_class) values " & _
-    '                  "('" & barcode & "','" & NowUser & "',convert(varchar(20),getdate(),120),'" & opertype & "','" & NowClass & "')"
-    '    StrErr = ExeSQLS(SQL1, SQL)
-    '    If StrErr <> "" Then MsgBox("网络连接失败！！") : Exit Sub
-    'End Sub
-
-    '上传金蝶日志
-    'Sub AddOperLog(ByVal flag As String)
-    '    Dim StrErr As String
-    '    Dim SQL1() As String
-    '    ReDim SQL1(1)
-    '    SQL1(1) = "insert into oper_log (barcode,operator,oper_time,oper_type,oper_class,box_no,oper_no) " & _
-    '                  " select barcode,InMan,convert(varchar(20),getdate(),120),'上传金蝶','" & NowClass & "',boxcode,incode from hand_store where InMan='" & NowUser & "' and  InDate =convert(varchar(10),DATEADD(day," & flag & ",convert(varchar(10),getdate(),120)),120) and flag=0"
-    '    StrErr = ExeSQLS(SQL1, SQL)
-    '    If StrErr <> "" Then MsgBox("网络连接失败！！") : Exit Sub
-    'End Sub
 
     Private Sub Button67_Click(ByVal sender As System.Object, ByVal e As System.EventArgs)
         Try

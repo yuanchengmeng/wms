@@ -179,6 +179,19 @@ Partial Public Class Form1
         Me.Label64 = New System.Windows.Forms.Label
         Me.Button42 = New System.Windows.Forms.Button
         Me.Panel15 = New System.Windows.Forms.Panel
+        Me.Label129 = New System.Windows.Forms.Label
+        Me.Label127 = New System.Windows.Forms.Label
+        Me.Label126 = New System.Windows.Forms.Label
+        Me.Label124 = New System.Windows.Forms.Label
+        Me.Label123 = New System.Windows.Forms.Label
+        Me.Label122 = New System.Windows.Forms.Label
+        Me.Label121 = New System.Windows.Forms.Label
+        Me.Label119 = New System.Windows.Forms.Label
+        Me.Label117 = New System.Windows.Forms.Label
+        Me.Label116 = New System.Windows.Forms.Label
+        Me.Label115 = New System.Windows.Forms.Label
+        Me.Label114 = New System.Windows.Forms.Label
+        Me.Label69 = New System.Windows.Forms.Label
         Me.Label66 = New System.Windows.Forms.Label
         Me.TextBox23 = New System.Windows.Forms.TextBox
         Me.Button45 = New System.Windows.Forms.Button
@@ -218,7 +231,6 @@ Partial Public Class Form1
         Me.Button63 = New System.Windows.Forms.Button
         Me.Panel20 = New System.Windows.Forms.Panel
         Me.Button58 = New System.Windows.Forms.Button
-        Me.Label78 = New System.Windows.Forms.Label
         Me.Button59 = New System.Windows.Forms.Button
         Me.Button64 = New System.Windows.Forms.Button
         Me.Panel21 = New System.Windows.Forms.Panel
@@ -288,19 +300,8 @@ Partial Public Class Form1
         Me.Label100 = New System.Windows.Forms.Label
         Me.Label101 = New System.Windows.Forms.Label
         Me.Button80 = New System.Windows.Forms.Button
-        Me.Label69 = New System.Windows.Forms.Label
-        Me.Label114 = New System.Windows.Forms.Label
-        Me.Label115 = New System.Windows.Forms.Label
-        Me.Label116 = New System.Windows.Forms.Label
-        Me.Label117 = New System.Windows.Forms.Label
-        Me.Label119 = New System.Windows.Forms.Label
-        Me.Label121 = New System.Windows.Forms.Label
-        Me.Label122 = New System.Windows.Forms.Label
-        Me.Label123 = New System.Windows.Forms.Label
-        Me.Label124 = New System.Windows.Forms.Label
-        Me.Label126 = New System.Windows.Forms.Label
-        Me.Label127 = New System.Windows.Forms.Label
-        Me.Label129 = New System.Windows.Forms.Label
+        Me.Label67 = New System.Windows.Forms.Label
+        Me.DataGrid6 = New System.Windows.Forms.DataGrid
         Me.Panel6.SuspendLayout()
         Me.Panel5.SuspendLayout()
         Me.Panel4.SuspendLayout()
@@ -1715,6 +1716,102 @@ Partial Public Class Form1
         Me.Panel15.Size = New System.Drawing.Size(240, 256)
         Me.Panel15.Visible = False
         '
+        'Label129
+        '
+        Me.Label129.Font = New System.Drawing.Font("Courier New", 9.0!, System.Drawing.FontStyle.Regular)
+        Me.Label129.Location = New System.Drawing.Point(70, 176)
+        Me.Label129.Name = "Label129"
+        Me.Label129.Size = New System.Drawing.Size(150, 15)
+        '
+        'Label127
+        '
+        Me.Label127.Font = New System.Drawing.Font("Courier New", 9.0!, System.Drawing.FontStyle.Regular)
+        Me.Label127.Location = New System.Drawing.Point(70, 130)
+        Me.Label127.Name = "Label127"
+        Me.Label127.Size = New System.Drawing.Size(150, 15)
+        '
+        'Label126
+        '
+        Me.Label126.Font = New System.Drawing.Font("Courier New", 9.0!, System.Drawing.FontStyle.Regular)
+        Me.Label126.Location = New System.Drawing.Point(70, 198)
+        Me.Label126.Name = "Label126"
+        Me.Label126.Size = New System.Drawing.Size(150, 15)
+        '
+        'Label124
+        '
+        Me.Label124.Font = New System.Drawing.Font("Courier New", 9.0!, System.Drawing.FontStyle.Regular)
+        Me.Label124.Location = New System.Drawing.Point(70, 153)
+        Me.Label124.Name = "Label124"
+        Me.Label124.Size = New System.Drawing.Size(150, 15)
+        '
+        'Label123
+        '
+        Me.Label123.Font = New System.Drawing.Font("Courier New", 9.0!, System.Drawing.FontStyle.Regular)
+        Me.Label123.Location = New System.Drawing.Point(70, 106)
+        Me.Label123.Name = "Label123"
+        Me.Label123.Size = New System.Drawing.Size(150, 15)
+        '
+        'Label122
+        '
+        Me.Label122.Font = New System.Drawing.Font("Courier New", 9.0!, System.Drawing.FontStyle.Regular)
+        Me.Label122.Location = New System.Drawing.Point(7, 69)
+        Me.Label122.Name = "Label122"
+        Me.Label122.Size = New System.Drawing.Size(225, 32)
+        '
+        'Label121
+        '
+        Me.Label121.Font = New System.Drawing.Font("Courier New", 9.0!, System.Drawing.FontStyle.Regular)
+        Me.Label121.Location = New System.Drawing.Point(5, 106)
+        Me.Label121.Name = "Label121"
+        Me.Label121.Size = New System.Drawing.Size(68, 15)
+        Me.Label121.Text = "轮胎状态:"
+        '
+        'Label119
+        '
+        Me.Label119.Font = New System.Drawing.Font("Courier New", 9.0!, System.Drawing.FontStyle.Regular)
+        Me.Label119.Location = New System.Drawing.Point(5, 176)
+        Me.Label119.Name = "Label119"
+        Me.Label119.Size = New System.Drawing.Size(68, 15)
+        Me.Label119.Text = "出库员工:"
+        '
+        'Label117
+        '
+        Me.Label117.Font = New System.Drawing.Font("Courier New", 9.0!, System.Drawing.FontStyle.Regular)
+        Me.Label117.Location = New System.Drawing.Point(5, 198)
+        Me.Label117.Name = "Label117"
+        Me.Label117.Size = New System.Drawing.Size(68, 15)
+        Me.Label117.Text = "出库时间:"
+        '
+        'Label116
+        '
+        Me.Label116.Location = New System.Drawing.Point(5, 213)
+        Me.Label116.Name = "Label116"
+        Me.Label116.Size = New System.Drawing.Size(230, 10)
+        Me.Label116.Text = "———————————————————----"
+        '
+        'Label115
+        '
+        Me.Label115.Location = New System.Drawing.Point(5, 56)
+        Me.Label115.Name = "Label115"
+        Me.Label115.Size = New System.Drawing.Size(230, 9)
+        Me.Label115.Text = "———————————————————----------"
+        '
+        'Label114
+        '
+        Me.Label114.Font = New System.Drawing.Font("Courier New", 9.0!, System.Drawing.FontStyle.Regular)
+        Me.Label114.Location = New System.Drawing.Point(4, 153)
+        Me.Label114.Name = "Label114"
+        Me.Label114.Size = New System.Drawing.Size(68, 15)
+        Me.Label114.Text = "入库时间:"
+        '
+        'Label69
+        '
+        Me.Label69.Font = New System.Drawing.Font("Courier New", 9.0!, System.Drawing.FontStyle.Regular)
+        Me.Label69.Location = New System.Drawing.Point(4, 130)
+        Me.Label69.Name = "Label69"
+        Me.Label69.Size = New System.Drawing.Size(68, 15)
+        Me.Label69.Text = "入库员工:"
+        '
         'Label66
         '
         Me.Label66.Font = New System.Drawing.Font("Tahoma", 11.0!, System.Drawing.FontStyle.Bold)
@@ -2039,8 +2136,9 @@ Partial Public Class Form1
         'Panel20
         '
         Me.Panel20.BackColor = System.Drawing.Color.White
+        Me.Panel20.Controls.Add(Me.DataGrid6)
+        Me.Panel20.Controls.Add(Me.Label67)
         Me.Panel20.Controls.Add(Me.Button58)
-        Me.Panel20.Controls.Add(Me.Label78)
         Me.Panel20.Controls.Add(Me.Button59)
         Me.Panel20.Controls.Add(Me.Button64)
         Me.Panel20.Location = New System.Drawing.Point(10, 557)
@@ -2050,19 +2148,11 @@ Partial Public Class Form1
         '
         'Button58
         '
-        Me.Button58.Location = New System.Drawing.Point(27, 17)
+        Me.Button58.Location = New System.Drawing.Point(27, 13)
         Me.Button58.Name = "Button58"
         Me.Button58.Size = New System.Drawing.Size(180, 23)
         Me.Button58.TabIndex = 93
         Me.Button58.Text = "生成金蝶入库单"
-        '
-        'Label78
-        '
-        Me.Label78.Font = New System.Drawing.Font("Tahoma", 11.0!, System.Drawing.FontStyle.Regular)
-        Me.Label78.ForeColor = System.Drawing.Color.Black
-        Me.Label78.Location = New System.Drawing.Point(9, 64)
-        Me.Label78.Name = "Label78"
-        Me.Label78.Size = New System.Drawing.Size(225, 120)
         '
         'Button59
         '
@@ -2688,101 +2778,20 @@ Partial Public Class Form1
         Me.Button80.TabIndex = 17
         Me.Button80.Text = "上一步"
         '
-        'Label69
+        'Label67
         '
-        Me.Label69.Font = New System.Drawing.Font("Courier New", 9.0!, System.Drawing.FontStyle.Regular)
-        Me.Label69.Location = New System.Drawing.Point(4, 130)
-        Me.Label69.Name = "Label69"
-        Me.Label69.Size = New System.Drawing.Size(68, 15)
-        Me.Label69.Text = "入库员工:"
+        Me.Label67.Location = New System.Drawing.Point(16, 42)
+        Me.Label67.Name = "Label67"
+        Me.Label67.Size = New System.Drawing.Size(210, 25)
         '
-        'Label114
+        'DataGrid6
         '
-        Me.Label114.Font = New System.Drawing.Font("Courier New", 9.0!, System.Drawing.FontStyle.Regular)
-        Me.Label114.Location = New System.Drawing.Point(4, 153)
-        Me.Label114.Name = "Label114"
-        Me.Label114.Size = New System.Drawing.Size(68, 15)
-        Me.Label114.Text = "入库时间:"
-        '
-        'Label115
-        '
-        Me.Label115.Location = New System.Drawing.Point(5, 56)
-        Me.Label115.Name = "Label115"
-        Me.Label115.Size = New System.Drawing.Size(230, 9)
-        Me.Label115.Text = "———————————————————----------"
-        '
-        'Label116
-        '
-        Me.Label116.Location = New System.Drawing.Point(5, 213)
-        Me.Label116.Name = "Label116"
-        Me.Label116.Size = New System.Drawing.Size(230, 10)
-        Me.Label116.Text = "———————————————————----"
-        '
-        'Label117
-        '
-        Me.Label117.Font = New System.Drawing.Font("Courier New", 9.0!, System.Drawing.FontStyle.Regular)
-        Me.Label117.Location = New System.Drawing.Point(5, 198)
-        Me.Label117.Name = "Label117"
-        Me.Label117.Size = New System.Drawing.Size(68, 15)
-        Me.Label117.Text = "出库时间:"
-        '
-        'Label119
-        '
-        Me.Label119.Font = New System.Drawing.Font("Courier New", 9.0!, System.Drawing.FontStyle.Regular)
-        Me.Label119.Location = New System.Drawing.Point(5, 176)
-        Me.Label119.Name = "Label119"
-        Me.Label119.Size = New System.Drawing.Size(68, 15)
-        Me.Label119.Text = "出库员工:"
-        '
-        'Label121
-        '
-        Me.Label121.Font = New System.Drawing.Font("Courier New", 9.0!, System.Drawing.FontStyle.Regular)
-        Me.Label121.Location = New System.Drawing.Point(5, 106)
-        Me.Label121.Name = "Label121"
-        Me.Label121.Size = New System.Drawing.Size(68, 15)
-        Me.Label121.Text = "轮胎状态:"
-        '
-        'Label122
-        '
-        Me.Label122.Font = New System.Drawing.Font("Courier New", 9.0!, System.Drawing.FontStyle.Regular)
-        Me.Label122.Location = New System.Drawing.Point(7, 69)
-        Me.Label122.Name = "Label122"
-        Me.Label122.Size = New System.Drawing.Size(225, 32)
-        '
-        'Label123
-        '
-        Me.Label123.Font = New System.Drawing.Font("Courier New", 9.0!, System.Drawing.FontStyle.Regular)
-        Me.Label123.Location = New System.Drawing.Point(70, 106)
-        Me.Label123.Name = "Label123"
-        Me.Label123.Size = New System.Drawing.Size(150, 15)
-        '
-        'Label124
-        '
-        Me.Label124.Font = New System.Drawing.Font("Courier New", 9.0!, System.Drawing.FontStyle.Regular)
-        Me.Label124.Location = New System.Drawing.Point(70, 153)
-        Me.Label124.Name = "Label124"
-        Me.Label124.Size = New System.Drawing.Size(150, 15)
-        '
-        'Label126
-        '
-        Me.Label126.Font = New System.Drawing.Font("Courier New", 9.0!, System.Drawing.FontStyle.Regular)
-        Me.Label126.Location = New System.Drawing.Point(70, 198)
-        Me.Label126.Name = "Label126"
-        Me.Label126.Size = New System.Drawing.Size(150, 15)
-        '
-        'Label127
-        '
-        Me.Label127.Font = New System.Drawing.Font("Courier New", 9.0!, System.Drawing.FontStyle.Regular)
-        Me.Label127.Location = New System.Drawing.Point(70, 130)
-        Me.Label127.Name = "Label127"
-        Me.Label127.Size = New System.Drawing.Size(150, 15)
-        '
-        'Label129
-        '
-        Me.Label129.Font = New System.Drawing.Font("Courier New", 9.0!, System.Drawing.FontStyle.Regular)
-        Me.Label129.Location = New System.Drawing.Point(70, 176)
-        Me.Label129.Name = "Label129"
-        Me.Label129.Size = New System.Drawing.Size(150, 15)
+        Me.DataGrid6.BackgroundColor = System.Drawing.Color.FromArgb(CType(CType(128, Byte), Integer), CType(CType(128, Byte), Integer), CType(CType(128, Byte), Integer))
+        Me.DataGrid6.Font = New System.Drawing.Font("Tahoma", 9.0!, System.Drawing.FontStyle.Regular)
+        Me.DataGrid6.Location = New System.Drawing.Point(6, 73)
+        Me.DataGrid6.Name = "DataGrid6"
+        Me.DataGrid6.Size = New System.Drawing.Size(230, 145)
+        Me.DataGrid6.TabIndex = 103
         '
         'Form1
         '
@@ -3033,7 +3042,6 @@ Partial Public Class Form1
     Friend WithEvents Button63 As System.Windows.Forms.Button
     Friend WithEvents Panel20 As System.Windows.Forms.Panel
     Friend WithEvents Button58 As System.Windows.Forms.Button
-    Friend WithEvents Label78 As System.Windows.Forms.Label
     Friend WithEvents Button59 As System.Windows.Forms.Button
     Friend WithEvents Button64 As System.Windows.Forms.Button
     Friend WithEvents Button24 As System.Windows.Forms.Button
@@ -3132,5 +3140,7 @@ Partial Public Class Form1
     Friend WithEvents Label124 As System.Windows.Forms.Label
     Friend WithEvents Label123 As System.Windows.Forms.Label
     Friend WithEvents Label122 As System.Windows.Forms.Label
+    Friend WithEvents Label67 As System.Windows.Forms.Label
+    Friend WithEvents DataGrid6 As System.Windows.Forms.DataGrid
 
 End Class
