@@ -90,6 +90,7 @@ Partial Public Class Form1
         Me.Button13 = New System.Windows.Forms.Button
         Me.Timer1 = New System.Windows.Forms.Timer
         Me.Panel2 = New System.Windows.Forms.Panel
+        Me.Button44 = New System.Windows.Forms.Button
         Me.ComboBox3 = New System.Windows.Forms.ComboBox
         Me.Label98 = New System.Windows.Forms.Label
         Me.ComboBox1 = New System.Windows.Forms.ComboBox
@@ -230,6 +231,8 @@ Partial Public Class Form1
         Me.Button62 = New System.Windows.Forms.Button
         Me.Button63 = New System.Windows.Forms.Button
         Me.Panel20 = New System.Windows.Forms.Panel
+        Me.DataGrid6 = New System.Windows.Forms.DataGrid
+        Me.Label67 = New System.Windows.Forms.Label
         Me.Button58 = New System.Windows.Forms.Button
         Me.Button59 = New System.Windows.Forms.Button
         Me.Button64 = New System.Windows.Forms.Button
@@ -300,8 +303,11 @@ Partial Public Class Form1
         Me.Label100 = New System.Windows.Forms.Label
         Me.Label101 = New System.Windows.Forms.Label
         Me.Button80 = New System.Windows.Forms.Button
-        Me.Label67 = New System.Windows.Forms.Label
-        Me.DataGrid6 = New System.Windows.Forms.DataGrid
+        Me.Panel27 = New System.Windows.Forms.Panel
+        Me.DataGrid7 = New System.Windows.Forms.DataGrid
+        Me.DataGridTableStyle5 = New System.Windows.Forms.DataGridTableStyle
+        Me.Button82 = New System.Windows.Forms.Button
+        Me.Label78 = New System.Windows.Forms.Label
         Me.Panel6.SuspendLayout()
         Me.Panel5.SuspendLayout()
         Me.Panel4.SuspendLayout()
@@ -328,6 +334,7 @@ Partial Public Class Form1
         Me.Panel24.SuspendLayout()
         Me.Panel25.SuspendLayout()
         Me.Panel26.SuspendLayout()
+        Me.Panel27.SuspendLayout()
         Me.SuspendLayout()
         '
         'Panel6
@@ -921,6 +928,7 @@ Partial Public Class Form1
         'Panel2
         '
         Me.Panel2.BackColor = System.Drawing.Color.White
+        Me.Panel2.Controls.Add(Me.Button44)
         Me.Panel2.Controls.Add(Me.ComboBox3)
         Me.Panel2.Controls.Add(Me.Label98)
         Me.Panel2.Controls.Add(Me.ComboBox1)
@@ -938,35 +946,43 @@ Partial Public Class Form1
         Me.Panel2.Size = New System.Drawing.Size(240, 260)
         Me.Panel2.Visible = False
         '
+        'Button44
+        '
+        Me.Button44.Location = New System.Drawing.Point(186, 21)
+        Me.Button44.Name = "Button44"
+        Me.Button44.Size = New System.Drawing.Size(50, 23)
+        Me.Button44.TabIndex = 133
+        Me.Button44.Text = "统计"
+        '
         'ComboBox3
         '
         Me.ComboBox3.DropDownStyle = System.Windows.Forms.ComboBoxStyle.DropDown
-        Me.ComboBox3.Location = New System.Drawing.Point(77, 49)
+        Me.ComboBox3.Location = New System.Drawing.Point(69, 49)
         Me.ComboBox3.Name = "ComboBox3"
         Me.ComboBox3.Size = New System.Drawing.Size(115, 22)
         Me.ComboBox3.TabIndex = 127
         '
         'Label98
         '
-        Me.Label98.Location = New System.Drawing.Point(10, 52)
+        Me.Label98.Location = New System.Drawing.Point(5, 52)
         Me.Label98.Name = "Label98"
-        Me.Label98.Size = New System.Drawing.Size(59, 17)
+        Me.Label98.Size = New System.Drawing.Size(60, 17)
         Me.Label98.Text = "库区:"
         Me.Label98.TextAlign = System.Drawing.ContentAlignment.TopCenter
         '
         'ComboBox1
         '
         Me.ComboBox1.DropDownStyle = System.Windows.Forms.ComboBoxStyle.DropDown
-        Me.ComboBox1.Location = New System.Drawing.Point(76, 22)
+        Me.ComboBox1.Location = New System.Drawing.Point(68, 22)
         Me.ComboBox1.Name = "ComboBox1"
         Me.ComboBox1.Size = New System.Drawing.Size(115, 22)
         Me.ComboBox1.TabIndex = 121
         '
         'Label4
         '
-        Me.Label4.Location = New System.Drawing.Point(9, 25)
+        Me.Label4.Location = New System.Drawing.Point(5, 25)
         Me.Label4.Name = "Label4"
-        Me.Label4.Size = New System.Drawing.Size(65, 17)
+        Me.Label4.Size = New System.Drawing.Size(60, 17)
         Me.Label4.Text = "车 牌 号:"
         '
         'DataGrid2
@@ -1003,14 +1019,14 @@ Partial Public Class Form1
         '
         'Button16
         '
-        Me.Button16.Location = New System.Drawing.Point(197, 76)
+        Me.Button16.Location = New System.Drawing.Point(187, 76)
         Me.Button16.Name = "Button16"
-        Me.Button16.Size = New System.Drawing.Size(40, 23)
+        Me.Button16.Size = New System.Drawing.Size(50, 23)
         Me.Button16.TabIndex = 104
         '
         'TextBox9
         '
-        Me.TextBox9.Location = New System.Drawing.Point(76, 77)
+        Me.TextBox9.Location = New System.Drawing.Point(69, 77)
         Me.TextBox9.Name = "TextBox9"
         Me.TextBox9.Size = New System.Drawing.Size(110, 21)
         Me.TextBox9.TabIndex = 103
@@ -1019,7 +1035,7 @@ Partial Public Class Form1
         '
         Me.Button18.Location = New System.Drawing.Point(138, 232)
         Me.Button18.Name = "Button18"
-        Me.Button18.Size = New System.Drawing.Size(83, 23)
+        Me.Button18.Size = New System.Drawing.Size(88, 23)
         Me.Button18.TabIndex = 102
         Me.Button18.Text = "主页"
         '
@@ -1035,10 +1051,11 @@ Partial Public Class Form1
         '
         'Label6
         '
-        Me.Label6.Location = New System.Drawing.Point(8, 81)
+        Me.Label6.Location = New System.Drawing.Point(4, 81)
         Me.Label6.Name = "Label6"
-        Me.Label6.Size = New System.Drawing.Size(65, 17)
-        Me.Label6.Text = "轮胎条码:"
+        Me.Label6.Size = New System.Drawing.Size(60, 17)
+        Me.Label6.Text = "条码:"
+        Me.Label6.TextAlign = System.Drawing.ContentAlignment.TopCenter
         '
         'Label19
         '
@@ -1052,7 +1069,7 @@ Partial Public Class Form1
         '
         'Button7
         '
-        Me.Button7.Location = New System.Drawing.Point(18, 232)
+        Me.Button7.Location = New System.Drawing.Point(16, 232)
         Me.Button7.Name = "Button7"
         Me.Button7.Size = New System.Drawing.Size(88, 23)
         Me.Button7.TabIndex = 17
@@ -2146,6 +2163,21 @@ Partial Public Class Form1
         Me.Panel20.Size = New System.Drawing.Size(240, 256)
         Me.Panel20.Visible = False
         '
+        'DataGrid6
+        '
+        Me.DataGrid6.BackgroundColor = System.Drawing.Color.FromArgb(CType(CType(128, Byte), Integer), CType(CType(128, Byte), Integer), CType(CType(128, Byte), Integer))
+        Me.DataGrid6.Font = New System.Drawing.Font("Tahoma", 9.0!, System.Drawing.FontStyle.Regular)
+        Me.DataGrid6.Location = New System.Drawing.Point(6, 73)
+        Me.DataGrid6.Name = "DataGrid6"
+        Me.DataGrid6.Size = New System.Drawing.Size(230, 145)
+        Me.DataGrid6.TabIndex = 103
+        '
+        'Label67
+        '
+        Me.Label67.Location = New System.Drawing.Point(16, 42)
+        Me.Label67.Name = "Label67"
+        Me.Label67.Size = New System.Drawing.Size(210, 25)
+        '
         'Button58
         '
         Me.Button58.Location = New System.Drawing.Point(27, 13)
@@ -2778,20 +2810,48 @@ Partial Public Class Form1
         Me.Button80.TabIndex = 17
         Me.Button80.Text = "上一步"
         '
-        'Label67
+        'Panel27
         '
-        Me.Label67.Location = New System.Drawing.Point(16, 42)
-        Me.Label67.Name = "Label67"
-        Me.Label67.Size = New System.Drawing.Size(210, 25)
+        Me.Panel27.BackColor = System.Drawing.Color.White
+        Me.Panel27.Controls.Add(Me.Label78)
+        Me.Panel27.Controls.Add(Me.DataGrid7)
+        Me.Panel27.Controls.Add(Me.Button82)
+        Me.Panel27.Location = New System.Drawing.Point(12, 2179)
+        Me.Panel27.Name = "Panel27"
+        Me.Panel27.Size = New System.Drawing.Size(240, 260)
         '
-        'DataGrid6
+        'DataGrid7
         '
-        Me.DataGrid6.BackgroundColor = System.Drawing.Color.FromArgb(CType(CType(128, Byte), Integer), CType(CType(128, Byte), Integer), CType(CType(128, Byte), Integer))
-        Me.DataGrid6.Font = New System.Drawing.Font("Tahoma", 9.0!, System.Drawing.FontStyle.Regular)
-        Me.DataGrid6.Location = New System.Drawing.Point(6, 73)
-        Me.DataGrid6.Name = "DataGrid6"
-        Me.DataGrid6.Size = New System.Drawing.Size(230, 145)
-        Me.DataGrid6.TabIndex = 103
+        Me.DataGrid7.BackgroundColor = System.Drawing.Color.FromArgb(CType(CType(128, Byte), Integer), CType(CType(128, Byte), Integer), CType(CType(128, Byte), Integer))
+        Me.DataGrid7.Font = New System.Drawing.Font("Tahoma", 9.0!, System.Drawing.FontStyle.Regular)
+        Me.DataGrid7.Location = New System.Drawing.Point(7, 44)
+        Me.DataGrid7.Name = "DataGrid7"
+        Me.DataGrid7.Size = New System.Drawing.Size(227, 160)
+        Me.DataGrid7.TabIndex = 79
+        Me.DataGrid7.TableStyles.Add(Me.DataGridTableStyle5)
+        '
+        'DataGridTableStyle5
+        '
+        Me.DataGridTableStyle5.GridColumnStyles.Add(Me.DataGridTextBoxColumn1)
+        Me.DataGridTableStyle5.GridColumnStyles.Add(Me.DataGridTextBoxColumn2)
+        Me.DataGridTableStyle5.GridColumnStyles.Add(Me.DataGridTextBoxColumn3)
+        '
+        'Button82
+        '
+        Me.Button82.Location = New System.Drawing.Point(75, 229)
+        Me.Button82.Name = "Button82"
+        Me.Button82.Size = New System.Drawing.Size(83, 23)
+        Me.Button82.TabIndex = 17
+        Me.Button82.Text = "返回"
+        '
+        'Label78
+        '
+        Me.Label78.Font = New System.Drawing.Font("Tahoma", 11.0!, System.Drawing.FontStyle.Bold)
+        Me.Label78.ForeColor = System.Drawing.Color.Blue
+        Me.Label78.Location = New System.Drawing.Point(76, 10)
+        Me.Label78.Name = "Label78"
+        Me.Label78.Size = New System.Drawing.Size(77, 17)
+        Me.Label78.Text = "出库统计"
         '
         'Form1
         '
@@ -2800,6 +2860,7 @@ Partial Public Class Form1
         Me.AutoScroll = True
         Me.ClientSize = New System.Drawing.Size(769, 780)
         Me.ControlBox = False
+        Me.Controls.Add(Me.Panel27)
         Me.Controls.Add(Me.Panel26)
         Me.Controls.Add(Me.Panel25)
         Me.Controls.Add(Me.Panel24)
@@ -2856,6 +2917,7 @@ Partial Public Class Form1
         Me.Panel24.ResumeLayout(False)
         Me.Panel25.ResumeLayout(False)
         Me.Panel26.ResumeLayout(False)
+        Me.Panel27.ResumeLayout(False)
         Me.ResumeLayout(False)
 
     End Sub
@@ -3142,5 +3204,11 @@ Partial Public Class Form1
     Friend WithEvents Label122 As System.Windows.Forms.Label
     Friend WithEvents Label67 As System.Windows.Forms.Label
     Friend WithEvents DataGrid6 As System.Windows.Forms.DataGrid
+    Friend WithEvents Button44 As System.Windows.Forms.Button
+    Friend WithEvents Panel27 As System.Windows.Forms.Panel
+    Friend WithEvents Label78 As System.Windows.Forms.Label
+    Friend WithEvents DataGrid7 As System.Windows.Forms.DataGrid
+    Friend WithEvents DataGridTableStyle5 As System.Windows.Forms.DataGridTableStyle
+    Friend WithEvents Button82 As System.Windows.Forms.Button
 
 End Class

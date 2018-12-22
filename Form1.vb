@@ -161,6 +161,7 @@ Public Class Form1
         Panel24.Visible = False
         Panel25.Visible = False
         Panel26.Visible = False
+        Panel27.Visible = False
         Select Case ID
             Case 1 : PP = Panel1
             Case 2 : PP = Panel2
@@ -188,6 +189,7 @@ Public Class Form1
             Case 24 : PP = Panel24
             Case 25 : PP = Panel25
             Case 26 : PP = Panel26
+            Case 27 : PP = Panel27
             Case Else : PP = Panel1
         End Select
         PP.Left = 0
@@ -260,8 +262,7 @@ Public Class Form1
         ComboBox18.Items.Clear()
 
         StrErr = GetRst(StrSQL, ArrP, SQLK3)
-        If StrErr <> "" Then
-            SetLog("获取订单号失败" & vbCrLf & StrSQL)
+        If StrErr <> "" Then 
             MsgBox("获取订单号失败" & vbCrLf & StrErr)
             Exit Sub
         End If
@@ -2782,10 +2783,6 @@ Public Class Form1
         ShowPanel(10)
     End Sub
 
-    Private Sub Button44_Click(ByVal sender As System.Object, ByVal e As System.EventArgs)
-        ShowPanel(16)
-    End Sub
-
     Private Sub Button50_Click(ByVal sender As System.Object, ByVal e As System.EventArgs) Handles Button50.Click
         ShowPanel(10)
     End Sub
@@ -3479,5 +3476,110 @@ Public Class Form1
         Label110.Visible = True
         Label111.Visible = True
         Label107.Visible = True
+    End Sub
+ 
+    Private Sub Button44_Click(ByVal sender As System.Object, ByVal e As System.EventArgs) Handles Button44.Click
+        If ComboBox1.Text = "" Then MsgBox("请选择车牌号！！") : Exit Sub
+
+        GetOutStatisData()
+        ShowPanel(27)
+    End Sub
+
+    Sub GetOutStatisData()  '''''''''获取单据信息
+        Dim Arr7(,)
+        Dim StrErr7 As String
+        StrErr7 = GetRst("select id from vehicle where vehicleNo = '" & ComboBox1.Text.Trim & "' and orderID=" & OrderID, Arr7, SQL)
+        If StrErr7 <> "" Then MsgBox("网络无法连接!!") : Exit Sub
+        If UBound(Arr7, 2) = 0 Then MsgBox("无法识别车牌号!!") : Exit Sub
+        vehicleID = Arr7(1, 1)
+
+        Dim StrErr As String
+        Dim Arr1(,)
+        Dim Arr2(,)
+        Dim Arr3(,)
+        Dim Arr4(,)
+        Dim Arr5(,)
+
+        Dim StrErr2 As String
+        StrErr2 = GetRst("select FInterID,FCustID from SEOrder where FBillNo ='" & ComboBox18.Text & "'", Arr1, SQLK3)
+        If StrErr2 <> "" Then MsgBox("数据库连接失败！！") : Exit Sub
+        If UBound(Arr1, 2) < 1 Then MsgBox("没有该订单信息！！") : Exit Sub
+        FBillNo = ComboBox18.Text
+        OrderID = Arr1(1, 1)
+        FCustID = Arr1(2, 1)
+        StrErr = Me.GetRst("select a.FDetailID,b.Fname,a.FAuxQty,0,0,0,b.FItemID,a.FUnitID,a.FPrice,a.FEntryID,a.FInterID from SEOrderEntry a left join t_icitem b on a.FItemID=b.FItemID where a.FInterID =" & OrderID, Arr2, SQLK3)
+        If StrErr <> "" Then MsgBox("获取订单信息错误" & vbCrLf & StrErr) : Exit Sub
+        If UBound(Arr2, 2) = 0 Then MsgBox("无订单信息") : Exit Sub
+        '实扫
+        StrErr = Me.GetRst("select ProductID,COUNT(*) from hand_store where storestate = '已出库' and OrderID = " & OrderID & " GROUP BY ProductID", Arr3, SQL)
+        If StrErr <> "" Then MsgBox("获取发货信息错误" & vbCrLf & StrErr) : Exit Sub
+        '本车
+        StrErr = Me.GetRst("select ProductID,COUNT(*) from hand_store where storestate = '已出库' and OrderID = " & OrderID & " and vehicleID = " & vehicleID & " GROUP BY ProductID", Arr4, SQL)
+        If StrErr <> "" Then MsgBox("获取发货信息错误" & vbCrLf & StrErr) : Exit Sub
+        '本人
+        StrErr = Me.GetRst("select ProductID,COUNT(*) from hand_store where storestate = '已出库' and OrderID = " & OrderID & " and OutMan = '" & NowUser & "' GROUP BY ProductID", Arr5, SQL)
+        If StrErr <> "" Then MsgBox("获取发货信息错误" & vbCrLf & StrErr) : Exit Sub
+
+        For t = 1 To UBound(Arr3, 2)
+            For p = 1 To UBound(Arr2, 2)
+                '实扫
+                If Arr3(1, t) = Arr2(7, p) Then
+                    Arr2(4, p) = Arr3(2, t)
+                End If
+            Next
+        Next
+
+        For t = 1 To UBound(Arr4, 2)
+            For p = 1 To UBound(Arr2, 2)
+                '本车
+                If Arr4(1, t) = Arr2(7, p) Then
+                    Arr2(5, p) = Arr4(2, t)
+                End If
+            Next
+        Next
+
+        For t = 1 To UBound(Arr5, 2)
+            For p = 1 To UBound(Arr2, 2)
+                '本人
+                If Arr5(1, t) = Arr2(7, p) Then
+                    Arr2(6, p) = Arr5(2, t)
+                End If
+            Next
+        Next
+
+        Dim ds As New DataSet
+        Dim dt As New DataTable
+        dt.Columns.Add("规格型号", Type.GetType("System.String"))
+        dt.Columns.Add("应扫", Type.GetType("System.Int32"))
+        dt.Columns.Add("实扫", Type.GetType("System.Int32"))
+        dt.Columns.Add("本车", Type.GetType("System.Int32"))
+        dt.Columns.Add("本人", Type.GetType("System.Int32"))
+        For t = 1 To UBound(Arr2, 2)
+            Dim dw = dt.NewRow
+            dw.Item(0) = Arr2(2, t)
+            dw.Item(1) = Arr2(3, t) - 0
+            dw.Item(2) = Arr2(4, t) - 0
+            dw.Item(3) = Arr2(5, t) - 0
+            dw.Item(4) = Arr2(6, t) - 0
+            dt.Rows.Add(dw)
+
+        Next
+        ds.Tables.Add(dt)
+        DataGrid7.DataSource = ds.Tables(0)
+
+        '''''''''''''修改列宽
+
+        DataGrid7.TableStyles.Clear()
+        DataGrid7.TableStyles.Add(New DataGridTableStyle)
+        DataGrid7.TableStyles.Item(0).MappingName = dt.TableName
+        DataGrid7.TableStyles(0).GridColumnStyles.Item(0).Width = 140
+        DataGrid7.TableStyles(0).GridColumnStyles.Item(1).Width = 35
+        DataGrid7.TableStyles(0).GridColumnStyles.Item(2).Width = 35
+        DataGrid7.TableStyles(0).GridColumnStyles.Item(3).Width = 35
+        DataGrid7.TableStyles(0).GridColumnStyles.Item(4).Width = 35
+    End Sub
+
+    Private Sub Button82_Click(ByVal sender As System.Object, ByVal e As System.EventArgs) Handles Button82.Click
+        ShowPanel(2)
     End Sub
 End Class
