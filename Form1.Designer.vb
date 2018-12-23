@@ -304,10 +304,10 @@ Partial Public Class Form1
         Me.Label101 = New System.Windows.Forms.Label
         Me.Button80 = New System.Windows.Forms.Button
         Me.Panel27 = New System.Windows.Forms.Panel
+        Me.Label78 = New System.Windows.Forms.Label
         Me.DataGrid7 = New System.Windows.Forms.DataGrid
         Me.DataGridTableStyle5 = New System.Windows.Forms.DataGridTableStyle
         Me.Button82 = New System.Windows.Forms.Button
-        Me.Label78 = New System.Windows.Forms.Label
         Me.Panel6.SuspendLayout()
         Me.Panel5.SuspendLayout()
         Me.Panel4.SuspendLayout()
@@ -2820,6 +2820,15 @@ Partial Public Class Form1
         Me.Panel27.Name = "Panel27"
         Me.Panel27.Size = New System.Drawing.Size(240, 260)
         '
+        'Label78
+        '
+        Me.Label78.Font = New System.Drawing.Font("Tahoma", 11.0!, System.Drawing.FontStyle.Bold)
+        Me.Label78.ForeColor = System.Drawing.Color.Blue
+        Me.Label78.Location = New System.Drawing.Point(76, 10)
+        Me.Label78.Name = "Label78"
+        Me.Label78.Size = New System.Drawing.Size(77, 17)
+        Me.Label78.Text = "出库统计"
+        '
         'DataGrid7
         '
         Me.DataGrid7.BackgroundColor = System.Drawing.Color.FromArgb(CType(CType(128, Byte), Integer), CType(CType(128, Byte), Integer), CType(CType(128, Byte), Integer))
@@ -2843,15 +2852,6 @@ Partial Public Class Form1
         Me.Button82.Size = New System.Drawing.Size(83, 23)
         Me.Button82.TabIndex = 17
         Me.Button82.Text = "返回"
-        '
-        'Label78
-        '
-        Me.Label78.Font = New System.Drawing.Font("Tahoma", 11.0!, System.Drawing.FontStyle.Bold)
-        Me.Label78.ForeColor = System.Drawing.Color.Blue
-        Me.Label78.Location = New System.Drawing.Point(76, 10)
-        Me.Label78.Name = "Label78"
-        Me.Label78.Size = New System.Drawing.Size(77, 17)
-        Me.Label78.Text = "出库统计"
         '
         'Form1
         '

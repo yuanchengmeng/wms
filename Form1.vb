@@ -2114,19 +2114,6 @@ Public Class Form1
 
     End Sub
 
-    Private Sub Button30_Click(ByVal sender As System.Object, ByVal e As System.EventArgs)
-        If NowUser = "" Then MsgBox("请先登录") : Exit Sub
-        ShowPanel(11)
-    End Sub
-
-    'Private Sub Button32_Click(ByVal sender As System.Object, ByVal e As System.EventArgs)
-    '    TextBox1.Text = SQLServer
-    '    TextBox2.Text = SQLDatabase
-    '    TextBox3.Text = SQLUser
-    '    TextBox4.Text = SQLPassword
-    '    ShowPanel(3)
-    'End Sub
-
     Private Sub TextBox18_TextChanged(ByVal sender As Object, ByVal e As System.EventArgs) Handles TextBox18.TextChanged
         TextBox19.ForeColor = Color.Red
         If TextBox18.Text.Length <> 4 Then TextBox19.Text = "工号为4位！！" : Exit Sub
@@ -3581,5 +3568,10 @@ Public Class Form1
 
     Private Sub Button82_Click(ByVal sender As System.Object, ByVal e As System.EventArgs) Handles Button82.Click
         ShowPanel(2)
+    End Sub 
+ 
+    Private Sub Button30_Click(ByVal sender As System.Object, ByVal e As System.EventArgs) Handles Button30.Click
+        If NowUser = "" Then MsgBox("请先登录") : Exit Sub
+        ShowPanel(11)
     End Sub
 End Class
