@@ -2974,15 +2974,6 @@ Public Class Form1
         FaultLoc = Arr2(3, 1)
     End Function
 
-    Private Sub Button47_Click(ByVal sender As System.Object, ByVal e As System.EventArgs)
-        Dim StrErr As String
-        Dim SQLStr() As String
-        ReDim SQLStr(1)
-        SQLStr(1) = "DELETE FROM ICStockBillEntry  WHERE FQty=0 and FAmount=0"
-        StrErr = ExeSQLS(SQLStr, SQLK3)
-        ShowPanel(21)
-    End Sub
-
     Private Sub Button55_Click(ByVal sender As System.Object, ByVal e As System.EventArgs) Handles Button55.Click
         CancelOut()
     End Sub
@@ -3573,5 +3564,14 @@ Public Class Form1
     Private Sub Button30_Click(ByVal sender As System.Object, ByVal e As System.EventArgs) Handles Button30.Click
         If NowUser = "" Then MsgBox("请先登录") : Exit Sub
         ShowPanel(11)
+    End Sub
+ 
+    Private Sub Button47_Click(ByVal sender As System.Object, ByVal e As System.EventArgs) Handles Button47.Click
+        Dim StrErr As String
+        Dim SQLStr() As String
+        ReDim SQLStr(1)
+        SQLStr(1) = "DELETE FROM ICStockBillEntry  WHERE FQty=0 and FAmount=0"
+        StrErr = ExeSQLS(SQLStr, SQLK3)
+        ShowPanel(21)
     End Sub
 End Class
