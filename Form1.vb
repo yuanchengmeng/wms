@@ -635,34 +635,34 @@ Public Class Form1
     Function GetInBar(ByRef StrShow As String)
         Dim LogStr As String = ""
         GetInBar = ""
-        If Val(BoxCode) < 99979 Or Val(BoxCode) > 99999 Then
-            Dim Arr6(,)
-            Dim StrErr6 As String
-            StrErr6 = GetRst("select top 1 barcode from hand_store where StoreState='在库' and boxcode='" & BoxCode & "'", Arr6, SQL)
-            If StrErr6 <> "" Then GetInBar = StrErr6 : Exit Function
+        'If Val(BoxCode) < 99979 Or Val(BoxCode) > 99999 Then
+        Dim Arr6(,)
+        Dim StrErr6 As String
+        StrErr6 = GetRst("select top 1 barcode from hand_store where StoreState='在库' and boxcode='" & BoxCode & "'", Arr6, SQL)
+        If StrErr6 <> "" Then GetInBar = StrErr6 : Exit Function
 
-            If UBound(Arr6, 2) > 0 Then
-                ''''2016-05-26  无需判断重复，因为新规格没有重复的，已经在上步加以判断
-                'Dim Arr1(,)
-                'Dim StrErr1 As String
-                'StrErr1 = GetRst("select barcode from hand_store where StoreState='在库' and  barcode ='" & TextBox7.Text.Trim & "' and boxcode='" & BoxCode & "'", Arr1, SQL)
-                'If StrErr1 <> "" Then GetInBar = StrErr1 : Exit Function
-                'If UBound(Arr1, 2) > 0 Then GetInBar = "同一笼框条码" & TextBox7.Text.Trim & "，条码不能重复！！" : Exit Function
+        If UBound(Arr6, 2) > 0 Then
+            ''''2016-05-26  无需判断重复，因为新规格没有重复的，已经在上步加以判断
+            'Dim Arr1(,)
+            'Dim StrErr1 As String
+            'StrErr1 = GetRst("select barcode from hand_store where StoreState='在库' and  barcode ='" & TextBox7.Text.Trim & "' and boxcode='" & BoxCode & "'", Arr1, SQL)
+            'If StrErr1 <> "" Then GetInBar = StrErr1 : Exit Function
+            'If UBound(Arr1, 2) > 0 Then GetInBar = "同一笼框条码" & TextBox7.Text.Trim & "，条码不能重复！！" : Exit Function
 
-                Dim Arr2(,)
-                Dim StrErr2 As String
-                ''''2016-05-26 新条码规则改变，前两位和后四位为流水号，3-5为规格，6-7为品牌   改动
-                'StrErr2 = GetRst("select barcode from hand_store where StoreState='在库' and  barcode like '" & Mid(TextBox7.Text.Trim, 1, 7) & "%' and boxcode='" & BoxCode & "'", Arr2, SQL)
+            Dim Arr2(,)
+            Dim StrErr2 As String
+            ''''2016-05-26 新条码规则改变，前两位和后四位为流水号，3-5为规格，6-7为品牌   改动
+            'StrErr2 = GetRst("select barcode from hand_store where StoreState='在库' and  barcode like '" & Mid(TextBox7.Text.Trim, 1, 7) & "%' and boxcode='" & BoxCode & "'", Arr2, SQL)
 
-                '2016-08-08 10位条码
-                'StrErr2 = GetRst("select top 1 barcode from hand_store where StoreState='在库' and  barcode like '__" & Mid(TextBox7.Text.Trim, 3, 5) & "%' and boxcode='" & BoxCode & "'", Arr2, SQL)
-                StrErr2 = GetRst("select top 1 barcode from hand_store where StoreState='在库' and  ProductID = " & FItemID & " and boxcode='" & BoxCode & "'", Arr2, SQL)
+            '2016-08-08 10位条码
+            'StrErr2 = GetRst("select top 1 barcode from hand_store where StoreState='在库' and  barcode like '__" & Mid(TextBox7.Text.Trim, 3, 5) & "%' and boxcode='" & BoxCode & "'", Arr2, SQL)
+            StrErr2 = GetRst("select top 1 barcode from hand_store where StoreState='在库' and  ProductID = " & FItemID & " and boxcode='" & BoxCode & "'", Arr2, SQL)
 
-                If StrErr2 <> "" Then GetInBar = StrErr2 : Exit Function
-                If UBound(Arr2, 2) <= 0 Then GetInBar = "同一笼框条码,规格必须一致！！" : Exit Function
+            If StrErr2 <> "" Then GetInBar = StrErr2 : Exit Function
+            If UBound(Arr2, 2) <= 0 Then GetInBar = "同一笼框条码,规格必须一致！！" : Exit Function
 
-            End If
         End If
+        ' End If
 
 
         Dim SQLStr() As String
@@ -722,26 +722,26 @@ Public Class Form1
     Function updateInBar(ByRef StrShow As String)
         Dim LogStr As String = ""
         updateInBar = ""
-        If Val(BoxCode) < 99979 Or Val(BoxCode) > 99999 Then
-            Dim Arr6(,)
-            Dim StrErr6 As String
-            StrErr6 = GetRst("select top 1 barcode from hand_store where StoreState='在库' and boxcode='" & BoxCode & "'", Arr6, SQL)
-            If StrErr6 <> "" Then updateInBar = StrErr6 : Exit Function
+        'If Val(BoxCode) < 99979 Or Val(BoxCode) > 99999 Then
+        Dim Arr6(,)
+        Dim StrErr6 As String
+        StrErr6 = GetRst("select top 1 barcode from hand_store where StoreState='在库' and boxcode='" & BoxCode & "'", Arr6, SQL)
+        If StrErr6 <> "" Then updateInBar = StrErr6 : Exit Function
 
-            If UBound(Arr6, 2) > 0 Then
-                Dim Arr2(,)
-                Dim StrErr2 As String
-                StrErr2 = GetRst("select top 1 barcode from hand_store where StoreState='在库' and  ProductID = " & FItemID & " and boxcode='" & BoxCode & "'", Arr2, SQL)
-                If StrErr2 <> "" Then updateInBar = StrErr2 : Exit Function
-                If UBound(Arr2, 2) <= 0 Then updateInBar = "同一笼框条码,规格必须一致！！" : Exit Function
-            End If
+        If UBound(Arr6, 2) > 0 Then
+            Dim Arr2(,)
+            Dim StrErr2 As String
+            StrErr2 = GetRst("select top 1 barcode from hand_store where StoreState='在库' and  ProductID = " & FItemID & " and boxcode='" & BoxCode & "'", Arr2, SQL)
+            If StrErr2 <> "" Then updateInBar = StrErr2 : Exit Function
+            If UBound(Arr2, 2) <= 0 Then updateInBar = "同一笼框条码,规格必须一致！！" : Exit Function
         End If
+        'End If
 
         Dim StrErr5 As String
         Dim SQL1() As String
         ReDim SQL1(1)
 
-        SQL1(1) = "update hand_store set FaultLoc=" & FaultLoc & ",oldrk_time=intime,oldrk_class=InClass,oldrk_man=inman,StoreState='在库',InClass='" & NowClass & "',inman='" & NowUser & "',intime=convert(datetime,convert(varchar(20),getdate(),120)),indate=convert(varchar(10),getdate(),120),boxcode='" & BoxCode & "',flag=0,instore_type=" & QtInType & " where barcode='" & TextBox7.Text.Trim & "'"
+        SQL1(1) = "update hand_store set ProductID=" & FItemID & ",FaultLoc=" & FaultLoc & ",oldrk_time=intime,oldrk_class=InClass,oldrk_man=inman,StoreState='在库',InClass='" & NowClass & "',inman='" & NowUser & "',intime=convert(datetime,convert(varchar(20),getdate(),120)),indate=convert(varchar(10),getdate(),120),boxcode='" & BoxCode & "',flag=0,instore_type=" & QtInType & " where barcode='" & TextBox7.Text.Trim & "'"
 
         StrErr5 = ExeSQLS(SQL1, SQL)
         If StrErr5 <> "" Then MsgBox(StrErr5) : Exit Function
@@ -2421,22 +2421,22 @@ Public Class Form1
         End If
         If StrErr1 <> "" Then ShowQtInLabel(StrErr1, Color.Red) : Exit Sub
 
-        If Val(BoxCode) < 99979 Or Val(BoxCode) > 99999 Then
-            Dim Arr6(,)
-            Dim StrErr6 As String
-            StrErr6 = GetRst("select top 1 barcode from hand_store where StoreState='在库' and boxcode='" & BoxCode & "'", Arr6, SQL)
-            If StrErr6 <> "" Then ShowQtInLabel(StrErr1, Color.Red) : Exit Sub
+        '’If Val(BoxCode) < 99979 Or Val(BoxCode) > 99999 Then
+        Dim Arr6(,)
+        Dim StrErr6 As String
+        StrErr6 = GetRst("select top 1 barcode from hand_store where StoreState='在库' and boxcode='" & BoxCode & "'", Arr6, SQL)
+        If StrErr6 <> "" Then ShowQtInLabel(StrErr1, Color.Red) : Exit Sub
 
-            If UBound(Arr6, 2) > 0 Then
-                Dim Arr2(,)
-                Dim StrErr2 As String
-                StrErr2 = GetRst("select top 1 barcode from hand_store where StoreState='在库' and  ProductID = " & FItemID & " and boxcode='" & BoxCode & "'", Arr2, SQL)
+        If UBound(Arr6, 2) > 0 Then
+            Dim Arr2(,)
+            Dim StrErr2 As String
+            StrErr2 = GetRst("select top 1 barcode from hand_store where StoreState='在库' and  ProductID = " & FItemID & " and boxcode='" & BoxCode & "'", Arr2, SQL)
 
-                If StrErr2 <> "" Then ShowQtInLabel(StrErr1, Color.Red) : Exit Sub
-                If UBound(Arr2, 2) <= 0 Then ShowQtInLabel("同一笼框条码,规格必须一致！！", Color.Red) : Exit Sub
+            If StrErr2 <> "" Then ShowQtInLabel(StrErr1, Color.Red) : Exit Sub
+            If UBound(Arr2, 2) <= 0 Then ShowQtInLabel("同一笼框条码,规格必须一致！！", Color.Red) : Exit Sub
 
-            End If
         End If
+        '’ End If
 
         '生成其他入库单
         CreateQtInBill()
@@ -2898,28 +2898,28 @@ Public Class Form1
         StrErr6 = GetRst("select barcode from hand_store where StoreState='在库' and boxcode='" & TextBox24.Text.Trim & "'", Arr6, SQL)
         If StrErr6 <> "" Then GetOldInBar = StrErr6 : Exit Function
 
-        If Val(TextBox24.Text.Trim) < 99979 Or Val(TextBox24.Text.Trim) > 99999 Then
-            If UBound(Arr6, 2) > 0 Then
+        '’If Val(TextBox24.Text.Trim) < 99979 Or Val(TextBox24.Text.Trim) > 99999 Then
+        If UBound(Arr6, 2) > 0 Then
 
-                Dim Arr1(,)
-                Dim StrErr1 As String
-                StrErr1 = GetRst("select barcode from hand_store where StoreState='在库' and  barcode ='" & TextBox25.Text.Trim & "' and boxcode='" & BoxCode & "'", Arr1, SQL)
-                If StrErr1 <> "" Then GetOldInBar = StrErr1 : Exit Function
-                If UBound(Arr1, 2) > 0 Then GetOldInBar = "同一笼框条码" & TextBox25.Text.Trim & "，条码不能重复！！" : Exit Function
+            Dim Arr1(,)
+            Dim StrErr1 As String
+            StrErr1 = GetRst("select barcode from hand_store where StoreState='在库' and  barcode ='" & TextBox25.Text.Trim & "' and boxcode='" & BoxCode & "'", Arr1, SQL)
+            If StrErr1 <> "" Then GetOldInBar = StrErr1 : Exit Function
+            If UBound(Arr1, 2) > 0 Then GetOldInBar = "同一笼框条码" & TextBox25.Text.Trim & "，条码不能重复！！" : Exit Function
 
-                Dim Arr2(,)
-                Dim StrErr2 As String
-                StrErr2 = GetRst("select barcode from hand_store where StoreState='在库' and boxcode='" & TextBox24.Text.Trim & "'", Arr2, SQL)
-                If StrErr2 <> "" Then GetOldInBar = StrErr2 : Exit Function
-                If UBound(Arr2, 2) > 0 Then
-                    If Mid(Arr2(1, 1), 3, 5) <> Mid(TextBox25.Text.Trim, 3, 5) Then
-                        GetOldInBar = "同一笼框条码" & TextBox25.Text.Trim & "，规格必须一致！！"
-                        Exit Function
-                    End If
+            Dim Arr2(,)
+            Dim StrErr2 As String
+            StrErr2 = GetRst("select barcode from hand_store where StoreState='在库' and boxcode='" & TextBox24.Text.Trim & "'", Arr2, SQL)
+            If StrErr2 <> "" Then GetOldInBar = StrErr2 : Exit Function
+            If UBound(Arr2, 2) > 0 Then
+                If Mid(Arr2(1, 1), 3, 5) <> Mid(TextBox25.Text.Trim, 3, 5) Then
+                    GetOldInBar = "同一笼框条码" & TextBox25.Text.Trim & "，规格必须一致！！"
+                    Exit Function
                 End If
-
             End If
+
         End If
+        '’End If
 
         Dim StrErr5 As String
         Dim SQL1() As String
